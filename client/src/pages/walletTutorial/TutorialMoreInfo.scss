@@ -1,0 +1,46 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+
+.tutorial-more-info-wrapper {
+    border-bottom: 1px solid $GR-2;
+
+    &.important {
+        .tutorial-more-info-header .tutorial-more-info-title {
+            color: $RE !important;
+            &::before { content: "⭐️ " }
+        }
+    }
+
+    &#opened {
+        .arrow-icon { @include rotate(90); }
+    }
+
+    .tutorial-more-info-header {
+        display: flex;
+        align-items: center;
+        @include set-pair-vw(margin, 25px, 0px);
+
+        .tutorial-more-info-title {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .arrow-icon {
+            @include transition;
+            @include set-vw(width, 15px);
+            @include set-vw(height, 15px);
+        }
+    }
+
+    .tutorial-more-info-body {
+        font-weight: 400;
+        text-align: left;
+        line-height: 160%;
+        color: $GR-4;
+        white-space: pre-wrap;
+        word-break: keep-all;
+        @include show-down;
+        @include set-vw(font-size, 14px);
+        @include set-vw(margin-bottom, 30px);
+    }
+}

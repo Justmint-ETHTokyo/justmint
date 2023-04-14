@@ -1,0 +1,64 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+
+.action-box-container {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $BK;
+    @include set-vw(border-radius, 15px);
+    @include set-pair-vw(padding, 27px, 18px);
+    
+    &.disabled {
+        pointer-events: none;
+
+        .action-box-toggle { display: none; }
+
+        .action-box-title {
+            color: $GR-2;
+        }
+    }
+
+    &.opened {
+        .action-box-content  {
+            max-height: fit-content;
+            @include set-vw(margin-top, 14px);
+            @include show-modal;
+        }
+    }
+
+    .action-box-header {
+        width: -webkit-fill-available;
+        display: flex;
+        cursor: pointer;
+        
+        .action-box-title {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .action-box-toggle {
+            flex-shrink: 0;
+            @include transition;
+            @include set-vw(width, 24px);
+            @include set-vw(height, 24px);
+
+            &.rotate {
+                @include rotate(180);
+            }
+        }
+    }
+
+    .action-box-content {
+        width: -webkit-fill-available;
+        max-height: 0;
+        opacity: 0;
+        @include transition(0.5s);
+    }
+
+    @keyframes showContent {
+        0% { max-height: 0px; overflow: hidden; }
+        100% { height: 100%; overflow: visible; }
+    }
+}

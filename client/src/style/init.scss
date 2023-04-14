@@ -1,0 +1,266 @@
+@import './var.scss';
+@import './active.scss';
+
+/* init */
+html {
+    -ms-content-zooming: none;
+    -ms-touch-action: pan-x pan-y;
+    background-color: $GR-0;
+    transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+
+    // * {
+    //     color: white;
+    // }
+}
+
+body {
+    margin: 0;
+    font-family: Pretendard, MADE Okine Sans PERSONAL USE;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    -webkit-touch-callout:none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    font-weight: 400;
+    background-repeat: repeat;
+    @include set-vw(background-size, 430px);
+    @include set-vw(font-size, 11px);
+}
+
+iframe { display: none; }
+
+.App {
+    text-align: center;
+    max-width: 430px;
+    min-height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    color: #FFFFFF;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    // overflow: hidden;
+}
+
+.App > .app-content {
+    width: calc(100% - 44px);
+    padding: 0 22px;
+    flex-grow: 1;
+    @include set-vw(margin-bottom, 80px);
+
+    @include MOBILE {
+        width: 90vw;
+        padding: 0 5vw;
+    }
+
+    &.app-content--none {
+        width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+a {
+    text-decoration: none;
+}
+  
+button {
+    border: 0;
+    font-family: Pretendard;
+    cursor: pointer;
+    background: transparent;
+}
+button:focus-visible { outline: none; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {     
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+    border: 0;
+    background-color: transparent !important;
+    color: white !important;
+	-webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px $GR-0 inset;
+    box-shadow: 0 0 0px 1000px $GR-0 inset;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    -moz-transition: background-color 5000s ease-in-out 0s;
+}
+
+::selection {
+    background-color: #4A46FF30;
+}
+
+ul {
+    list-style:none;
+    padding-left: 0px;
+    margin: 0;
+}
+
+pre { 
+    font-family: 'Pretendard'; 
+    margin: 0;
+}
+
+textarea {
+    resize: none;
+    border: 0;
+    font-family: 'Pretendard';
+    background-color: transparent;
+
+    &:focus-visible { outline: none; }
+}
+
+div { cursor: default; }
+
+input {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    color: white;
+    background-color: transparent;
+    font-family: 'Pretendard';
+}
+input:focus-visible {outline: none;}
+input[type=file] {display: none;}
+
+// font style
+h1, h2, h3, h4, h5, h6 {
+    margin-inline-start: 0;
+    margin-block-start: 0;
+    margin-inline-end: 0;
+    margin-block-end: 0;
+}
+
+h1 {
+    font-weight: 600;
+    @include set-vw(font-size, 26px);
+
+    &.eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        font-weight: 500;
+        @include set-vw(font-size, 36px);
+    }
+}
+
+h2 {
+    font-weight: 500;
+    @include set-vw(font-size, 24px);
+
+    &.eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 20px);
+    }
+}
+
+h3 {
+    font-weight: 500;
+    @include set-vw(font-size, 20px);
+
+    &.eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 18px);
+    }
+}
+
+h4 {
+    font-weight: 500;
+    @include set-vw(font-size, 18px);
+
+    &.eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 16px);
+    }
+}
+
+h5 {
+    font-weight: 500;
+    @include set-vw(font-size, 16px);
+
+    &.eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 14px);
+    }
+}
+
+h6 {
+    font-weight: 500;
+    @include set-vw(font-size, 14px);
+}
+
+// 자주 쓰는 css
+.row { display: flex; flex-direction: row; }
+.column { display: flex; flex-direction: column; }
+.right { float: right; justify-content: flex-end; }
+.left { float: left; }
+#top {
+    position: absolute;
+    top: 0;
+}
+
+#disabled {
+    pointer-events: none;
+}
+
+.button {
+    width: -webkit-fill-available;
+    color: white;
+    font-weight: 500;
+    @include set-vw(font-size, 16px);
+    @include set-vw(border-radius, 15px);
+    @include set-vw(padding, 20px);
+    @include active-scale;
+
+    &#purple { background-color: $PU; }
+    &#black { background-color: $BK; }
+    &#green { background-color: $GN; color: $BK !important; }
+    &#red { background-color: $RE; }
+    &#white { background-color: white; color: $BK !important; }
+    &:disabled { background-color: $GR-2 !important; }
+
+    &.button--sticky {
+        position: sticky;
+        @include set-vw(bottom, 30px);
+    }
+}
+
+.show-content-smoothly {
+    width: -webkit-fill-available;
+    @include show-down(1.5s);
+}
+
+.is-loading {
+    img,
+    .loading-elem {
+        background: rgb(22, 22, 22);
+        background: linear-gradient(110deg, #333333 8%, #383838 18%, #333333 33%);
+        border-radius: 5px;
+        background-size: 200% 100%;
+        animation: 1.5s shine linear infinite;
+    }
+
+    .loading-elem-light {
+        background: rgb(22, 22, 22);
+        background: linear-gradient(110deg, #3c3c3c 8%, #3e3e3e 18%, #3c3c3c 33%);
+        border-radius: 5px;
+        background-size: 200% 100%;
+        animation: 1.5s shine linear infinite;
+    }
+}

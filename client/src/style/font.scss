@@ -1,0 +1,218 @@
+/* Pretendard */
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 900;
+    font-display: swap;
+    src: local("Pretendard Black"),
+        url("../asset/font/Pretendard/Pretendard-Black.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-Black.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-Black.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 800;
+    font-display: swap;
+    src: local("Pretendard ExtraBold"),
+        url("../asset/font/Pretendard/Pretendard-ExtraBold.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-ExtraBold.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-ExtraBold.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 700;
+    font-display: swap;
+    src: local("Pretendard Bold"),
+        url("../asset/font/Pretendard/Pretendard-Bold.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-Bold.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-Bold.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 600;
+    font-display: swap;
+    src: local("Pretendard SemiBold"),
+        url("../asset/font/Pretendard/Pretendard-SemiBold.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-SemiBold.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-SemiBold.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 500;
+    font-display: swap;
+    src: local("Pretendard Medium"),
+        url("../asset/font/Pretendard/Pretendard-Medium.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-Medium.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-Medium.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 400;
+    font-display: swap;
+    src: local("Pretendard Regular"),
+        url("../asset/font/Pretendard/Pretendard-Regular.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-Regular.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-Regular.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 300;
+    font-display: swap;
+    src: local("Pretendard Light"),
+        url("../asset/font/Pretendard/Pretendard-Light.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-Light.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-Light.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 200;
+    font-display: swap;
+    src: local("Pretendard ExtraLight"),
+        url("../asset/font/Pretendard/Pretendard-ExtraLight.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-ExtraLight.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-ExtraLight.ttf")
+            format("truetype");
+}
+
+@font-face {
+    font-family: "Pretendard";
+    font-weight: 100;
+    font-display: swap;
+    src: local("Pretendard Thin"),
+        url("../asset/font/Pretendard/Pretendard-Thin.subset.woff2")
+            format("woff2"),
+        url("../asset/font/Pretendard/Pretendard-Thin.subset.woff")
+            format("woff"),
+        url("../asset/font/Pretendard/Pretendard-Thin.ttf")
+            format("truetype");
+}
+
+/* MADE Okine Sans PERSONAL USE */
+@font-face {
+    font-family: "MADE Okine Sans PERSONAL USE";
+    font-weight: 900;
+    font-display: swap;
+    src: local("MADE Okine Sans PERSONAL USE Black"),
+        url("../asset/font/MADEOkineSans/MADEOkineSansPERSONALUSE-Black.otf")
+            format("opentype"),
+}
+
+@font-face {
+    font-family: "MADE Okine Sans PERSONAL USE";
+    font-weight: 700;
+    font-display: swap;
+    src: local("MADE Okine Sans PERSONAL USE Black"),
+        url("../asset/font/MADEOkineSans/MADEOkineSansPERSONALUSE-Bold.otf")
+            format("opentype"),
+}
+
+@font-face {
+    font-family: "MADE Okine Sans PERSONAL USE";
+    font-weight: 500;
+    font-display: swap;
+    src: local("MADE Okine Sans PERSONAL USE Medium"),
+        url("../asset/font/MADEOkineSans/MADEOkineSansPERSONALUSE-Medium.otf")
+            format("opentype"),
+}
+
+@font-face {
+    font-family: "MADE Okine Sans PERSONAL USE";
+    font-weight: 400;
+    font-display: swap;
+    src: local("MADE Okine Sans PERSONAL USE Regular"),
+        url("../asset/font/MADEOkineSans/MADEOkineSansPERSONALUSE-Regular.otf")
+            format("opentype"),
+}
+
+@font-face {
+    font-family: "MADE Okine Sans PERSONAL USE";
+    font-weight: 300;
+    font-display: swap;
+    src: local("MADE Okine Sans PERSONAL USE Light"),
+        url("../asset/font/MADEOkineSans/MADEOkineSansPERSONALUSE-Light.otf")
+            format("opentype"),
+}
+
+@font-face {
+    font-family: "MADE Okine Sans PERSONAL USE";
+    font-weight: 100;
+    font-display: swap;
+    src: local("MADE Okine Sans PERSONAL USE Thin"),
+        url("../asset/font/MADEOkineSans/MADEOkineSansPERSONALUSE-Thin.otf")
+            format("opentype"),
+}
+
+/* Morena */
+@font-face {
+    font-family: 'Morena';
+    font-weight: 700;
+    font-display: swap;
+    src: local("Morena Bold"),
+        url("../asset/font/Morena/Morena-Bold.otf")
+            format("opentype");
+}
+
+@font-face {
+    font-family: 'Morena';
+    font-weight: 600;
+    font-display: swap;
+    src: local("Morena Semibold"),
+        url("../asset/font/Morena/Morena-Semibold.otf")
+            format("opentype");
+}
+
+@font-face {
+    font-family: 'Morena';
+    font-weight: 400;
+    font-display: swap;
+    src: local("Morena"),
+        url("../asset/font/Morena/Morena.otf")
+            format("opentype");
+}
+
+@font-face {
+    font-family: 'Morena';
+    font-weight: 300;
+    font-display: swap;
+    src: local("Morena Light"),
+        url("../asset/font/Morena/Morena-Light.otf")
+            format("opentype");
+}
+
+@font-face {
+    font-family: 'Morena';
+    font-weight: 200;
+    font-display: swap;
+    src: local("Morena ExtraLight"),
+        url("../asset/font/Morena/Morena-ExtraLight.otf")
+            format("opentype");
+}

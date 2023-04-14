@@ -1,0 +1,161 @@
+@use "sass:math";
+
+$GR-0 : #222222;
+$GR-1 : #333333;
+$GR-2 : #4F4F4F;
+$GR-3 : #828282;
+$GR-4 : #BDBDBD;
+$GR-5 : #E0E0E0;
+$GR-6 : #F2F2F2;
+$RE : #F54040;
+$GN : #D2F586;
+$GN-T : rgba(99, 246, 104, 0.8);
+$YE : #FFE02C;
+$PU : #5C36EE;
+$BK : #000000;
+
+$navbar-height: 60px;
+
+$vw-viewport: 430;
+@function get-vw($px){
+    $vw-context: $vw-viewport * 0.01 * 1px;
+    @return math.div($px, $vw-context) * 1vw;
+}
+
+@mixin set-vw($property, $px){
+    @include MOBILE {
+        #{$property}: get-vw($px);
+    }
+    #{$property}: $px;
+}
+
+@mixin set-pair-vw($property, $vertical, $horizontal){
+    @include MOBILE {
+        #{$property}: get-vw($vertical) get-vw($horizontal);
+    }
+    #{$property}: $vertical $horizontal;
+}
+
+
+@mixin overFlowText($maxLine: 1) {
+    overflow: hidden;
+    word-wrap: break-word;
+    -webkit-line-clamp: $maxLine;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    word-break: keep-all;
+}
+
+@mixin transition($transition-duration: 0.3s) {
+    -o-transition: all $transition-duration;
+    -webkit-transition: -webkit-transform $transition-duration;
+    -ms-transition: all $transition-duration;
+    -moz-transition: all $transition-duration;
+    transition: all $transition-duration;
+}
+
+// text
+@mixin H1($eng: false) {
+    font-weight: 600;
+    @include set-vw(font-size, 26px);
+
+    @if $eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        font-weight: 500;
+    }    
+}
+
+@mixin H2($eng: false) {
+    font-weight: 500;
+    @include set-vw(font-size, 24px);
+
+    @if $eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 20px);
+    }
+}
+
+@mixin H3($eng: false) {
+    font-weight: 500;
+    @include set-vw(font-size, 20px);
+
+    @if $eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 16px);
+    }
+}
+
+@mixin H4($eng: false) {
+    font-weight: 500;
+    @include set-vw(font-size, 18px);
+
+    @if $eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 14px);
+    }
+}
+
+@mixin H5($eng: false) {
+    font-weight: 500;
+    @include set-vw(font-size, 16px);
+
+    @if $eng {
+        font-family: 'MADE Okine Sans PERSONAL USE';
+        @include set-vw(font-size, 14px);
+    }
+}
+
+@mixin H6($eng: false) {
+    font-weight: 500;
+    @include set-vw(font-size, 14px);
+}
+
+// image
+@mixin image($width, $height: $width, $round: true) {
+    @include set-vw(width, $width);
+    @include set-vw(height, $height);
+    object-fit: cover;
+    object-position: center;
+
+    @if $round {
+        border-radius: 50%;
+    }
+}
+
+// animation
+@mixin animation($name, $duration, $fill-mode: none) {
+    animation: $name $duration $fill-mode;
+    -webkit-animation: $name $duration $fill-mode;
+    -moz-animation: $name $duration $fill-mode;
+}
+
+@mixin hide-modal($animation-duration: 0.5s) {
+    opacity: 1;
+    @include animation(hideModal, $animation-duration, forwards);
+}
+
+@mixin show-modal($animation-duration: 0.5s) {
+    opacity: 0;
+    @include animation(showModal, $animation-duration, forwards);
+}
+
+@mixin show-down($animation-duration: 1s) {
+    opacity: 0;
+    @include animation(showDown, $animation-duration, forwards);
+}
+
+@mixin show-bounce-up($animation-duration: 0.4s) {
+    opacity: 0;
+    @include animation(showBounceUp, $animation-duration, forwards);
+}
+
+@mixin show-bounce-down($animation-duration: 0.4s) {
+    opacity: 0;
+    @include animation(showBounceDown, $animation-duration, forwards);
+}
+
+@mixin animation-bounce($animation-duration: 1s) {
+    @include animation(bounce, $animation-duration);
+}
+
+@mixin MOBILE{ @media (max-width: 430px){ @content; } } // 모바일 화면

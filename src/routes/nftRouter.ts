@@ -30,6 +30,13 @@ router.post(
 );
 
 router.get(
+  '/',
+  auth,
+  [query('type').notEmpty().isIn(['create', 'owm', 'send'])],
+  nftController.getNftList,
+);
+
+router.get(
   '/:nftId/detail',
   [param('nftId').notEmpty()],
   errorValidator,

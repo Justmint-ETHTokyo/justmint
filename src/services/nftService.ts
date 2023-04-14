@@ -214,9 +214,64 @@ const createNft = async (createNftDto: createNftDto) => {
     throw error;
   }
 };
+
+const getNftList = async (userId: number, type: string) => {
+  try {
+    switch (type) {
+      case 'own': {
+        const nftsList = await prisma.user_has_nfts.findMany({
+          where: {
+            userId: userId,
+          },
+          select: {
+            nftId: true,
+          },
+        });
+        const data = await Promise.all(
+          nftsList.map((nftList: any) => nftList.nftId),
+        );
+        return data;
+      }
+      case 'send': {
+        const getNftMoveFlag = await prisma.user_has_nfts.findMany({
+          where: {
+            userId,
+            isMoved: true,
+          },
+        });
+        const result = await Promise.all(
+          getNftMoveFlag.map((trueFlag: any) => trueFlag.nftId),
+        );
+        return result;
+      }
+      case 'create': {
+        const nftsList = await prisma.nfts.findMany({
+          where: {
+            ownerId: userId,
+          },
+          select: {
+            id: true,
+          },
+        });
+        const data = await Promise.all(
+          nftsList.map((nftList: any) => nftList.id),
+        );
+        return data;
+      }
+      default:
+        throw errorGenerator({
+          msg: responseMessage.NOT_FOUND,
+          statusCode: statusCode.NOT_FOUND,
+        });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 export default {
   getInfoByType,
   getNftDetailInfo,
   getNftOwnersInfo,
   createNft,
+  getNftList,
 };

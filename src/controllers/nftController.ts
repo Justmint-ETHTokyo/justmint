@@ -110,4 +110,26 @@ const createNft = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getInfoByType, getNftDetailInfo, getNftOwnersInfo, createNft };
+const getNftList = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.body.id;
+    const { type } = req.query;
+
+    const data = await nftService.getNftList(userId, type as string);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.READ_NFT_ID_LIST_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default {
+  getInfoByType,
+  getNftDetailInfo,
+  getNftOwnersInfo,
+  createNft,
+  getNftList,
+};

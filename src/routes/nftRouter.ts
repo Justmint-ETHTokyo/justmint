@@ -36,6 +36,14 @@ router.get(
   nftController.getNftList,
 );
 
+router.post(
+  '/email',
+  [body('nftId').notEmpty(), body('email').isEmail().notEmpty()],
+  errorValidator,
+  auth,
+  nftController.sendAuthMailForNft,
+);
+
 router.get(
   '/:nftId/detail',
   [param('nftId').notEmpty()],

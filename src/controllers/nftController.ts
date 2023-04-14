@@ -2,7 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { responseMessage, statusCode } from '../modules/constants';
 import { fail, success } from '../modules/constants/util';
 import nftService from '../services/nftService';
-import { createNftDto } from './../interfaces/user/DTO';
+import { createNftDto, userInfo } from './../interfaces/user/DTO';
+import { encodeByAES56 } from '../modules/crypto';
+import { saveMailAuthCode } from '../modules/code';
+import { sendMail } from '../modules/mail';
 
 const getInfoByType = async (
   req: Request,
@@ -126,10 +129,38 @@ const getNftList = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const sendAuthMailForNft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { nftId, email } = req.body;
+
+    const userInfo: userInfo = {
+      userId: userId,
+      nftId: nftId,
+      email: email,
+    };
+    const codeInfo = JSON.stringify(userInfo);
+
+    const code = await encodeByAES56(codeInfo.toString());
+    await saveMailAuthCode(email, code);
+    await sendMail(code, email);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.SEND_AUTH_MAIL_SUCCESS));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
   getNftOwnersInfo,
   createNft,
   getNftList,
+  sendAuthMailForNft,
 };

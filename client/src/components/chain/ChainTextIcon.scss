@@ -1,0 +1,24 @@
+@import '../../style/var.scss';
+
+.chain-text-icon-wrapper {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    @include set-vw(gap, 5px);
+    @include set-vw(border-radius, 20px);
+    @include set-pair-vw(padding, 7px, 20px);
+
+    svg {
+        @include set-vw(width, 17px);
+        @include set-vw(height, 17px);
+
+        path {
+            fill: $GR-4;
+        }
+    }
+
+    .chain-text {
+        color: $GR-4;
+        @include H5;
+    }
+}

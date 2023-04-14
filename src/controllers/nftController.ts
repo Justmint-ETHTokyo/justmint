@@ -155,6 +155,32 @@ const sendAuthMailForNft = async (
   }
 };
 
+const verifyPhotoForNft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  const { nftId } = req.body;
+  const image: Express.MulterS3.File = req.file as Express.MulterS3.File;
+  const { location } = image;
+  if (!location) {
+    res
+      .status(statusCode.BAD_REQUEST)
+      .send(fail(statusCode.BAD_REQUEST, responseMessage.NO_IMAGE));
+  }
+  try {
+    const data = await nftService.verifyPhotoForNft(+userId, +nftId, location);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.SEND_AUTH_PHOTO_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -162,4 +188,5 @@ export default {
   createNft,
   getNftList,
   sendAuthMailForNft,
+  verifyPhotoForNft,
 };

@@ -268,10 +268,43 @@ const getNftList = async (userId: number, type: string) => {
     throw error;
   }
 };
+
+const verifyPhotoForNft = async (
+  userId: number,
+  nftId: number,
+  location: string,
+) => {
+  try {
+    const duplicate = await prisma.admin.findFirst({
+      where: {
+        userId,
+        nftId,
+      },
+    });
+    if (duplicate) {
+      throw errorGenerator({
+        msg: responseMessage.DUPLICATE_REQUEST,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    const data = await prisma.admin.create({
+      data: {
+        userId: userId,
+        nftId: nftId,
+        image: location,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
   getNftOwnersInfo,
   createNft,
   getNftList,
+  verifyPhotoForNft,
 };

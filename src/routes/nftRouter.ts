@@ -44,6 +44,14 @@ router.post(
   nftController.sendAuthMailForNft,
 );
 
+router.post(
+  '/verification/photo',
+  upload.single('image'),
+  [body('nftId').notEmpty()],
+  auth,
+  nftController.verifyPhotoForNft,
+);
+
 router.get(
   '/:nftId/detail',
   [param('nftId').notEmpty()],

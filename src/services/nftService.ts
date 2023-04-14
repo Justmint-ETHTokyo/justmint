@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import errorGenerator from '../middlewares/error/errorGenerator';
 import { statusCode, responseMessage } from '../modules/constants';
+import { createNftDto } from './../interfaces/user/DTO';
 const prisma = new PrismaClient();
 
 const getInfoByType = async (userId: number, type: string) => {
@@ -195,8 +196,27 @@ const getNftOwnersInfo = async (nftId: number) => {
   }
 };
 
+const createNft = async (createNftDto: createNftDto) => {
+  try {
+    const data = await prisma.nfts.create({
+      data: {
+        ownerId: createNftDto.ownerId,
+        nftName: createNftDto.nftName,
+        image: createNftDto.image,
+        description: createNftDto.description,
+        authType: createNftDto.authType,
+        options: createNftDto.options,
+        chainType: createNftDto.chainType,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 export default {
   getInfoByType,
   getNftDetailInfo,
   getNftOwnersInfo,
+  createNft,
 };

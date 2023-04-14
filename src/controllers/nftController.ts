@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { responseMessage, statusCode } from '../modules/constants';
 import { fail, success } from '../modules/constants/util';
 import nftService from '../services/nftService';
+import { createNftDto } from './../interfaces/user/DTO';
 
 const getInfoByType = async (
   req: Request,
@@ -78,4 +79,35 @@ const getNftOwnersInfo = async (
   }
 };
 
-export default { getInfoByType, getNftDetailInfo, getNftOwnersInfo };
+const createNft = async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.body.id;
+  const image: Express.MulterS3.File = req.file as Express.MulterS3.File;
+  const { location } = image;
+  if (!location) {
+    res
+      .status(statusCode.BAD_REQUEST)
+      .send(fail(statusCode.BAD_REQUEST, responseMessage.NO_IMAGE));
+  }
+
+  const createNftDto: createNftDto = {
+    ownerId: userId,
+    nftName: req.body.nftName,
+    image: location,
+    description: req.body.description,
+    authType: +req.body.authType,
+    options: req.body.options,
+    chainType: req.body.chainType,
+  };
+
+  try {
+    const data = await nftService.createNft(createNftDto);
+
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.CREATE_NFT_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { getInfoByType, getNftDetailInfo, getNftOwnersInfo, createNft };

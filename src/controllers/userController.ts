@@ -8,6 +8,7 @@ import { success, fail } from '../modules/constants/util';
 import userService from '../services/userService';
 import jwt from '../modules/jwtHandler';
 import { SocialUser } from '../interfaces/user/SocialUser';
+import { userCreateDto } from '../interfaces/user/DTO';
 
 const getSocialUser = async (
   req: Request,
@@ -71,6 +72,27 @@ const getSocialUser = async (
   }
 };
 
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
+  const userCreateDto: userCreateDto = req.body;
+  try {
+    const refreshToken = jwt.createRefresh();
+    const newUser = await userService.signUpUser(userCreateDto, refreshToken);
+    const accessToken = jwt.sign(newUser.id, newUser.email);
+
+    const data = {
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    };
+
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.SIGNUP_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
+  createUser,
 };

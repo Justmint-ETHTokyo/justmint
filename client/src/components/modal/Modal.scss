@@ -1,0 +1,58 @@
+@import '../../style/var.scss';
+
+.modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0; top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: 0.5s 0.2s;
+
+    .modal-wrapper {
+        background: rgba(77, 77, 77, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        @include show-modal;
+    }
+
+    &#CENTER {
+        .modal-wrapper {
+            @include show-modal;
+        }
+    }
+
+    &#BOTTOM {
+        align-items: flex-end;
+
+        .modal-wrapper {
+            @include show-bounce-up(1s);
+        }
+    }
+
+    &.modal-entered {
+        opacity: 1;
+    }
+
+    &.modal-exiting {
+        opacity: 0;
+
+        .modal-wrapper {
+            @include hide-modal;
+        }
+        &#CENTER {
+            .modal-wrapper {
+                @include hide-modal;
+            }
+        }
+        &#BOTTOM {
+            .modal-wrapper {
+                @include show-bounce-up(1s);
+            }
+        }
+    }
+}

@@ -9,6 +9,10 @@ import userService from '../services/userService';
 import jwt from '../modules/jwtHandler';
 import { SocialUser } from '../interfaces/user/SocialUser';
 import { userCreateDto } from '../interfaces/user/DTO';
+import { createAuthCode, saveAuthCode } from '../modules/code';
+import makeSignature from '../modules/getSignature';
+import config from '../config';
+import axios from 'axios';
 
 const getSocialUser = async (
   req: Request,
@@ -92,7 +96,69 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const sendAuthMessage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { phoneNumber } = req.body;
+  const authCode = createAuthCode();
+
+  try {
+    await saveAuthCode(phoneNumber, authCode);
+    await sendMessage(phoneNumber, authCode);
+
+    const data = {
+      verifyCode: authCode,
+    };
+
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.SEND_MESSAGE_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+
+  async function sendMessage(phoneNumber: any, authCode: number) {
+    const time = Date.now().toString();
+    const signature = makeSignature(time);
+
+    const messages =
+      phoneNumber instanceof Array
+        ? phoneNumber.map(
+            (number) =>
+              new Object({
+                to: number,
+              }),
+          )
+        : [{ to: phoneNumber }];
+
+    const body = JSON.stringify({
+      type: 'SMS',
+      countryCode: '82',
+      from: config.callNumber,
+      content: `[yours] 인증번호 [${authCode}]를 입력해주세요`,
+      messages: messages,
+    });
+
+    const response = await axios({
+      method: 'POST',
+      url: `https://sens.apigw.ntruss.com/sms/v2/services/${config.naverCloudServiceId}/messages`,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'x-ncp-apigw-timestamp': time,
+        'x-ncp-iam-access-key': `${config.naverCloudSmsAccessKey}`,
+        'x-ncp-apigw-signature-v2': signature,
+      },
+      data: body,
+    });
+
+    return response;
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
+  sendAuthMessage,
 };

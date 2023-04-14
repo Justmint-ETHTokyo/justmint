@@ -86,7 +86,6 @@ const findUserByRfToken = async (refreshToken: string) => {
     });
     return user;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

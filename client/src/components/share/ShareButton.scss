@@ -1,0 +1,35 @@
+@import '../../style/var.scss';
+
+.share-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    @include set-vw(gap, 4px);
+
+    svg {
+        @include set-vw(width, 24px);
+        @include set-vw(height, 24px);
+    }
+
+    .share-linkcopy-wrapper {
+        width: max-content;
+        position: absolute;
+        left: 0;
+        bottom: 100%;
+        background: #000000;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        pointer-events: none;
+        @include set-pair-vw(padding, 11px, 23px);
+        @include set-vw(border-radius, 5px);
+        @include H5(eng);
+    }
+
+    &:focus {
+        .share-linkcopy-wrapper {
+            opacity: 1;
+            pointer-events: fill;
+            @include show-bounce-up;
+        }
+    }
+}

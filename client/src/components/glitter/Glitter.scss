@@ -1,0 +1,11 @@
+.glitter {
+    width: 100%;
+    position: absolute;
+    left: 0; top: 0;
+
+    path:nth-child(2n) {
+        animation-delay: 0.4s;
+    }
+
+    path { animation: glitter 4s infinite; }
+}

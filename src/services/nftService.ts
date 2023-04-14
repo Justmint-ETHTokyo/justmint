@@ -109,6 +109,59 @@ const getInfoByType = async (userId: number, type: string) => {
   }
 };
 
+const getNftDetailInfo = async (nftId: number) => {
+  try {
+    const getNftOwners = await prisma.user_has_nfts.findMany({
+      where: {
+        nftId,
+      },
+    });
+    const getDetailData = await prisma.nfts.findFirst({
+      where: {
+        id: nftId,
+      },
+      include: {
+        reward: {
+          select: {
+            id: true,
+            rewardName: true,
+          },
+        },
+      },
+    });
+
+    const data = {
+      id: getDetailData?.id,
+      nftName: getDetailData?.nftName,
+      image: getDetailData?.image,
+      numberOfOwners: getNftOwners.length,
+      description: getDetailData?.description,
+      chainType: getDetailData?.chainType,
+      isDeployed: getDetailData?.isDeployed,
+      numberOfRewards: getDetailData?.reward.length,
+      rewards: getDetailData?.reward,
+      authType: getDetailData?.authType,
+      options: getDetailData?.options,
+      nftAddress: getDetailData?.nftAddress,
+      isEdited: getDetailData?.isEdited,
+      isLoading: getDetailData?.isLoading,
+      createdAt: getDetailData?.createdAt,
+      updatedAt: getDetailData?.updatedAt,
+    };
+
+    if (!data.id) {
+      throw errorGenerator({
+        msg: responseMessage.NOT_FOUND,
+        statusCode: statusCode.NOT_FOUND,
+      });
+    }
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
+  getNftDetailInfo,
 };

@@ -76,9 +76,25 @@ const signUpUser = async (
     throw error;
   }
 };
+
+const findUserByRfToken = async (refreshToken: string) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        refreshToken,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
   updateRefreshToken,
   signUpUser,
+  findUserByRfToken,
 };

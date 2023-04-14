@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { userController } from '../controllers';
+import { tokenController, userController } from '../controllers';
 import errorValidator from '../middlewares/error/errorValidator';
 import { body } from 'express-validator';
 
@@ -22,5 +22,6 @@ router.post(
   errorValidator,
   userController.createUser,
 );
+router.get('/token', tokenController.getToken);
 
 export default router;

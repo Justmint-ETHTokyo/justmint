@@ -1,0 +1,34 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.copy-box-wrapper {
+    width: -webkit-fill-available;
+    border: 1px solid $GN;
+    background: $GR-1;
+    line-height: 180%;
+    position: relative;
+    word-break: break-all;
+    @include set-vw(border-radius, 15px);
+    @include set-pair-vw(padding, 47px, 42px);
+    @include H4(true);
+    font-weight: 400;
+
+    .copy-button {
+        border-radius: 50%;
+        background-color: $GR-0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        @include active-scale;
+        @include set-vw(top, 13px);
+        @include set-vw(right, 13px);
+        @include set-vw(width, 35px);
+        @include set-vw(height, 35px);
+
+        svg {
+            @include set-vw(width, 16px);
+            @include set-vw(height, 16px);
+        }
+    }
+}

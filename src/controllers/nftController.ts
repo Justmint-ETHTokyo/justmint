@@ -54,4 +54,28 @@ const getNftDetailInfo = async (
   }
 };
 
-export default { getInfoByType, getNftDetailInfo };
+const getNftOwnersInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { nftId } = req.params;
+  try {
+    const data = await nftService.getNftOwnersInfo(+nftId);
+
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(
+          statusCode.OK,
+          responseMessage.READ_NFT_OWNERS_INFO_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+export default { getInfoByType, getNftDetailInfo, getNftOwnersInfo };

@@ -20,4 +20,11 @@ router.get(
   nftController.getNftDetailInfo,
 );
 
+router.get(
+  '/:nftId/owners',
+  [param('nftId').notEmpty()],
+  errorValidator,
+  nftController.getNftOwnersInfo,
+);
+
 export default router;

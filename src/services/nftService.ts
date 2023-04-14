@@ -161,7 +161,42 @@ const getNftDetailInfo = async (nftId: number) => {
   }
 };
 
+const getNftOwnersInfo = async (nftId: number) => {
+  try {
+    const getNftOwners = await prisma.user_has_nfts.findMany({
+      where: {
+        nftId: nftId,
+      },
+      select: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            profileImage: true,
+          },
+        },
+      },
+    });
+    const data = await Promise.all(
+      getNftOwners.map((getNftOwner: any) => {
+        const result = {
+          user: {
+            id: getNftOwner.user.id,
+            name: getNftOwner.user.name,
+            profileImage: getNftOwner.user.profileImage,
+          },
+        };
+        return result;
+      }),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
+  getNftOwnersInfo,
 };

@@ -23,5 +23,11 @@ router.post(
   userController.createUser,
 );
 router.get('/token', tokenController.getToken);
+router.post(
+  '/verification',
+  [body('authText').notEmpty(), body('authCode').notEmpty()],
+  errorValidator,
+  userController.verifyAuthCode,
+);
 
 export default router;

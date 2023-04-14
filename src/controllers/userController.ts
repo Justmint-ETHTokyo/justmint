@@ -9,7 +9,7 @@ import userService from '../services/userService';
 import jwt from '../modules/jwtHandler';
 import { SocialUser } from '../interfaces/user/SocialUser';
 import { userCreateDto } from '../interfaces/user/DTO';
-import { createAuthCode, saveAuthCode } from '../modules/code';
+import { createAuthCode, saveAuthCode, verifyCode } from '../modules/code';
 import makeSignature from '../modules/getSignature';
 import config from '../config';
 import axios from 'axios';
@@ -157,8 +157,28 @@ const sendAuthMessage = async (
   }
 };
 
+const verifyAuthCode = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { authText, authCode } = req.body;
+
+  try {
+    const data = await verifyCode(authText, authCode);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.VERIFY_AUTH_CODE_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
   sendAuthMessage,
+  verifyAuthCode,
 };

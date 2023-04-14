@@ -176,9 +176,30 @@ const verifyAuthCode = async (
   }
 };
 
+const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.body.id;
+  try {
+    const data = await userService.getUserInfo(+userId);
+
+    if (!data) {
+      return res
+        .status(statusCode.NOT_FOUND)
+        .send(fail(statusCode.NOT_FOUND, responseMessage.NOT_FOUND));
+    }
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.READ_USER_INFO_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
   sendAuthMessage,
   verifyAuthCode,
+  getUserInfo,
 };

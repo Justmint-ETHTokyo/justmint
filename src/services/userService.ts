@@ -1,6 +1,8 @@
 import auth from '../config/auth';
 import { PrismaClient } from '@prisma/client';
 import { userCreateDto } from '../interfaces/user/DTO';
+import errorGenerator from '../middlewares/error/errorGenerator';
+import { responseMessage, statusCode } from '../modules/constants';
 const prisma = new PrismaClient();
 
 export type SocialPlatform = 'kakao';
@@ -90,10 +92,37 @@ const findUserByRfToken = async (refreshToken: string) => {
   }
 };
 
+const getUserInfo = async (userId: number) => {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) {
+      throw errorGenerator({
+        msg: responseMessage.NOT_FOUND,
+        statusCode: statusCode.NOT_FOUND,
+      });
+    }
+    const data = {
+      name: user.name,
+      email: user.email,
+      image: user.profileImage,
+      phoneNumber: user.phone,
+      secret: user.secret,
+    };
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
   updateRefreshToken,
   signUpUser,
   findUserByRfToken,
+  getUserInfo,
 };

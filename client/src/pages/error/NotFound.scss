@@ -1,0 +1,17 @@
+@import '../../style/var.scss';
+
+.not-found-page {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $GR-4;
+    @include set-vw(gap, 110px);
+
+    img {
+        height: auto;
+        @include set-vw(width, 170px);
+        @include set-vw(margin-top, 100px);
+    }
+}

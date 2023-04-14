@@ -1,0 +1,162 @@
+@import './var.scss';
+
+.input-box-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    animation: showDown 1s;
+
+    .input-label {
+        font-weight: 600;
+        @include set-vw(font-size, 18px);
+        @include set-vw(margin-bottom, 10px);
+    }
+
+    .input-text {
+        width: 100%;
+        text-align: left;
+        font-weight: 400;
+        border-bottom: solid 1px $GR-4;
+        padding: 0;
+        white-space: pre-wrap;
+        word-break: break-all;
+        @include transition;
+        @include set-vw(padding-bottom, 6px);
+        @include set-vw(font-size, 20px);
+
+        &:focus {
+            border-color: $GR-6;
+        }
+
+        &:disabled,
+        &::placeholder {
+            color: $GR-4;
+        }
+        &:disabled, &#check { border-color: transparent; color: $GR-4; }
+    }
+
+    .input-textbox {
+        width: -webkit-fill-available;
+        background-color: $GR-1;
+        @include set-vw(border-radius, 15px);
+        @include set-pair-vw(padding, 17px, 15px);
+        @include H5;
+
+        &::placeholder { color: $GR-4; }
+    }
+
+    .input-textarea {
+        width: -webkit-fill-available;
+        background: $GR-1;
+        @include set-vw(padding, 14px);
+        @include set-vw(border-radius, 10px);
+        
+        textarea {
+            width: -webkit-fill-available;
+            color: white;
+            @include set-vw(font-size, 16px);
+
+            &::placeholder {
+                color: $GR-4;
+            }
+        }
+    }
+
+    .check-notice {
+        width: -webkit-fill-available;
+        display: flex;
+        @include set-vw(border-radius, 20px);
+        @include set-vw(margin-top, 12px);
+        @include set-vw(gap, 5px);
+
+        svg {
+            flex-shrink: 0;
+            path { fill: $GN; }
+            @include set-vw(width, 18px);
+            @include set-vw(height, 18px);
+            @include set-vw(margin-top, 5px);
+        }
+
+        .check-notice-text {
+            flex-grow: 1;
+            text-align: left;
+            font-weight: 600;
+            line-height: 165%;
+            color: $GR-3;
+            word-break: keep-all;
+            @include set-vw(font-size, 14px);
+
+            a {
+                color: $GR-3;
+                text-decoration: underline;
+            }
+        }
+
+    }
+
+    .input-content-length {
+        width: -webkit-fill-available;
+        text-align: right;
+        font-weight: 400;
+        color: $GR-4;
+        @include set-vw(margin-top, 10px);
+        @include set-vw(font-size, 13px);
+        @include transition(0.2s);
+
+        #active { color: white; }
+        #max { color: $RE; }
+    }
+
+    input[type=file]:disabled + .input-image .badge-image-input-button { display: none; }
+
+    .input-image {
+        @include set-vw(width, 106px);
+        @include set-vw(height, 106px);
+        border-radius: 50%;
+        background: #4F4F4F;
+        position: relative;
+        object-fit: cover;
+
+        .badge-image-input-button {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+            left: 0; top: 0;
+            z-index: 1;
+            background-color: #00000050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include transition;
+
+            &#image-uploaded {
+                opacity: 0;
+            }
+
+            &:hover#image-uploaded {
+                opacity: 1;
+            }
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            left: 0; top: 0;
+            z-index: 0;
+        }
+    }
+
+    .input-status {
+        text-align: left;
+        font-weight: 400;
+        @include set-vw(margin-top, 10px);
+        @include set-vw(font-size, 16px);
+
+        &#warning { color: $RE; animation: bounce 1s; }
+        &#success { color: $GN; }
+    }
+}

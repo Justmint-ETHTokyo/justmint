@@ -1,0 +1,40 @@
+@import './var.scss';
+@import './transform.scss';
+
+// active
+@mixin active-scale($transition-duration: 0.3s, $scale-amount: 0.95) {
+    @include scale(1);
+    @include transition($transition-duration);
+
+    &:active {
+        @include scale($scale-amount);
+    }
+}
+
+@mixin active-rotate($transition-duration: 0.3s, $rotate-degree: 60) {
+    @include transition($transition-duration);
+
+    &:active {
+        @include rotate($rotate-degree);
+    }
+}
+
+@mixin active-color($color, $attribute: background-color, $transition-duration: 0.3s) {
+    @include transition($transition-duration);
+
+    &:active {
+        #{$attribute}: $color;
+    }
+}
+
+@mixin svg-active-color($color, $transition-duration: 0.3s) {
+    path {
+        @include transition($transition-duration);
+    }
+
+    &:active {
+        path {
+            fill: $color;
+        }
+    }
+}

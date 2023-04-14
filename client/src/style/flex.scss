@@ -1,0 +1,26 @@
+@import './var.scss';
+
+$flex: (
+    'flex-row': row,
+    'flex-column': column,
+);
+
+$justify: (
+    '' : center,
+    '-left': flex-start,
+    '-right': flex-end,
+);
+
+@each $flex-name, $flex-direction in $flex {
+    @each $justify-name, $justify-content in $justify {
+        @for $i from 1 to 50 {
+            .#{$flex-name}#{$justify-name}-#{$i}{
+                display: flex;
+                align-items: center;
+                flex-direction: $flex-direction;
+                align-items: $justify-content;
+                @include set-vw(gap, $i * 1px);
+            }
+        }
+    }
+}

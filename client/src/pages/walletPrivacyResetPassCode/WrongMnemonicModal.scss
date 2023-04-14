@@ -1,0 +1,39 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.modal-wrapper.wrong-mnemonic-modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+    @include set-pair-vw(padding, 24px, 30px);
+    @include set-vw(width, 327px - 60px);
+    @include set-vw(border-radius, 20px);
+
+    .modal-close {
+        position: absolute;
+        cursor: pointer;
+        @include set-vw(top, 20px);
+        @include set-vw(right, 13px);
+        @include set-vw(width, 35px);
+        @include set-vw(height, 35px);
+        @include svg-active-color($GR-4);
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include set-vw(gap, 17px);
+        @include set-vw(margin-top, 13px);
+        @include set-vw(margin-bottom, 27px);
+
+        .modal-content {
+            line-height: 150%;
+        }
+
+        .wrong-mnemonic-modal-img {
+            @include set-vw(width, 80px);
+            @include set-vw(height, 80px);
+        }
+    }
+}

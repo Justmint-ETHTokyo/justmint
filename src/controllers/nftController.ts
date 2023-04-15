@@ -10,6 +10,7 @@ import {
   deployEtherNFT,
   etherProvider,
   mintEtherNFT,
+  setEtherBenefitURI,
 } from '../contract/Ethereum/etherContract';
 import { ethers } from 'ethers';
 import etherBenefitData from '../contract/Ethereum/YoursBenefitNFT.json';
@@ -541,6 +542,48 @@ const publishNFT = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const updateNftBenefit = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  const { nftId } = req.body;
+  try {
+    await nftService.checkNftCreator(+userId, +nftId);
+    const nftInfo = await nftService.getNftInfoWithReward(+nftId);
+    const benefitInfoIpfs = await uploadBenefitIpfs(nftInfo.benefit);
+    await nftService.checkEditedState(nftId);
+    switch (nftInfo.chainType) {
+      case 'Ethereum': {
+        await nftService.startLoading(nftId);
+        const nftContract = new ethers.Contract(
+          nftInfo.nftAddress as string,
+          etherBenefitData.abi,
+          etherProvider,
+        );
+        const data = await setEtherBenefitURI(nftContract, benefitInfoIpfs);
+
+        await nftService.updateAtNft(+nftId, data.date);
+
+        await nftService.equalRewardInfo(nftId);
+        await nftService.finishLoading(nftId);
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(
+              statusCode.OK,
+              responseMessage.UPDATE_NFT_BENEFIT_SUCCESS,
+              data,
+            ),
+          );
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -561,4 +604,5 @@ export default {
   getIntegratedNftList,
   verifyMailForNft,
   publishNFT,
+  updateNftBenefit,
 };

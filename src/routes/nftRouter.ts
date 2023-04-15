@@ -96,6 +96,14 @@ router.post(
 );
 
 router.patch(
+  '/publish',
+  [body('nftId').isNumeric().notEmpty()],
+  errorValidator,
+  auth,
+  nftController.updateNftBenefit,
+);
+
+router.patch(
   '/integrated',
   [
     body('integratedNftId').isNumeric().notEmpty(),

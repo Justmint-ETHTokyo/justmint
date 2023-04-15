@@ -880,6 +880,80 @@ const equalReward = async (nftId: number) => {
   }
 };
 
+const checkEditedState = async (nftId: number) => {
+  try {
+    const data = await prisma.nfts.findFirst({
+      where: {
+        id: nftId,
+      },
+    });
+    if (data?.isLoading) {
+      throw errorGenerator({
+        msg: responseMessage.IS_LOADING_NFT,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    if (!data?.isEdited) {
+      throw errorGenerator({
+        msg: responseMessage.IS_DEPLOYED_NFT,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateAtNft = async (nftId: number, date: Date) => {
+  await prisma.nfts.update({
+    where: {
+      id: nftId,
+    },
+    data: {
+      updatedAt: date,
+    },
+  });
+};
+
+const equalRewardInfo = async (nftId: number) => {
+  try {
+    const web3RewardInfo = await prisma.admin_reward.findMany({
+      where: {
+        nftId,
+      },
+    });
+
+    await prisma.reward.deleteMany({
+      where: {
+        nftId,
+      },
+    });
+
+    await Promise.all(
+      web3RewardInfo.map(async (web3Reward: any) => {
+        await prisma.reward.create({
+          data: {
+            nftId,
+            rewardName: web3Reward.rewardName,
+            description: web3Reward.description,
+          },
+        });
+      }),
+    );
+
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        isEdited: false,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -908,4 +982,7 @@ export default {
   finishLoading,
   updateNftInfo,
   equalReward,
+  checkEditedState,
+  updateAtNft,
+  equalRewardInfo,
 };

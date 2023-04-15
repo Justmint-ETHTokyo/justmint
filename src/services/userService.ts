@@ -140,6 +140,21 @@ const getQuestInfo = async (userId: number) => {
   }
 };
 
+const updateQuestInfo = async (userId: number) => {
+  try {
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        isQuest: true,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
@@ -148,4 +163,5 @@ export default {
   findUserByRfToken,
   getUserInfo,
   getQuestInfo,
+  updateQuestInfo,
 };

@@ -214,6 +214,22 @@ const getQuestInfo = async (
   }
 };
 
+const updateQuestInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  try {
+    const data = await userService.updateQuestInfo(+userId);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.UPDATE_QUESTINFO_SUCCESS));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
@@ -221,4 +237,5 @@ export default {
   verifyAuthCode,
   getUserInfo,
   getQuestInfo,
+  updateQuestInfo,
 };

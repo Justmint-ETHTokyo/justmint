@@ -7,11 +7,16 @@ import { decodeByAES256, encodeByAES56 } from '../modules/crypto';
 import { saveMailAuthCode, verifyCode } from '../modules/code';
 import { sendMail } from '../modules/mail';
 import {
+  deployEtherNFT,
   etherProvider,
   mintEtherNFT,
 } from '../contract/Ethereum/etherContract';
 import { ethers } from 'ethers';
 import etherBenefitData from '../contract/Ethereum/YoursBenefitNFT.json';
+import {
+  uploadBenefitIpfs,
+  uploadMetaIpfs,
+} from '../contract/common/commonContract';
 
 const getInfoByType = async (
   req: Request,
@@ -490,6 +495,52 @@ const verifyMailForNft = async (
   }
 };
 
+const publishNFT = async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.body.id;
+  const { nftId } = req.body;
+  try {
+    const checkNftCreator = await nftService.checkNftCreator(+userId, +nftId);
+    if (checkNftCreator) {
+      const nftInfo = await nftService.getNftInfoWithReward(+nftId);
+      const nftInfoIpfs = await uploadMetaIpfs(
+        nftInfo.nftName,
+        nftInfo.description,
+        nftInfo.image,
+      );
+
+      await nftService.checkDeployedState(nftId);
+      const benefitInfoIpfs = await uploadBenefitIpfs(nftInfo.benefit);
+
+      switch (nftInfo.chainType) {
+        case 'Ethereum': {
+          await nftService.startLoading(+nftId);
+
+          const data = await deployEtherNFT(
+            nftInfo.nftName,
+            nftInfoIpfs,
+            benefitInfoIpfs,
+          );
+
+          await nftService.updateNftInfo(
+            +nftId,
+            data!.contractAddress,
+            data!.date,
+          );
+          await nftService.equalReward(+nftId);
+          await nftService.finishLoading(+nftId);
+          return res
+            .status(statusCode.OK)
+            .send(
+              success(statusCode.OK, responseMessage.PUBLISH_NFT_SUCCESS, data),
+            );
+        }
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -509,4 +560,5 @@ export default {
   deleteIntegratedNft,
   getIntegratedNftList,
   verifyMailForNft,
+  publishNFT,
 };

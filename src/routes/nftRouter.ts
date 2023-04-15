@@ -87,6 +87,14 @@ router.post(
   nftController.verifyPhotoForNft,
 );
 
+router.post(
+  '/publish',
+  [body('nftId').isNumeric().notEmpty()],
+  errorValidator,
+  auth,
+  nftController.publishNFT,
+);
+
 router.patch(
   '/integrated',
   [

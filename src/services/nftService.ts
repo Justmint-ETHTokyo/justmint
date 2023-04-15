@@ -716,6 +716,170 @@ const saveMintId = async (userId: number, nftId: number, mintId: number) => {
   }
 };
 
+const checkNftCreator = async (userId: number, nftId: number) => {
+  try {
+    const data = await prisma.nfts.findFirst({
+      where: {
+        id: nftId,
+        ownerId: userId,
+      },
+    });
+    if (!data) {
+      throw errorGenerator({
+        msg: responseMessage.NOT_NFT_CREATER,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    return true;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getNftInfoWithReward = async (nftId: number) => {
+  const getData = await prisma.nfts.findFirst({
+    where: {
+      id: nftId,
+    },
+    include: {
+      admin_reward: true,
+    },
+  });
+  if (!getData) {
+    throw errorGenerator({
+      msg: responseMessage.BAD_REQUEST,
+      statusCode: statusCode.BAD_REQUEST,
+    });
+  }
+  const benefit = await Promise.all(
+    getData.admin_reward.map((benefit: any) => {
+      const result = {
+        name: benefit.rewardName,
+        description: benefit.description,
+      };
+      return result;
+    }),
+  );
+  const data = {
+    nftName: getData.nftName,
+    description: getData.description,
+    image: getData.image,
+    chainType: getData.chainType,
+    nftAddress: getData.nftAddress,
+    benefit: benefit,
+  };
+  return data;
+};
+
+const checkDeployedState = async (nftId: number) => {
+  try {
+    const data = await prisma.nfts.findFirst({
+      where: {
+        id: nftId,
+      },
+    });
+    if (data?.isLoading) {
+      throw errorGenerator({
+        msg: responseMessage.IS_LOADING_NFT,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    if (data?.isDeployed) {
+      throw errorGenerator({
+        msg: responseMessage.IS_DEPLOYED_NFT,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const startLoading = async (nftId: number) => {
+  try {
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        isLoading: true,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+const finishLoading = async (nftId: number) => {
+  try {
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        isLoading: false,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateNftInfo = async (
+  nftId: number,
+  nftAddress: string,
+  transactionDate: Date,
+) => {
+  try {
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        nftAddress,
+        transactionDate,
+        isDeployed: true,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+const equalReward = async (nftId: number) => {
+  try {
+    const web3RewardInfo = await prisma.admin_reward.findMany({
+      where: {
+        nftId,
+      },
+    });
+
+    // admin_reward 정보를 reward 정보로 업데이트
+    await Promise.all(
+      web3RewardInfo.map(async (web3Reward: any) => {
+        await prisma.reward.create({
+          data: {
+            nftId,
+            rewardName: web3Reward.rewardName,
+            description: web3Reward.description,
+          },
+        });
+      }),
+    );
+
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        isEdited: false,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -737,4 +901,11 @@ export default {
   getNftWalletAddress,
   verifyMailForNft,
   saveMintId,
+  checkNftCreator,
+  getNftInfoWithReward,
+  checkDeployedState,
+  startLoading,
+  finishLoading,
+  updateNftInfo,
+  equalReward,
 };

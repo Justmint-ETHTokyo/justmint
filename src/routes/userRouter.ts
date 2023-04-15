@@ -17,4 +17,6 @@ router.patch(
   auth,
   userController.updateSecret,
 );
+router.get('/wallet', auth, userController.getWalletInfo);
+
 export default router;

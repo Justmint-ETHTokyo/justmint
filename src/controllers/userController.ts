@@ -247,6 +247,24 @@ const updateSecret = async (
   }
 };
 
+const getWalletInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  try {
+    const data = await userService.getWalletInfo(+userId);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.GET_WALLETINFO_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
@@ -256,4 +274,5 @@ export default {
   getQuestInfo,
   updateQuestInfo,
   updateSecret,
+  getWalletInfo,
 };

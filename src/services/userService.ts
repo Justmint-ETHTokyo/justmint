@@ -170,6 +170,23 @@ const updateSecret = async (userId: number, secret: string) => {
   }
 };
 
+const getWalletInfo = async (userId: number) => {
+  try {
+    const data = await prisma.user_wallet.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        chainType: true,
+        walletAddress: true,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
@@ -180,4 +197,5 @@ export default {
   getQuestInfo,
   updateQuestInfo,
   updateSecret,
+  getWalletInfo,
 };

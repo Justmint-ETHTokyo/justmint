@@ -270,4 +270,5 @@ export default {
   verifyPhotoForNft,
   getRequestAuthPhoto,
   createReward,
+  updateRewardInfo,
 };

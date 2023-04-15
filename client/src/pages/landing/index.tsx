@@ -20,19 +20,14 @@ import './index.scss';
 function Landing() {
     const blockImgList = [block01, block02, block03, block04];
     const pageInfoList = [
-        { background: background01, smallBackground: smallBackground01, img: undefined, title: '내가 가진 NFT 혜택을\n가장 쉽게 꺼내봐요', description: 'Justmint가 혜택을 모아서\n카카오톡 플러스 친구로 보내드릴게요', lang: 'kor' },
-        { background: background02, smallBackground: smallBackground02, img: undefined, title: '블록체인 지갑 없이도\nNFT 혜택을 누려요', description: '언제든지 사용자가 원할 때\n블록체인 지갑으로 NFT를 옮겨갈 수 있어요', lang: 'kor' },
-        { background: background03, smallBackground: smallBackground03, img: undefined, title: '누구나 쉽게 발행할 수 있어요', description: 'NFT 이름, 이미지, 개수를 입력하면 발행 완료!', lang: 'kor' },
+        { background: background01, smallBackground: smallBackground01, img: undefined, title: 'Take out the NFT\n benefits most easily', description: 'Justmint will collect the benefits', lang: 'eng' },
+        { background: background02, smallBackground: smallBackground02, img: undefined, title: 'Enjoy NFT benefits\n without blockchain wallet', description: 'You can transfer NFTs\nto your blockchain wallet\nwhenever you want', lang: 'eng' },
+        { background: background03, smallBackground: smallBackground03, img: undefined, title: 'Anyone can easily deploy', description: 'If you enter the NFT name and image,\ndeployment is complete!', lang: 'eng' },
         { background: background04, smallBackground: smallBackground04, img: logo, title: 'It\'s Sincerely\nYours', description: 'Easily record the information\nyou want to record in NFT', lang: 'eng' },
     ]
     const [currPage, setCurrPage] = useState(0);
     useBackground({ backgroundStyle : 'LANDING' });
-
-    const kakaoLogin = () => {
-        let redirectUrl = `${window.location.origin}/oauth`
-        window.location.href=`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${redirectUrl}`;
-    }
-
+    
     const touchStartHandler = (e:any) => {
         const touch = e.touches[0];
         const startX = touch.clientX;
@@ -151,7 +146,7 @@ function Landing() {
                 {
                     pageInfoList[currPage].img && <img src={pageInfoList[currPage].img} className="landing-page-img"/>
                 }
-                <h1 className={pageInfoList[currPage].lang}>{ pageInfoList[currPage].title }</h1>
+                <h1 className={`${pageInfoList[currPage].lang} landing-maintitle`}>{ pageInfoList[currPage].title }</h1>
                 <h4 className={pageInfoList[currPage].lang}>{ pageInfoList[currPage].description }</h4>
                 <div className="block-wrapper">
                     {

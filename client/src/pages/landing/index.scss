@@ -4,7 +4,8 @@
 .landing {
     position: relative;
 
-    h1 {
+    .landing-maintitle {
+        @include set-vw(font-size, 30px);
         @include set-vw(margin-bottom, 10px);
     }
 

@@ -1,0 +1,89 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.integratednft-detail {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .setting-icon {
+        position: absolute;
+        @include active-rotate;
+        @include set-vw(right, 0px);
+        @include set-vw(width, 24px);
+        @include set-vw(height, 24px);
+    }
+
+    .integratednft-card-wrapper {
+        width: fit-content;
+        height: fit-content;
+        position: relative;
+        @include set-vw(min-width, 306px);
+        @include set-vw(min-height, 439px);
+
+        .integratednft-card-img {
+            box-shadow: 0px 4px 20px rgba(247, 255, 151, 0.25), inset 0px 4px 18px rgba(255, 255, 255, 0.25), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+            @include set-vw(width, 306px);
+            @include set-vw(height, 439px);
+            @include set-vw(border-radius, 20px);
+        }
+
+        .integratednft-card-text {
+            position: absolute;
+            text-align: left;
+            font-family: MADE Okine Sans PERSONAL USE;
+            display: flex;
+            flex-direction: column;
+            @include set-vw(left, 36px);
+            @include set-vw(bottom, 41px);
+            @include set-vw(font-size, 12px);
+            @include set-vw(gap, 3px);
+        }
+    }
+
+    .chain-info {
+        background: $BK;
+        @include set-pair-vw(padding, 7px, 17px);
+        @include set-vw(border-radius, 20px);
+    }
+
+    .creator-info {
+        @include set-pair-vw(margin, 4px, 0px);
+    }
+
+    .integrated-nft-content-container {
+        width: -webkit-fill-available;
+        @include set-vw(margin-bottom, 7px);
+
+        .title-wrapper {
+            text-align: left;
+            @include set-vw(margin-bottom, 20px);
+
+            .title {
+                text-decoration: underline;
+                text-underline-position: under;
+            }
+
+            .content-length { color: $GR-4; }
+        }
+
+        .content-wrapper {
+            width: -webkit-fill-available;
+        }
+
+        .nft-info {
+            width: -webkit-fill-available;
+            .nft-info-text {
+                text-align: right;
+                flex-grow: 1;
+            }
+        }
+
+        .content-empty {
+            color: $GR-4;
+            @include set-vw(margin-top, 68px);
+            @include H3;
+        }
+    }
+}

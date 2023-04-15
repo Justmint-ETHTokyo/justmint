@@ -13,7 +13,10 @@ router.post(
   '/integrated',
   [
     body('nftIdArray').isArray().notEmpty(),
-    body('chainType').isString().notEmpty().isIn(['Ethereum', 'Polygon']),
+    body('chainType')
+      .isString()
+      .notEmpty()
+      .isIn(['Ethereum', 'Polygon', 'Linea']),
   ],
   errorValidator,
   auth,
@@ -21,7 +24,7 @@ router.post(
 );
 
 router.get('/integrated/check', [
-  query('chainType').isIn(['Ethereum', 'Polygon']),
+  query('chainType').isIn(['Ethereum', 'Polygon', 'Linea']),
   errorValidator,
   auth,
   nftController.getToBeIntegratedNfts,
@@ -50,7 +53,7 @@ router.post(
     body('description').notEmpty(),
     body('authType').notEmpty(),
     body('options').notEmpty(),
-    body('chainType').notEmpty().isIn(['Ethereum', 'Polygon']),
+    body('chainType').notEmpty().isIn(['Ethereum', 'Polygon', 'Linea']),
   ],
   errorValidator,
   auth,

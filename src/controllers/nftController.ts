@@ -16,11 +16,26 @@ import {
 } from '../contract/Ethereum/etherContract';
 import { ethers } from 'ethers';
 import etherBenefitData from '../contract/Ethereum/YoursBenefitNFT.json';
+import polygonBenefitData from '../contract/Polygon/YoursBenefitNFT.json';
+import lineaBenefitData from '../contract/Linea/YoursBenefitNFT.json';
 import {
   uploadBenefitIpfs,
   uploadMetaIpfs,
 } from '../contract/common/commonContract';
 import { UserOperation } from '../modules/AAtools/UserOperation';
+import {
+  createTransferOp2,
+  deployPolygonNFT,
+  mintPolygonNFT,
+  polygonProvider,
+  setPolygonBenefitURI,
+} from '../contract/Polygon/polygonContract';
+import {
+  deployLineaNFT,
+  lineaProvider,
+  mintLineaNFT,
+  setLineaBenefitURI,
+} from '../contract/Linea/lineaContract';
 
 const getInfoByType = async (
   req: Request,
@@ -493,6 +508,84 @@ const verifyMailForNft = async (
             ),
           );
       }
+      case 'Polygon': {
+        const walletAddress = await nftService.getNftWalletAddress(
+          +userInfo.userId,
+          getNftInfo?.chainType,
+        );
+
+        const nftContract = new ethers.Contract(
+          getNftInfo.nftAddress as string,
+          polygonBenefitData.abi,
+          polygonProvider,
+        );
+
+        const mintNftInfo = await mintPolygonNFT(
+          nftContract,
+          walletAddress as string,
+        );
+
+        const verifyInfo = await nftService.verifyMailForNft(
+          userInfo.userId,
+          userInfo.nftId,
+          mintNftInfo.mintId,
+        );
+
+        const data = {
+          userId: verifyInfo.userId,
+          nftId: verifyInfo.nftId,
+          transactionHash: mintNftInfo.transactionHash,
+          date: mintNftInfo.date,
+        };
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(
+              statusCode.OK,
+              responseMessage.VERIFY_EMAIL_AUTH_SUCCESS,
+              data,
+            ),
+          );
+      }
+      case 'Linea': {
+        const walletAddress = await nftService.getNftWalletAddress(
+          +userInfo.userId,
+          getNftInfo?.chainType,
+        );
+
+        const nftContract = new ethers.Contract(
+          getNftInfo.nftAddress as string,
+          lineaBenefitData.abi,
+          polygonProvider,
+        );
+
+        const mintNftInfo = await mintLineaNFT(
+          nftContract,
+          walletAddress as string,
+        );
+
+        const verifyInfo = await nftService.verifyMailForNft(
+          userInfo.userId,
+          userInfo.nftId,
+          mintNftInfo.mintId,
+        );
+
+        const data = {
+          userId: verifyInfo.userId,
+          nftId: verifyInfo.nftId,
+          transactionHash: mintNftInfo.transactionHash,
+          date: mintNftInfo.date,
+        };
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(
+              statusCode.OK,
+              responseMessage.VERIFY_EMAIL_AUTH_SUCCESS,
+              data,
+            ),
+          );
+      }
     }
   } catch (error) {
     next(error);
@@ -520,6 +613,50 @@ const publishNFT = async (req: Request, res: Response, next: NextFunction) => {
           await nftService.startLoading(+nftId);
 
           const data = await deployEtherNFT(
+            nftInfo.nftName,
+            nftInfoIpfs,
+            benefitInfoIpfs,
+          );
+
+          await nftService.updateNftInfo(
+            +nftId,
+            data!.contractAddress,
+            data!.date,
+          );
+          await nftService.equalReward(+nftId);
+          await nftService.finishLoading(+nftId);
+          return res
+            .status(statusCode.OK)
+            .send(
+              success(statusCode.OK, responseMessage.PUBLISH_NFT_SUCCESS, data),
+            );
+        }
+        case 'Polygon': {
+          await nftService.startLoading(+nftId);
+
+          const data = await deployPolygonNFT(
+            nftInfo.nftName,
+            nftInfoIpfs,
+            benefitInfoIpfs,
+          );
+
+          await nftService.updateNftInfo(
+            +nftId,
+            data!.contractAddress,
+            data!.date,
+          );
+          await nftService.equalReward(+nftId);
+          await nftService.finishLoading(+nftId);
+          return res
+            .status(statusCode.OK)
+            .send(
+              success(statusCode.OK, responseMessage.PUBLISH_NFT_SUCCESS, data),
+            );
+        }
+        case 'Linea': {
+          await nftService.startLoading(+nftId);
+
+          const data = await deployLineaNFT(
             nftInfo.nftName,
             nftInfoIpfs,
             benefitInfoIpfs,
@@ -581,6 +718,52 @@ const updateNftBenefit = async (
             ),
           );
       }
+      case 'Polygon': {
+        await nftService.startLoading(nftId);
+        const nftContract = new ethers.Contract(
+          nftInfo.nftAddress as string,
+          etherBenefitData.abi,
+          etherProvider,
+        );
+        const data = await setPolygonBenefitURI(nftContract, benefitInfoIpfs);
+
+        await nftService.updateAtNft(+nftId, data.date);
+
+        await nftService.equalRewardInfo(nftId);
+        await nftService.finishLoading(nftId);
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(
+              statusCode.OK,
+              responseMessage.UPDATE_NFT_BENEFIT_SUCCESS,
+              data,
+            ),
+          );
+      }
+      case 'Linea': {
+        await nftService.startLoading(nftId);
+        const nftContract = new ethers.Contract(
+          nftInfo.nftAddress as string,
+          etherBenefitData.abi,
+          etherProvider,
+        );
+        const data = await setLineaBenefitURI(nftContract, benefitInfoIpfs);
+
+        await nftService.updateAtNft(+nftId, data.date);
+
+        await nftService.equalRewardInfo(nftId);
+        await nftService.finishLoading(nftId);
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(
+              statusCode.OK,
+              responseMessage.UPDATE_NFT_BENEFIT_SUCCESS,
+              data,
+            ),
+          );
+      }
     }
   } catch (error) {
     next(error);
@@ -610,6 +793,50 @@ const createTransferOperation = async (
           nftInfo.chainType,
         );
         const data = await createTransferOp(
+          nftContract,
+          mintId as number,
+          contractAddress as string,
+          walletAddress as string,
+        );
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(statusCode.OK, responseMessage.UNSIGNED_OP_CREATED, data),
+          );
+      }
+      case 'Polygon': {
+        const nftContract = new ethers.Contract(
+          nftInfo.nftAddress as string,
+          polygonBenefitData.abi,
+          polygonProvider,
+        );
+        const contractAddress = await nftService.getNftWalletAddress(
+          +userId,
+          nftInfo.chainType,
+        );
+        const data = await createTransferOp2(
+          nftContract,
+          mintId as number,
+          contractAddress as string,
+          walletAddress as string,
+        );
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(statusCode.OK, responseMessage.UNSIGNED_OP_CREATED, data),
+          );
+      }
+      case 'Linea': {
+        const nftContract = new ethers.Contract(
+          nftInfo.nftAddress as string,
+          lineaBenefitData.abi,
+          lineaProvider,
+        );
+        const contractAddress = await nftService.getNftWalletAddress(
+          +userId,
+          nftInfo.chainType,
+        );
+        const data = await createTransferOp2(
           nftContract,
           mintId as number,
           contractAddress as string,

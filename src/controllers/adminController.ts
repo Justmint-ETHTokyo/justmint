@@ -4,11 +4,18 @@ import { fail, success } from '../modules/constants/util';
 import { adminService } from '../services';
 import nftService from '../services/nftService';
 import etherBenefitData from '../contract/Ethereum/YoursBenefitNFT.json';
+import polygonBenefitData from '../contract/Polygon/YoursBenefitNFT.json';
+import lineaBenefitData from '../contract/Linea/YoursBenefitNFT.json';
 import {
   etherProvider,
   mintEtherNFT,
 } from '../contract/Ethereum/etherContract';
 import { ethers } from 'ethers';
+import {
+  mintPolygonNFT,
+  polygonProvider,
+} from '../contract/Polygon/polygonContract';
+import { lineaProvider, mintLineaNFT } from '../contract/Linea/lineaContract';
 
 const getRequestUser = async (
   req: Request,
@@ -98,6 +105,61 @@ const approveOrRejectNft = async (
             etherProvider,
           );
           const mint = await mintEtherNFT(nftContract, walletAddress as string);
+          await nftService.saveMintId(
+            +approveInfo.userId,
+            +approveInfo.nftId,
+            mint.mintId,
+          );
+          return res
+            .status(statusCode.OK)
+            .send(
+              success(
+                statusCode.OK,
+                responseMessage.APPROVE_NFT_SUCCESS,
+                approveInfo,
+              ),
+            );
+        }
+        case 'Polygon': {
+          const walletAddress = await nftService.getNftWalletAddress(
+            +approveInfo.userId,
+            getNftInfo?.chainType,
+          );
+          const nftContract = new ethers.Contract(
+            getNftInfo.nftAddress as string,
+            polygonBenefitData.abi,
+            polygonProvider,
+          );
+          const mint = await mintPolygonNFT(
+            nftContract,
+            walletAddress as string,
+          );
+          await nftService.saveMintId(
+            +approveInfo.userId,
+            +approveInfo.nftId,
+            mint.mintId,
+          );
+          return res
+            .status(statusCode.OK)
+            .send(
+              success(
+                statusCode.OK,
+                responseMessage.APPROVE_NFT_SUCCESS,
+                approveInfo,
+              ),
+            );
+        }
+        case 'Linea': {
+          const walletAddress = await nftService.getNftWalletAddress(
+            +approveInfo.userId,
+            getNftInfo?.chainType,
+          );
+          const nftContract = new ethers.Contract(
+            getNftInfo.nftAddress as string,
+            lineaBenefitData.abi,
+            lineaProvider,
+          );
+          const mint = await mintLineaNFT(nftContract, walletAddress as string);
           await nftService.saveMintId(
             +approveInfo.userId,
             +approveInfo.nftId,

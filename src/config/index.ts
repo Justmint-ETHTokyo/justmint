@@ -75,8 +75,6 @@ export default {
    */
   walletAddress: process.env.WALLET_ADDRESS as string,
   gorilRPC: process.env.GORIL_RPC as string,
-  mumbaiRPC: process.env.MUMBAI_RPC as string,
-  baobabRPC: process.env.BAOBAB_RPC as string,
   polygonRPC: process.env.POLYGON_RPC as string,
   sepoliaRPC: process.env.SEPOLIA_RPC_URL_HTTP as string,
   WalletSecretKey: process.env.WALLET_SECRET as string,
@@ -87,6 +85,13 @@ export default {
   sepoliaEntryPointAddress: process.env.ENTRY_POINT_ADDRESS as string,
   sepoliaPaymasterAddress: process.env.PAYMASTER_ADDRESS as string,
   sepoliaFactoryAddress: process.env.FACTORY_ADDRESS as string,
+  polygonEntryPointAddress: process.env.ENTRY_POINT_ADDRESS2 as string,
+  polygonPaymasterAddress: process.env.PAYMASTER_ADDRESS2 as string,
+  polygonFactoryAddress: process.env.FACTORY_ADDRESS2 as string,
+  lineaRPC: process.env.LINEA_RPC as string,
+  lineaEntryPointAddress: process.env.ENTRY_POINT_ADDRESS3 as string,
+  lineaPaymasterAddress: process.env.PAYMASTER_ADDRESS3 as string,
+  lineaFactoryAddress: process.env.FACTORY_ADDRESS3 as string,
 
   /**
    * NHN_CLOUD

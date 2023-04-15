@@ -1,0 +1,7 @@
+@import '../../style/var.scss';
+
+.menu-component-list {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+}

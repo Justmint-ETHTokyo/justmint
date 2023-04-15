@@ -1,0 +1,52 @@
+@import './var.scss';
+
+$gray: (
+    'GR-0': $GR-0,
+    'GR-1': $GR-1,
+    'GR-2': $GR-2,
+    'GR-3': $GR-3,
+    'GR-4': $GR-4,
+    'GR-5': $GR-5,
+    'GR-6': $GR-6,
+);
+
+@for $i from 0 to 6 {
+    $color: 'GR-' + #{$i};
+    .gr-#{$i} {
+        color: map-get($gray, $color);
+    }
+    .bg-gr-#{$i} {
+        background-color: map-get($gray, $color);
+    }
+}
+
+.re {
+    color: $RE;
+}
+.bg-re {
+    background-color: $RE;
+}
+
+.gn {
+    color: $GN;
+}
+.bg-gn {
+    background-color: $GN;
+}
+
+.ye {
+    color: $YE;
+}
+.bg-ye {
+    background-color: $YE;
+}
+
+.pu {
+    color: $PU;
+}
+.bg-pu {
+    background-color: $PU;
+}
+.wh {
+    color: white;
+}

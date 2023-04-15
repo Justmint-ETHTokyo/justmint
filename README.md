@@ -1,11 +1,14 @@
 ![header](https://capsule-render.vercel.app/api?type=wave&color=5C36EE&height=150&section=header)
-### Hi there, we are Justmint 🌿
 <div align="center">
+<h1>Hi there, we are Justmint 🌿</h1>
+<br/>
+
 <img width="100" alt="justmint" src="https://user-images.githubusercontent.com/49464171/232245791-5590d7b7-2bce-4a2d-89af-c54831ec7455.png">
-</div>
+
 <br/>
 Justmint is a <b>SaaS tool</b> that provides web3 loyalty service<br/>
 like Starbucks Odyssey for consumer goods companies 🏙
+</div>
 <br/>
 <br/>
 <br/>

@@ -74,4 +74,22 @@ contract YoursFactory {
         );
         emit DeployNFT(identicalChild, msg.sender);
     }
+    function setOwner(address _newAdd) external {
+        isOwner();
+        owner = _newAdd;
+    }
+
+    function setBase(address _newAdd) external {
+        isOwner();
+        baseContract = _newAdd;
+    }
+
+    function setPaused() external {
+        isOwner();
+        paused = paused == 0 ? 1 : 0;
+    }
+
+    function isPaused() external view returns (uint256) {
+        return paused;
+    }
 }

@@ -494,6 +494,69 @@ const createIntegratedNft = async (
   }
 };
 
+const getToBeIntegratedNfts = async (userId: number, chainType: string) => {
+  try {
+    const findChainTypeNfts = await prisma.user_has_nfts.findMany({
+      where: {
+        userId,
+        nfts: {
+          chainType,
+        },
+        isMoved: false,
+      },
+      select: {
+        nfts: {
+          select: {
+            id: true,
+            nftName: true,
+            image: true,
+            reward: true,
+          },
+        },
+      },
+    });
+
+    const findIntegratedNftList = await prisma.integrated_has_nfts.findMany({
+      where: {
+        integrated_nfts: {
+          creatorId: userId,
+        },
+      },
+      select: {
+        nftId: true,
+      },
+    });
+
+    const IntegratedNftIdList = await Promise.all(
+      findIntegratedNftList.map(
+        (integreatedNftValue: any) => integreatedNftValue.nftId,
+      ),
+    );
+
+    const isNotIntegratedNfts = await Promise.all(
+      findChainTypeNfts.filter(
+        (findChainTypeNft: any) =>
+          !IntegratedNftIdList.includes(findChainTypeNft.nfts.id),
+      ),
+    );
+
+    const data = await Promise.all(
+      isNotIntegratedNfts.map(async (isNotIntegratedNft: any) => {
+        const result = {
+          id: isNotIntegratedNft.nfts.id,
+          nftName: isNotIntegratedNft.nfts.nftName,
+          image: isNotIntegratedNft.nfts.image,
+          numberOfRewards: isNotIntegratedNft.nfts.reward.length,
+        };
+        return result;
+      }),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -507,4 +570,5 @@ export default {
   getNftRewardDetailInfo,
   deleteNftReward,
   createIntegratedNft,
+  getToBeIntegratedNfts,
 };

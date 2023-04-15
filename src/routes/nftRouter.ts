@@ -115,4 +115,11 @@ router.post(
   nftController.createIntegratedNft,
 );
 
+router.get('/integrated/check', [
+  query('chainType').isIn(['Ethereum', 'Polygon']),
+  errorValidator,
+  auth,
+  nftController.getToBeIntegratedNfts,
+]);
+
 export default router;

@@ -1,0 +1,82 @@
+@import '../../../style/var.scss';
+@import '../../../style/transform.scss';
+@import '../../../style/active.scss';
+
+.welcome-modal.modal-wrapper {
+    position: relative;
+    background-color: $BK;
+    padding-left: 22px;
+    padding-right: 22px;
+    padding-top: 20px;
+    padding-bottom: 10vh;
+    bottom: -5vh;
+    @include set-vw(width, 430px - 44px);
+
+    .modal-confetti {
+        position: absolute;
+        top: 0; left: 0;
+    }
+
+    .modal-header {
+        @include set-vw(min-height, 35px);
+
+        .modal-close {
+            float: right;
+            @include set-vw(width, 35px);
+            @include set-vw(height, 35px);
+
+            path { fill: $GR-1; }
+
+            @include svg-active-color($GR-3);
+        }
+    }
+
+    .welcome-wallet-wrapper {
+        width: fit-content;
+        height: fit-content;
+        margin: auto;
+        position: relative;
+
+        .wallet-icon {
+            @include set-vw(width, 165px);
+
+            .coin { 
+                position: relative; 
+                bottom: -2vh;
+                // animation: showCoinUp 1s; 
+            }
+
+            @keyframes showCoinUp {
+                0%{ bottom: -2vh; }
+                100%{ bottom: 0; }
+            }
+        }
+
+        .wallet-icon-new {
+            position: absolute;
+            left: -20%; top: 15%;
+            background-color: #AEF567;
+            color: $BK;
+            @include rotate(-21);
+            @include set-vw(border-radius, 30px);
+            @include set-vw(padding, 10px);
+            @include H4(true);
+        }
+    }
+
+    .welcome-title {
+        font-weight: 600;
+        line-height: 160%;
+        @include set-vw(font-size, 20px);
+        @include set-vw(margin-bottom, 23px);
+        @include set-vw(margin-top, 17px);
+    }
+
+    .welcome-text {
+        font-weight: 500;
+        line-height: 160%;
+        @include set-vw(font-size, 18px);
+        @include set-vw(margin-bottom, 56px);
+        @include set-vw(margin-top, 46px);
+    }
+}

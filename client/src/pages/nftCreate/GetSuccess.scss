@@ -1,0 +1,35 @@
+@import '../../style/var.scss';
+
+.get-badge-success {
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+
+    .get-badge-success-content-wrapper {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .badge-image {
+        @include set-vw(width, 195px); 
+        @include set-vw(height, 195px); 
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .get-badge-text {
+        font-weight: 400;
+        @include set-vw(font-size, 24px); 
+    }
+
+    .success-text {
+        color: $YE;
+        font-weight: 500;
+        @include set-vw(font-size, 16px); 
+        @include set-vw(margin-top, 65px); 
+        @include set-vw(margin-bottom, 23px); 
+    }
+}

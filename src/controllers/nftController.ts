@@ -300,6 +300,33 @@ const deleteNftReward = async (
   }
 };
 
+const createIntegratedNft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  const { nftIdArray, chainType } = req.body;
+  try {
+    const data = await nftService.createIntegratedNft(
+      +userId,
+      nftIdArray,
+      chainType,
+    );
+    return res
+      .status(statusCode.CREATED)
+      .send(
+        success(
+          statusCode.CREATED,
+          responseMessage.CREATE_INTEGRATED_NFT_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -313,4 +340,5 @@ export default {
   updateRewardInfo,
   getNftRewardDetailInfo,
   deleteNftReward,
+  createIntegratedNft,
 };

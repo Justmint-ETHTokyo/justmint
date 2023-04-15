@@ -457,6 +457,43 @@ const deleteNftReward = async (
   }
 };
 
+const createIntegratedNft = async (
+  userId: number,
+  nftIdArray: number[],
+  chainType: string,
+) => {
+  try {
+    const integratedNft = await prisma.integrated_nfts.create({
+      data: {
+        chainType,
+        creatorId: userId,
+      },
+    });
+    await prisma.user_has_integrated_nfts.create({
+      data: {
+        integratedNftId: integratedNft.id,
+        userId,
+      },
+    });
+    for (let i = 0; i < nftIdArray.length; i++) {
+      await prisma.integrated_has_nfts.create({
+        data: {
+          integratedNftId: integratedNft.id,
+          nftId: nftIdArray[i],
+        },
+      });
+    }
+    const data = {
+      id: integratedNft.id,
+      chainType: integratedNft.chainType,
+      createdAt: integratedNft.createdAt,
+    };
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -469,4 +506,5 @@ export default {
   updateRewardInfo,
   getNftRewardDetailInfo,
   deleteNftReward,
+  createIntegratedNft,
 };

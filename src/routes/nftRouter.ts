@@ -104,4 +104,15 @@ router.delete(
   nftController.deleteNftReward,
 );
 
+router.post(
+  '/integrated',
+  [
+    body('nftIdArray').isArray().notEmpty(),
+    body('chainType').isString().notEmpty().isIn(['Ethereum', 'Polygon']),
+  ],
+  errorValidator,
+  auth,
+  nftController.createIntegratedNft,
+);
+
 export default router;

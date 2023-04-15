@@ -14,4 +14,11 @@ router.get(
   adminController.getRequestUser,
 );
 
+router.get(
+  '/:nftId/reward',
+  [param('nftId').notEmpty()],
+  errorValidator,
+  adminController.getAdminNftRewardList,
+);
+
 export default router;

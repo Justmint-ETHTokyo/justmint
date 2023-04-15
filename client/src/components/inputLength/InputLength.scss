@@ -1,0 +1,14 @@
+@import '../../style/var.scss';
+
+.input-content-length {
+    width: -webkit-fill-available;
+    text-align: right;
+    font-weight: 400;
+    color: $GR-4;
+    @include set-vw(margin-top, 10px);
+    @include set-vw(font-size, 13px);
+    @include transition(0.2s);
+
+    #active { color: white; }
+    #max { color: $RE; }
+}

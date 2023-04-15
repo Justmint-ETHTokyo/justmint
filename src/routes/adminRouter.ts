@@ -21,4 +21,11 @@ router.get(
   adminController.getAdminNftRewardList,
 );
 
+router.get(
+  '/:rewardId/reward/detail',
+  [param('rewardId').notEmpty()],
+  errorValidator,
+  adminController.getAdminNftRewardDetail,
+);
+
 export default router;

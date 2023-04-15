@@ -46,7 +46,30 @@ const getAdminNftRewardList = async (
   }
 };
 
+const getAdminNftRewardDetail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { rewardId } = req.params;
+  try {
+    const data = await adminService.getAdminNftRewardDetail(+rewardId);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(
+          statusCode.OK,
+          responseMessage.READ_NFT_ADMIN_REWARD_DETAIL_INFO_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getRequestUser,
   getAdminNftRewardList,
+  getAdminNftRewardDetail,
 };

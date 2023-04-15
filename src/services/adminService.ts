@@ -57,7 +57,26 @@ const getAdminNftRewardList = async (nftId: number) => {
   }
 };
 
+const getAdminNftRewardDetail = async (rewardId: number) => {
+  try {
+    const rewardDetail = await prisma.admin_reward.findFirst({
+      where: {
+        id: rewardId,
+      },
+      select: {
+        id: true,
+        rewardName: true,
+        description: true,
+      },
+    });
+    return rewardDetail;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getRequestUser,
   getAdminNftRewardList,
+  getAdminNftRewardDetail,
 };

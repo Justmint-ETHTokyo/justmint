@@ -44,12 +44,33 @@ module.exports = {
     polygon_mumbai: {
       url: process.env.MUMBAI_RPC,
       accounts: [`0x${process.env.WALLET_SECRET}`],
+      gasPrice: 5000000000,
+      loggingEnabled: true,
+      chainId: 80001,
     },
     sepolia: {
       chainId: 11155111,
       accounts: [process.env.WALLET_SECRET],
       url: process.env.SEPOLIA_RPC_URL_HTTP,
       initialBaseFeePerGas: 0,
+      loggingEnabled: true,
+    },
+    zkevm: {
+      chainId: 1442,
+      accounts: [process.env.WALLET_SECRET],
+      url: process.env.ZKEVM_RPC,
+      loggingEnabled: true,
+    },
+    mantle: {
+      chainId: 5001,
+      accounts: [process.env.WALLET_SECRET],
+      url: process.env.MANTLE_RPC,
+      loggingEnabled: true,
+    },
+    linea: {
+      chainId: 59140,
+      accounts: [process.env.WALLET_SECRET],
+      url: process.env.LINEA_RPC,
       loggingEnabled: true,
     },
 

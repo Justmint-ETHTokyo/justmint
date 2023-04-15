@@ -1,0 +1,133 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+
+.landing {
+    position: relative;
+
+    h1 {
+        @include set-vw(margin-bottom, 10px);
+    }
+
+    h4 {
+        line-height: 150%;
+    }
+
+    .page-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        z-index: 1;
+        @include set-vw(gap, 11px);
+        @include set-vw(top, 15px);
+        @include set-vw(left, 0px);
+
+        .page {
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.4;
+            @include transition(0.5s);
+            @include set-vw(width, 8px);
+            @include set-vw(height, 8px);
+
+            &#curr-page {
+                opacity: 1;
+            }
+        }
+    }
+
+    .landing-page-wrapper {
+        height: 90vh;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        white-space: pre-wrap;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 10vh;
+        @include transition(0.5s);
+
+        .landing-page-img {
+            @include set-vw(width, 76px);
+            @include set-vw(height, 76px);
+            @include set-vw(margin-bottom, 44px);
+        }
+
+        .block-wrapper {
+            .block {
+                position: absolute;
+                opacity: 0;
+                @include transition(0.5s);
+
+                &:nth-child(1) {
+                    @include set-vw(width, 72px);
+                    @include set-vw(height, 72px);
+                    @include set-vw(bottom, 200px);
+                    @include set-vw(left, 0px);
+                    @include rotate(30);
+                }
+
+                &:nth-child(2) {
+                    @include set-vw(width, 55px);
+                    @include set-vw(height, 55px);
+                    @include set-vw(bottom, 265px);
+                    @include set-vw(right, 18px);
+                    @include rotate(30);
+                }
+
+                &:nth-child(3) {
+                    @include set-vw(width, 60px);
+                    @include set-vw(height, 60px);
+                    @include set-vw(bottom, -10px);
+                    @include set-vw(left, 63px);
+                    @include rotate(-16);
+                }
+
+                &:nth-child(4) {
+                    @include set-vw(width, 60px);
+                    @include set-vw(height, 60px);
+                    @include set-vw(bottom, 135px);
+                    @include set-vw(right, 70px);
+                    @include rotate(-16);
+                }
+            }
+        }
+
+        &#landing-page--4 {
+            .block { 
+                opacity: 1;             
+                &:nth-child(1), &:nth-child(2) {
+                    animation: showBlockPop12 1s;
+                } 
+
+                &:nth-child(3), &:nth-child(4) {
+                    animation: showBlockPop23 1s;
+                } 
+            }
+
+            @keyframes showBlockPop12 {
+                0% {opacity:0; transform: scale(0.1) translateY(20vh) rotate(0); }
+                70% {transform: scale(1.1) translateY(-3vh) rotate(20deg);}
+                100% {opacity: 1; transform: scale(1) translateY(0) rotate(30deg);}
+            }
+
+            @keyframes showBlockPop23 {
+                0% {opacity:0; transform: scale(0.1) translateY(20vh) rotate(0); }
+                70% {transform: scale(1.1) translateY(-3vh) rotate(-8deg);}
+                100% {opacity: 1; transform: scale(1) translateY(0) rotate(-16deg);}
+            }
+        }
+    }
+
+    .button {
+        background: #FAE64C;
+        color: $BK;
+        position: absolute;
+        bottom: 12vh;
+        @include set-vw(width, 400px);
+        @include set-vw(left, 15px);
+    }
+}

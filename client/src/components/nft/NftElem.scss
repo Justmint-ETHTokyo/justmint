@@ -1,0 +1,116 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.nft-elem-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1.5px solid #4F4F4F;
+    text-align: left;
+    @include set-vw(width, 183px);
+    @include set-vw(border-radius, 15px);
+    @include active-scale(0.3s, 0.98);
+
+    &.is-loading {
+        border: none;
+        overflow: hidden;
+
+        .nft-image {
+            border: none;
+        }
+    }
+
+    &:nth-child(2n - 1) {
+        margin-right: auto;
+    }
+
+    .nft-image {
+        width: 100%;
+        object-fit: cover;
+        @include set-vw(height, 183px);
+        @include set-vw(border-top-left-radius, 15px);
+        @include set-vw(border-top-right-radius, 15px);
+    }
+
+    .nft-elem-body {
+        @include set-vw(padding, 12px);
+
+        .nft-name {
+            width: -webkit-fill-available;
+            font-weight: 500;
+            @include set-vw(height, 22px);
+            @include set-vw(font-size, 16px);
+            @include overFlowText(1);
+        }
+
+        .nft-reward-length {
+            display: inline;
+            min-width: 50%;
+            color: $GR-4;
+            @include set-vw(width, 100px);
+            @include set-vw(height, 16px);
+            @include set-vw(margin-top, 5px);
+            @include H6;
+        }
+    }
+
+
+    .nft-elem-footer {
+        @include set-vw(padding, 5px);
+        @include set-vw(margin-bottom, 7px);
+
+        button.nft-more-view {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .more-view-icon {
+                height: auto;
+                @include set-vw(width, 18px);
+            }
+
+            .nft-more-view-wrapper {
+                width: max-content;
+                position: absolute;
+                left: 0;
+                bottom: calc(100% + 1vh);
+                background: $BK;
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                opacity: 0;
+                @include transition;
+                pointer-events: none;
+                display: flex;
+                flex-direction: column;
+                @include set-vw(width, 130px);
+                @include set-vw(gap, 15px);
+                @include set-vw(padding-left, 8px);
+                @include set-vw(padding-right, 8px);
+                @include set-vw(padding-top, 11px);
+                @include set-vw(padding-bottom, 11px);
+                @include set-vw(border-radius, 5px);
+
+                .nft-more-view-elem {
+                    display: flex;
+                    align-items: center;
+                    color: white;
+                    @include set-vw(gap, 5px);
+                    @include H5(true);
+
+                    svg {
+                        @include set-vw(width, 18px);
+                        @include set-vw(height, 18px);
+                    }
+                }
+            }
+
+            &:focus {
+                .nft-more-view-wrapper {
+                    opacity: 1;
+                    pointer-events: fill;
+                    @include show-bounce-up;
+                }
+            }
+        }
+
+        
+    }
+}

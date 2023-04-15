@@ -1,26 +1,54 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
+require("dotenv").config();
+
 const hre = require("hardhat");
 
+const fs = require("fs");
+
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  console.log(
+    "Deploy Start ======================================================"
+  );
+  const ethers = hre.ethers;
 
-  const lockedAmount = hre.ethers.utils.parseEther("0.001");
+  const [deployer] = await ethers.getSigners();
+  const balance = await deployer.getBalance();
+  const gasPriceData = await ethers.provider.getGasPrice();
+  console.log("Deployer :", deployer.address);
+  console.log("Balance :", balance);
+  console.log("Gas Price :", ethers.utils.formatUnits(gasPriceData, "gwei"));
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  //const contractNames = ["YoursBenefitNFT", "YoursFactory"];
+  const contractNames = [
+    "YoursBenefitNFT",
+    "YoursFactory",
+  ];
 
-  await lock.deployed();
+  let results = [];
+
+  const Base = await ethers.getContractFactory(contractNames[0]);
+  const base = await Base.deploy();
+  results.push(await base.deployed());
+
+  const Factory = await ethers.getContractFactory(contractNames[1]);
+  const factory = await Factory.deploy(results[0].address);
+  results.push(await factory.deployed());
 
   console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    "Deploy Success ===================================================="
+  );
+
+  const deployedJson = {};
+  contractNames.map((value, index) => {
+    deployedJson[value] = results[index].address;
+  });
+
+  fs.writeFileSync("deployed-address.json", JSON.stringify(deployedJson));
+
+  const usedData = await deployer.getBalance();
+  console.log("Gas Used:", ethers.utils.formatEther(`${balance - usedData}`));
+  console.log("Balance :", usedData);
+  console.log(
+    "Deploy Over ======================================================="
   );
 }
 

@@ -43,10 +43,16 @@ module.exports = {
     },
     polygon_mumbai: {
       url: process.env.MUMBAI_RPC,
-      accounts: [`0x${process.env.WALLET_SECRET}`],
+      accounts: [process.env.WALLET_SECRET],
       gasPrice: 5000000000,
       loggingEnabled: true,
       chainId: 80001,
+    },
+    polygon: {
+      url: process.env.POLYGON_RPC,
+      accounts: [process.env.WALLET_SECRET],
+      loggingEnabled: true,
+      chainId: 137,
     },
     sepolia: {
       chainId: 11155111,

@@ -1,0 +1,133 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.get-badge {
+    display: flex;
+    flex-direction: column;
+
+    .confetti-rain {
+        position: absolute;
+        left: 50%; top: 0;
+    }
+
+    .get-badge-content {
+        min-height: 80vh;
+        // @include set-vw(padding, 22px);
+        display: flex;
+        flex-direction: column;
+
+        .check-email-content-wrapper {
+            flex-grow: 1;
+        }
+
+        .title-wrapper {
+            text-align: left;
+
+            .title--gray {
+                color: $GR-4;
+                font-weight: 400;
+                @include set-vw(margin-bottom, 10px);
+                @include set-vw(font-size, 18px);
+            }
+
+            .title-option {
+                white-space: pre-wrap;
+                word-break: break-all;
+                line-height: 160%;
+            }
+        }
+
+        .warning-text {
+            color: $RE;
+            @include set-vw(font-size, 13px);
+            @include set-pair-vw(margin, 25px, 0px);
+        }
+
+        .email-input {
+            width: -webkit-fill-available;
+            border-bottom: 1px solid $GR-4;
+            color: white;
+            background-color: transparent;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            @include set-vw(margin-top, 52px);
+            @include set-vw(padding-bottom, 6px);
+            @include set-vw(font-size, 20px);
+
+            &::placeholder { color: $GR-4; } 
+
+            input[type=text] {
+                min-width: 0;
+                flex-grow: 1;
+                background: $GR-1;
+                font-weight: 500;
+                @include set-vw(border-radius, 10px);
+                @include set-vw(font-size, 20px);
+                @include set-pair-vw(padding, 8px, 13px);
+            }
+
+            .nft-email {
+                color: $GR-4;
+                @include set-vw(margin-left, 10px);
+            }
+        }
+
+        .input-status {
+            text-align: left;
+            font-weight: 400;
+            @include set-vw(margin-top, 10px);
+            @include set-vw(font-size, 16px);
+
+            &#warning { color: $RE; animation: bounce 1s; }
+            &#success { color: $GN; }
+        }
+
+        .mail-button {
+            @include set-vw(width, 42px);
+            @include set-vw(height, 42px);
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            @include set-vw(margin-top, 16px);
+            animation: showPop 0.5s;
+
+            img {
+                width: 17px;
+                margin: auto;
+            }
+        }
+
+        .before-upload {
+            width: -webkit-fill-available;
+            background: $PU;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            @include set-vw(gap, 5px);
+            @include set-vw(border-radius, 15px);
+            @include set-pair-vw(padding, 20px, 0px);
+            @include H4(eng);
+            @include active-scale;
+
+            svg {
+                @include set-vw(width, 24px);
+                @include set-vw(height, 24px);
+            }
+        }
+
+        .nft-user-photo {
+            object-fit: cover;
+            object-position: center;
+            @include set-vw(width, 386px);
+            @include set-vw(height, 515px);
+            @include set-vw(margin-bottom, 20px);
+        }
+
+        .button-wrapper {
+            display: flex;
+            @include set-vw(gap, 16px);
+        }
+    }
+}

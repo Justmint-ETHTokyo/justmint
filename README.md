@@ -4,7 +4,7 @@
 <br/>
 
 <img width="100" alt="justmint" src="https://user-images.githubusercontent.com/49464171/232245791-5590d7b7-2bce-4a2d-89af-c54831ec7455.png">
-
+<br/>
 <br/>
 Justmint is a <b>SaaS tool</b> that provides web3 loyalty service<br/>
 like Starbucks Odyssey for consumer goods companies 🏙

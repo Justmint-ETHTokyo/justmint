@@ -1,0 +1,20 @@
+@import '../../style/var.scss';
+
+.info-loading {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    @include set-vw(gap, 63px);
+
+    svg {
+        @include set-vw(width, 60px);
+        @include set-vw(height, 60px);
+    }
+
+    h3 {
+        word-break: break-all;
+        line-height: 160%;
+    }
+}

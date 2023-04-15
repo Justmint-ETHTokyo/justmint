@@ -2,7 +2,6 @@ import { useLayoutEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/footer';
 import Navbar from './components/navbar';
-import Oauth from './pages/oauth/Oauth';
 import Landing from './pages/landing';
 import Signup from './pages/signup';
 import Mypage from './pages/mypage';
@@ -47,13 +46,13 @@ function App() {
   useLayoutEffect(()=>{
     console.log(`%c
 > make your own asset 👾 \n%c
-    ██╗   ██╗ ██████╗ ██╗   ██╗██████╗ ███████╗   %c
-    ╚██╗ ██╔╝██╔═══██╗██║   ██║██╔══██╗██╔════╝   %c
-     ╚████╔╝ ██║   ██║██║   ██║██████╔╝███████╗   %c
-      ╚██╔╝  ██║   ██║██║   ██║██╔══██╗╚════██║   %c
-       ██║   ╚██████╔╝╚██████╔╝██║  ██║███████║██╗%c
-       ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝
-                                                  `, 
+     ██╗██╗   ██╗███████╗████████╗███╗   ███╗██╗███╗   ██╗████████╗%c
+     ██║██║   ██║██╔════╝╚══██╔══╝████╗ ████║██║████╗  ██║╚══██╔══╝%c
+     ██║██║   ██║███████╗   ██║   ██╔████╔██║██║██╔██╗ ██║   ██║   %c
+██   ██║██║   ██║╚════██║   ██║   ██║╚██╔╝██║██║██║╚██╗██║   ██║   %c
+╚█████╔╝╚██████╔╝███████║   ██║   ██║ ╚═╝ ██║██║██║ ╚████║   ██║   %c
+ ╚════╝  ╚═════╝ ╚══════╝   ╚═╝   ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝   
+                                                                   `, 
     `color: white; font-size: 10px; padding:2px 0; font-family: monospace`,                                              
     `color: #5c36ee;`,
     `color: #0078ff;`,
@@ -80,7 +79,6 @@ function App() {
         <Routes>
             {/* Public Outlet */}
             <Route path="/landing" element={<Landing />}/>
-            <Route path="/oauth" element={<Oauth />}/>
             <Route path="/signup" element={<Signup />}/>
             <Route path="/nft/:nftId/detail" element={<NftDetail />}/>
             <Route path="/nft/email" element={<NftEmailVerify />}/>

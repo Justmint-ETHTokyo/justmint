@@ -65,7 +65,7 @@ function InputForm ({ setPhoneNumber, nickname, setNickname, agreeToTermList, se
                     onChange={(e) => setNickname(e.target.value)}
                 />
             </div>
-            <div className="input-box">
+            {/* <div className="input-box">
                 <label className="input-label">휴대폰 번호</label>
                 <div className="input-description">
                     국제 번호 사용 시 <a href='http://pf.kakao.com/_xgxkExbxj'>Yours 카카오톡 채널</a>로 별도 문의 바랍니다.
@@ -119,7 +119,7 @@ function InputForm ({ setPhoneNumber, nickname, setNickname, agreeToTermList, se
                         }
                     </div>
                 }
-            </div>
+            </div> */}
             <div className="input-box">
                 <label className="input-label">이용 약관 동의</label>
                 <div className="term-of-use-wrapper">

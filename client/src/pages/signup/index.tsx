@@ -62,8 +62,8 @@ function Signup() {
             nickname: nickname,
             profileImage: profileImage,
             email: email,
-            phone: phoneNumber.split('-').join(''),
-            social: 'KAKAO',
+            phone: "010-0000-0000",
+            social: 'GOOGLE',
             isMarketing: agreeToTermList.includes('MARKETING'),
             walletAddress: wallets.addressList,
             secret: wallets.secret
@@ -123,25 +123,26 @@ function Signup() {
     }
 
     useEffect(()=>{
-        const getKakaoInfo = async () => {
-            // kakao sns id, profile image, email 받아오기
-            const kakaoToken = new URLSearchParams(window.location.search).get('kakao');
+        const getGoogleInfo = async () => {
+            // google sns id, profile image, email 받아오기
+            const googleToken = new URLSearchParams(window.location.search).get('google');
             try {
-                const kakaoInfo = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
+                const googleInfo = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleToken}`, {
                     headers: {
-                      Authorization: `Bearer ${kakaoToken}`
+                        Authorization: `Bearer ${googleToken}`,
+                        Accept: 'application/json'
                     }
                 })
-                setSnsId(kakaoInfo.data.id.toString());
-                setProfileImage(kakaoInfo.data.properties.profile_image);
-                setEmail(kakaoInfo.data.kakao_account.email);
+                setSnsId(googleInfo.data.id);
+                setProfileImage(googleInfo.data.picture);
+                setEmail(googleInfo.data.email);
             } catch(err) {
-                // kakao token이 잘못되었을 시 landing 페이지로 가도록 -> 유효한 카카오 로그인을 통해서만 회원가입 가능하도록
+                // google token이 잘못되었을 시 landing 페이지로 가도록 -> 유효한 카카오 로그인을 통해서만 회원가입 가능하도록
                 console.log(err);
                 navigation(-1);
             }
         }
-        getKakaoInfo();
+        getGoogleInfo();
     }, [])
 
     const preventToClose = (e:any) => {

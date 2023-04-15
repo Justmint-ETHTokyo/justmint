@@ -17,10 +17,10 @@ type userType = {
 }
 
 class UserApi {
-    loginHandler = async (kakaoToken:string) => {
-        const userInfo = await this.checkKakaoUser(kakaoToken);
+    loginHandler = async (googleToken:string) => {
+        const userInfo = await this.checkGoogleUser(googleToken);
         if (!userInfo.signUp) {
-            window.location.href=`/signup?kakao=${kakaoToken}`;
+            window.location.href=`/signup?google=${googleToken}`;
         } else {
             this.setToken(userInfo.accessToken, userInfo.refreshToken);
             this.getUserInfo();
@@ -73,9 +73,10 @@ class UserApi {
         return res.data;
     }
 
-    checkKakaoUser = async (kakaoToken:string) => {
-        const res = await post(`auth/kakao`, {
-            token: kakaoToken
+    checkGoogleUser = async (googleToken:string) => {
+        const res = await post(`auth`, {
+            token: googleToken,
+            social: 'GOOGLE'
         });
         return res.data.data;
     }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logo from '../../asset/svg/icon.svg';
+import LoginButton from '../../components/loginButton/LoginButton';
 import background01 from '../../asset/image/landing/background01.png';
 import background02 from '../../asset/image/landing/background02.png';
 import background03 from '../../asset/image/landing/background03.png';
@@ -12,10 +12,10 @@ import block01 from '../../asset/image/landing/block01.png';
 import block02 from '../../asset/image/landing/block02.png';
 import block03 from '../../asset/image/landing/block03.png';
 import block04 from '../../asset/image/landing/block04.png';
-import './index.scss';
-import BlurryLoadingImage from '../../components/blurryLoadingImage/BlurryLoadingImage';
 import BlurryLoadingBackground from '../../components/blurryLoadingImage/BlurryLoadingBackground';
 import { useBackground } from '../../hook/useBackground';
+import logo from '../../asset/svg/icon.svg';
+import './index.scss';
 
 function Landing() {
     const blockImgList = [block01, block02, block03, block04];
@@ -162,9 +162,7 @@ function Landing() {
                 </div>
                 </>
             </BlurryLoadingBackground>
-            <button className="button" onClick={()=>{kakaoLogin()}}>
-                카카오 계정으로 시작하기
-            </button>
+            <LoginButton />
         </div>
     )
 }

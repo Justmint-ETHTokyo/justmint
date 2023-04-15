@@ -1,0 +1,67 @@
+@import '../../style/var.scss';
+
+.nft-reward-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    @include set-vw(gap, 20px);
+}
+
+.nft-reward-elem-wrapper {
+    width: -webkit-fill-available;
+    background: $GR-1;
+    display: flex;
+    align-items: center;
+    @include set-vw(height, 120px);
+    @include set-vw(border-radius, 15px);
+    @include set-vw(padding-left, 18px);
+    @include set-vw(padding-right, 18px);
+
+    &.is-loading {
+        background-color: $GR-1;
+
+        .nft-name {
+            @include set-vw(margin-bottom, 5px);
+            @include set-vw(width, 100px);
+            @include set-vw(height, 20px);
+        }
+
+        .reward-name {
+            @include set-vw(height, 25px);
+        }
+    }
+
+    .nft-reward-info-wrapper {
+        max-width: 75%;
+        flex-grow: 1;
+        text-align: left;
+        @include set-vw(gap, 3px);
+
+        .nft-name {
+            font-weight: 500;
+            color: $GR-4;
+            font-family: 'MADE Okine Sans PERSONAL USE';
+            @include set-vw(font-size, 14px);
+            @include overFlowText(1);
+        }
+
+        .reward-name {
+            @include H3;
+            @include overFlowText(2);
+        }
+    }
+
+    .nft-reward-action-button {
+        background: $PU;
+        color: white;
+        flex-shrink: 0;
+        @include transition;
+        @include set-vw(width, 87px);
+        @include H5;
+
+        &:disabled {
+            color: $GR-4;
+            background: transparent;
+        }
+    }
+}

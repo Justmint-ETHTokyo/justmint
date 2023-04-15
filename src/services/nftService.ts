@@ -300,6 +300,24 @@ const verifyPhotoForNft = async (
   }
 };
 
+const getRequestAuthPhoto = async (userId: number, nftId: number) => {
+  try {
+    const data = await prisma.admin.findFirst({
+      where: {
+        userId,
+        nftId,
+        deletedAt: null,
+      },
+    });
+    if (!data) {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -307,4 +325,5 @@ export default {
   createNft,
   getNftList,
   verifyPhotoForNft,
+  getRequestAuthPhoto,
 };

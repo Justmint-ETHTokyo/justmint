@@ -181,6 +181,31 @@ const verifyPhotoForNft = async (
   }
 };
 
+const getRequestAuthPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { nftId } = req.params;
+
+    const data = await nftService.getRequestAuthPhoto(+userId, +nftId);
+
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(
+          statusCode.OK,
+          responseMessage.READ_GET_REQUEST_PHOTO_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -189,4 +214,5 @@ export default {
   getNftList,
   sendAuthMailForNft,
   verifyPhotoForNft,
+  getRequestAuthPhoto,
 };

@@ -66,4 +66,12 @@ router.get(
   nftController.getNftOwnersInfo,
 );
 
+router.get(
+  '/:nftId/photo',
+  [param('nftId').notEmpty()],
+  errorValidator,
+  auth,
+  nftController.getRequestAuthPhoto,
+);
+
 export default router;

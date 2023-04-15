@@ -93,4 +93,7 @@ router.patch(
   auth,
   nftController.updateRewardInfo,
 );
+
+router.get('/:rewardId/reward/detail', nftController.getNftRewardDetailInfo);
+
 export default router;

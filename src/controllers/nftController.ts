@@ -260,6 +260,28 @@ const updateRewardInfo = async (
   }
 };
 
+const getNftRewardDetailInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { rewardId } = req.params;
+    const data = await nftService.getNftRewardDetailInfo(+rewardId);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(
+          statusCode.OK,
+          responseMessage.READ_NFT_REWARD_DETAIL_INFO_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -271,4 +293,5 @@ export default {
   getRequestAuthPhoto,
   createReward,
   updateRewardInfo,
+  getNftRewardDetailInfo,
 };

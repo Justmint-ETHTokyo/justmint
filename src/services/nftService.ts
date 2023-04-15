@@ -401,6 +401,26 @@ const updateRewardInfo = async (
   }
 };
 
+const getNftRewardDetailInfo = async (rewardId: number) => {
+  try {
+    const getRewardDetailInfo = await prisma.reward.findFirst({
+      where: {
+        id: rewardId,
+      },
+    });
+    if (!getRewardDetailInfo) {
+      return null;
+    }
+    const data = {
+      rewardName: getRewardDetailInfo.rewardName,
+      description: getRewardDetailInfo.description,
+    };
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -411,4 +431,5 @@ export default {
   getRequestAuthPhoto,
   createReward,
   updateRewardInfo,
+  getNftRewardDetailInfo,
 };

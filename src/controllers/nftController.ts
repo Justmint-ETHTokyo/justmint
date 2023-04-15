@@ -206,6 +206,35 @@ const getRequestAuthPhoto = async (
   }
 };
 
+const createReward = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { nftId } = req.params;
+    const { rewardName, description } = req.body;
+    const data = await nftService.createReward(
+      userId,
+      +nftId,
+      rewardName,
+      description,
+    );
+    return res
+      .status(statusCode.CREATED)
+      .send(
+        success(
+          statusCode.CREATED,
+          responseMessage.CREATE_NFT_REWARD_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -215,4 +244,5 @@ export default {
   sendAuthMailForNft,
   verifyPhotoForNft,
   getRequestAuthPhoto,
+  createReward,
 };

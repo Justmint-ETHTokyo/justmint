@@ -74,4 +74,16 @@ router.get(
   nftController.getRequestAuthPhoto,
 );
 
+router.post(
+  '/:nftId/reward',
+  [
+    param('nftId').notEmpty(),
+    body('rewardName').notEmpty(),
+    body('description').notEmpty(),
+  ],
+  errorValidator,
+  auth,
+  nftController.createReward,
+);
+
 export default router;

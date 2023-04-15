@@ -1,0 +1,115 @@
+@import '../../../style/var.scss';
+@import '../../../style/active.scss';
+
+.modal-wrapper.profile-edit-modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    @include set-vw(width, 386px);
+
+    .modal-header {
+        position: relative;
+        @include set-pair-vw(padding, 70px, 0px);
+
+        .modal-title {
+            line-height: 160%;
+            @include H4;
+        }
+
+        .modal-close {
+            position: absolute;
+            @include set-vw(width, 35px);
+            @include set-vw(height, 35px);
+            @include set-vw(top, 20px);
+            @include set-vw(right, 20px);
+
+            @include svg-active-color($GR-4);
+        }
+    }
+
+    .modal-content {
+        width: -webkit-fill-available;
+        display: flex;
+        flex-direction: column;
+        @include set-vw(gap, 16px);
+        @include set-pair-vw(padding, 0px, 26px);
+        @include set-vw(margin-bottom, 100px);
+
+        .input-textbox {
+            width: -webkit-fill-available;
+            background-color: $GR-0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            @include set-vw(height, 54px);
+            @include set-vw(gap, 10px);
+            @include set-pair-vw(padding, 0px, 16px);
+            @include set-vw(border-radius, 10px);
+
+            button {
+                color: white;
+                background-color: $PU;
+                flex-shrink: 0;
+                @include set-vw(width, 73px);
+                @include set-vw(height, 36px);
+                @include set-vw(border-radius, 5px);
+                @include active-scale;
+
+                &:disabled {
+                    background-color: $GR-3;
+                }
+            }
+
+            input {
+                flex-grow: 1;
+                @include H5;
+                @include set-vw(width, 100px);
+            }
+
+            .valid-time {
+                color: $RE;
+                @include H6;
+            }
+
+            .check-icon {
+                path { fill: $GN; }
+            }
+
+            .invalid-message {
+                position: absolute;
+                top: 106%;
+                left: 0;
+                color: $RE;
+                @include H6;
+                @include animation-bounce;
+            }
+        }
+    }
+
+    .modal-footer {
+        width: 100%;
+        display: flex;
+
+        button {
+            @include H5;
+            @include set-vw(height, 60px);
+        }
+
+        button.cancle {
+            color: white;
+            @include set-vw(width, 146px);
+        }
+
+        button.approve {
+            flex-grow: 1;
+            background: $GN;
+            color: $BK;
+            @include set-vw(width, 146px);
+
+            &:disabled {
+                background: $GR-3;
+                color: $BK;
+            }
+        }
+    }
+}

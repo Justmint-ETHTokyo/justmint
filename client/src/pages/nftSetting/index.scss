@@ -1,0 +1,44 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.nft-setting {
+
+    .nft-setting-content-wrapper {
+        width: 100%;
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nft-image {
+        object-fit: cover;
+        object-position: center;
+        @include set-vw(width, 205px);
+        @include set-vw(height, 205px);
+        @include set-vw(border-radius, 15px);
+    }
+
+    .nft-name {
+        word-break: break-all;
+        @include set-pair-vw(margin, 38px, 0px);
+    }
+
+    .setting-button-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include set-vw(gap, 20px);
+
+        button {
+            width: 100%;
+            color: white;
+            background-color: $BK;
+            @include set-vw(border-radius, 15px);
+            @include set-pair-vw(padding, 32px, 0px);
+            @include active-scale;
+        }
+    }
+}

@@ -265,6 +265,20 @@ const getWalletInfo = async (
   }
 };
 
+const checkWallet = async (req: Request, res: Response, next: NextFunction) => {
+  const { address } = req.query;
+  try {
+    const data = await userService.checkWallet(address as string);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.READ_YOURS_WALLET_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
@@ -275,4 +289,5 @@ export default {
   updateQuestInfo,
   updateSecret,
   getWalletInfo,
+  checkWallet,
 };

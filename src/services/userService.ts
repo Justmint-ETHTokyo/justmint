@@ -187,6 +187,24 @@ const getWalletInfo = async (userId: number) => {
   }
 };
 
+const checkWallet = async (address: string) => {
+  try {
+    const checkYoursWallet = await prisma.user_wallet.findFirst({
+      where: {
+        walletAddress: address,
+      },
+    });
+
+    if (checkYoursWallet) {
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
@@ -198,4 +216,5 @@ export default {
   updateQuestInfo,
   updateSecret,
   getWalletInfo,
+  checkWallet,
 };

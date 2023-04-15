@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import auth from '../middlewares/auth';
 import { userController } from '../controllers';
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import errorValidator from '../middlewares/error/errorValidator';
 
 const router: Router = Router();
@@ -18,5 +18,11 @@ router.patch(
   userController.updateSecret,
 );
 router.get('/wallet', auth, userController.getWalletInfo);
+router.get(
+  '/justmint',
+  [query('address').isString().notEmpty()],
+  errorValidator,
+  userController.checkWallet,
+);
 
 export default router;

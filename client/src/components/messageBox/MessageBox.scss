@@ -1,0 +1,53 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+@import '../../style/active.scss';
+
+.message-box {
+    width: -webkit-fill-available;
+    background-color: $GN;
+    color: black;
+    position: relative;
+    @include set-vw(margin-bottom, 20px);
+    @include set-vw(border-radius, 15px);
+    @include set-pair-vw(padding, 25px, 20px);
+    @include show-bounce-up;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 50%; top: 99.5%;
+        border-bottom: solid transparent;
+        border-top: solid $GN;
+        border-left: solid transparent;
+        border-right: solid transparent;
+        @include set-vw(border-width, 10px);
+        @include translate(-50%, 0);
+    }
+
+    .message-box-pushpin {
+        @include set-vw(width, 26px);
+        @include set-vw(height, 26px);
+        position: absolute;
+        left: 14px; top: 12px;
+    }
+
+    .message-box-close {
+        position: absolute;
+        right: 14px; top: 12px;
+        cursor: pointer;
+        @include set-vw(width, 24px);
+        @include set-vw(height, 24px);
+        @include svg-active-color($GR-2);
+    }
+
+    .message-box-text {
+        font-weight: 500;
+        line-height: 160%;
+        white-space: pre-wrap;
+        word-break: keep-all;
+        color: $BK;
+        @include set-vw(font-size, 14px);
+        @include set-vw(margin-top, 10px);
+        @include set-pair-vw(padding, 0px, 5px);
+    }
+}

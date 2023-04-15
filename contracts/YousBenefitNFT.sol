@@ -60,4 +60,53 @@ contract YoursBenefitNFT is ERC721Enumerable {
         defaultBenefit = _defaultBenefit;
         _init(_name, _symbol);
     }
+
+    // Actions =========================================================
+    function mint(address _to) external {
+        require(_isBase == 0, "Is not initialized");
+        uint256 newId = ++_tokenIds;
+
+        uint256[] storage newBenefits = benefits[newId];
+        for (uint256 i = 0; i < defaultBenefit.length; i++) {
+            newBenefits.push(defaultBenefit[i]);
+        }
+
+        _safeMint(_to, newId);
+
+        emit Mint(newId);
+    }
+
+    function setLock(uint256[] memory _ids, uint8 _lock) external { // lock == 0(false), == 1(true) // 0 이면 언락드, 1 이면 락드
+        isFactory();
+        for (uint i = 0; i < _ids.length; i++) {
+            locked[_ids[i]] = _lock;
+        }
+    }
+
+    function changeSingleBenefits(uint256 _id, uint256[] memory _newBenefits)
+        external
+    {
+        isOwner();
+        benefits[_id] = _newBenefits;
+    }
+
+    function changeBatchBenefits(
+        uint256[] memory _ids,
+        uint256[] memory _newBenefits
+    ) external {
+        isOwner();
+        for (uint256 i = 0; i < _ids.length; i++) {
+            benefits[_ids[i]] = _newBenefits;
+        }
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId, /* firstTokenId */
+        uint256 batchSize
+    ) internal override {
+        require(locked[tokenId] == 0, "NFT is locked");
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+    }
 }

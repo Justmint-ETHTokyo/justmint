@@ -1,0 +1,101 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.create-integratednft-intro {
+    width: -webkit-fill-available;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    @include set-vw(gap, 40px);
+    @include animation(blur, 1s);
+
+    .title-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include set-vw(gap, 20px);
+        @include set-vw(margin-top, 48px);    
+        
+        .title {
+            font-family: 'Morena';
+            font-weight: 700;
+            @include set-vw(font-size, 28px);
+        }
+
+        .description {
+            line-height: 160%;
+            font-weight: 500;
+            @include set-vw(font-size, 18px);
+        }
+    }
+
+    .nft-wrapper {
+        width: fit-content;
+        height: fit-content;
+        position: relative;
+        animation: showCards 1s;
+        @include set-vw(min-width, 270px);
+        @include set-vw(min-height, 400px);
+
+        @keyframes showCards {
+            0% { opacity: 0; transform: scale(0.95) translateY(2vh); }
+            100% { opacity: 1; }
+        }
+
+        .nft-integrated {
+            position: relative;
+            z-index: 3;
+            box-shadow: 0px 4px 20px rgba(247, 255, 151, 0.25);
+            @include set-vw(width, 270px);
+            @include set-vw(border-radius, 20px);
+            animation: bounceSpace 2.5s infinite;
+        }
+
+        .nft-blank {
+            position: absolute;
+            bottom: 20%;
+            border-radius: 15px;
+            border: 1px solid #767676;
+            background: rgba(89, 89, 89, 0.5);
+            @include set-vw(width, 190px);
+            @include set-vw(height, 286px);
+
+            &.move-right {
+                right: 0;
+                transform-origin: 0 100%;
+                animation: moveBlankNftRight 1s 0.5s forwards;
+            }
+            &.move-left {
+                left: 0;
+                transform-origin: 100% 100%;
+                animation: moveBlankNftLeft 1s 0.5s forwards;
+            }
+        }
+
+        @keyframes moveBlankNftRight {
+            100% { transform: rotate(15deg) translateX(75%); }
+        }
+        @keyframes moveBlankNftLeft {
+            100% { transform: rotate(-15deg) translateX(-75%); }
+        }
+    }
+
+    .intro-description {
+        font-weight: 500;
+        line-height: 160%;
+        @include set-vw(font-size, 20px);
+
+        .green { color: $GN; }
+    }
+
+    .goto-create-button {
+        background: $PU;
+        color: white;
+        @include set-vw(border-radius, 30px);
+        @include set-pair-vw(padding, 20px, 28px);
+        @include H4(true);
+        @include active-scale;
+    }
+}

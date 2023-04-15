@@ -1,0 +1,48 @@
+@import '../../style/var.scss';
+
+.available-nft-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: solid #4F4F4F;
+    overflow: hidden;
+    position: relative;
+    @include transition;
+    @include set-vw(width, 163px);
+    @include set-vw(border-width, 1.5px);
+    @include set-vw(border-radius, 15px);
+    @include set-vw(padding-bottom, 8px);
+
+    &#checked {
+        border-color: $GN;
+    }
+
+    .check-icon {
+        position: absolute;
+        color: $GN;
+        @include set-vw(top, 10px);
+        @include set-vw(right, 8px);
+        @include set-vw(width, 24px);
+        @include set-vw(height, 24px);
+    }
+
+    .available-nft-image {
+        object-fit: cover;
+        object-position: center;
+        @include set-vw(width, 166px);
+        @include set-vw(height, 166px);
+    }
+
+    .available-nft-name {
+        @include overFlowText(1);
+    }
+
+    .available-nft-body {
+        text-align: left;
+        @include set-vw(padding, 12px);   
+    }
+
+    .available-nft-reward-length {
+        color: $GR-4;
+        @include set-vw(margin-top, 4px);
+    }
+}

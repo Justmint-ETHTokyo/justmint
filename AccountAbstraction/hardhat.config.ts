@@ -83,6 +83,12 @@ const config: HardhatUserConfig = {
       accounts: [process.env.WALLET_PRIVATE_KEY_DEV1!],
       chainId: 80001,
     },
+    polygon: {
+      url: process.env.POLYGON_RPC,
+      accounts: [process.env.WALLET_PRIVATE_KEY_DEV1!],
+      loggingEnabled: true,
+      chainId: 137,
+    },
 
     proxy: getNetwork1("http://localhost:8545"),
   },

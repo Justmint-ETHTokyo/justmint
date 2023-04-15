@@ -1,7 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { responseMessage, statusCode } from '../modules/constants';
-import { success } from '../modules/constants/util';
+import { fail, success } from '../modules/constants/util';
 import { adminService } from '../services';
+import nftService from '../services/nftService';
+import etherBenefitData from '../contract/Ethereum/YoursBenefitNFT.json';
+import {
+  etherProvider,
+  mintEtherNFT,
+} from '../contract/Ethereum/etherContract';
+import { ethers } from 'ethers';
 
 const getRequestUser = async (
   req: Request,
@@ -68,8 +75,63 @@ const getAdminNftRewardDetail = async (
   }
 };
 
+const approveOrRejectNft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { tableId, type, reason } = req.body;
+  const userId = req.body.id;
+  try {
+    if (type) {
+      const approveInfo = await adminService.approveNft(+tableId);
+      const getNftInfo = await nftService.getNftInfo(+approveInfo.nftId);
+      switch (getNftInfo?.chainType) {
+        case 'Ethereum': {
+          const walletAddress = await nftService.getNftWalletAddress(
+            +approveInfo.userId,
+            getNftInfo?.chainType,
+          );
+          const nftContract = new ethers.Contract(
+            getNftInfo.nftAddress as string,
+            etherBenefitData.abi,
+            etherProvider,
+          );
+          const mint = await mintEtherNFT(nftContract, walletAddress as string);
+          await nftService.saveMintId(
+            +approveInfo.userId,
+            +approveInfo.nftId,
+            mint.mintId,
+          );
+          return res
+            .status(statusCode.OK)
+            .send(
+              success(
+                statusCode.OK,
+                responseMessage.APPROVE_NFT_SUCCESS,
+                approveInfo,
+              ),
+            );
+        }
+      }
+    }
+    if (!type) {
+      await adminService.rejectNft(+tableId, reason);
+      return res
+        .status(statusCode.OK)
+        .send(success(statusCode.OK, responseMessage.APPROVE_NFT_FAIL));
+    }
+    return res
+      .status(statusCode.NOT_FOUND)
+      .send(fail(statusCode.NOT_FOUND, responseMessage.NOT_FOUND));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getRequestUser,
   getAdminNftRewardList,
   getAdminNftRewardDetail,
+  approveOrRejectNft,
 };

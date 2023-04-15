@@ -700,6 +700,22 @@ const verifyMailForNft = async (
   }
 };
 
+const saveMintId = async (userId: number, nftId: number, mintId: number) => {
+  try {
+    await prisma.user_has_nfts.updateMany({
+      where: {
+        userId,
+        nftId,
+      },
+      data: {
+        mintId,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -720,4 +736,5 @@ export default {
   getNftInfo,
   getNftWalletAddress,
   verifyMailForNft,
+  saveMintId,
 };

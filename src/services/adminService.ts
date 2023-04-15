@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import errorGenerator from '../middlewares/error/errorGenerator';
+import { responseMessage, statusCode } from '../modules/constants';
 const prisma = new PrismaClient();
 
 const getRequestUser = async (userId: number, nftId: number) => {
@@ -75,8 +77,79 @@ const getAdminNftRewardDetail = async (rewardId: number) => {
   }
 };
 
+const approveNft = async (id: number) => {
+  try {
+    const findUserIdAndNftId = await prisma.admin.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        userId: true,
+        nftId: true,
+      },
+    });
+    if (!findUserIdAndNftId) {
+      throw errorGenerator({
+        msg: responseMessage.BAD_REQUEST,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    const userGetNft = await prisma.user_has_nfts.create({
+      data: {
+        userId: findUserIdAndNftId!.userId,
+        nftId: findUserIdAndNftId!.nftId,
+      },
+    });
+    await prisma.admin.update({
+      where: {
+        id,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+    return userGetNft;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const rejectNft = async (id: number, reason: string) => {
+  try {
+    const findUserIdAndNftId = await prisma.admin.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        userId: true,
+        nftId: true,
+      },
+    });
+    if (!findUserIdAndNftId) {
+      throw errorGenerator({
+        msg: responseMessage.BAD_REQUEST,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    await prisma.admin.update({
+      where: {
+        id,
+      },
+      data: {
+        deletedAt: new Date(),
+        rejectReason: reason,
+      },
+    });
+    return findUserIdAndNftId;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getRequestUser,
   getAdminNftRewardList,
   getAdminNftRewardDetail,
+  approveNft,
+  rejectNft,
 };

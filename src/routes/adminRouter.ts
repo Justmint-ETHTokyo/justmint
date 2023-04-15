@@ -6,6 +6,7 @@ import errorValidator from '../middlewares/error/errorValidator';
 
 const router: Router = Router();
 
+router.put('/', auth, adminController.approveOrRejectNft);
 router.get(
   '/:nftId',
   [param('nftId').notEmpty()],

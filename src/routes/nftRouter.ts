@@ -7,6 +7,32 @@ import upload from '../middlewares/upload';
 
 const router: Router = Router();
 
+router.post(
+  '/integrated',
+  [
+    body('nftIdArray').isArray().notEmpty(),
+    body('chainType').isString().notEmpty().isIn(['Ethereum', 'Polygon']),
+  ],
+  errorValidator,
+  auth,
+  nftController.createIntegratedNft,
+);
+
+router.get('/integrated/check', [
+  query('chainType').isIn(['Ethereum', 'Polygon']),
+  errorValidator,
+  auth,
+  nftController.getToBeIntegratedNfts,
+]);
+
+router.delete(
+  '/integrated',
+  [query('id').notEmpty()],
+  errorValidator,
+  auth,
+  nftController.deleteIntegratedNft,
+);
+
 router.get(
   '/',
   [query('type').notEmpty().isIn(['create', 'owm', 'reward'])],
@@ -114,23 +140,5 @@ router.delete(
   auth,
   nftController.deleteNftReward,
 );
-
-router.post(
-  '/integrated',
-  [
-    body('nftIdArray').isArray().notEmpty(),
-    body('chainType').isString().notEmpty().isIn(['Ethereum', 'Polygon']),
-  ],
-  errorValidator,
-  auth,
-  nftController.createIntegratedNft,
-);
-
-router.get('/integrated/check', [
-  query('chainType').isIn(['Ethereum', 'Polygon']),
-  errorValidator,
-  auth,
-  nftController.getToBeIntegratedNfts,
-]);
 
 export default router;

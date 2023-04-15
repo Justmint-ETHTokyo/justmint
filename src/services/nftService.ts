@@ -588,6 +588,29 @@ const updateIntegratedNft = async (
   }
 };
 
+const deleteIntegratedNft = async (userId: number, id: number) => {
+  try {
+    await prisma.integrated_has_nfts.deleteMany({
+      where: {
+        integratedNftId: id,
+      },
+    });
+    await prisma.user_has_integrated_nfts.deleteMany({
+      where: {
+        integratedNftId: id,
+        userId,
+      },
+    });
+    await prisma.integrated_nfts.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -603,4 +626,5 @@ export default {
   createIntegratedNft,
   getToBeIntegratedNfts,
   updateIntegratedNft,
+  deleteIntegratedNft,
 };

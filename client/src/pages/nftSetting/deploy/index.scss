@@ -1,0 +1,105 @@
+@import '../../../style/var.scss';
+
+.nft-setting-deploy {
+    width: -webkit-fill-available;
+
+    .confirm-nft-info {
+        width: -webkit-fill-available;
+
+        .nft-info-container {
+            width: -webkit-fill-available;
+        }
+
+        .nft-info-title {
+            width: -webkit-fill-available;
+            display: flex;
+            align-items: center;
+            text-align: left;
+
+            .title { flex-grow: 1; }
+        }
+
+        .nft-info-wrapper { 
+            width: -webkit-fill-available; 
+            text-align: left;
+        }
+
+        .nft-image {
+            object-fit: cover;
+            object-position: center;
+            filter: drop-shadow(0px 4px 10px rgba(92, 54, 238, 0.3));
+            @include set-vw(width, 105px);
+            @include set-vw(height, 105px);
+            @include set-vw(border-radius, 20px);
+        }
+
+        .nft-info-description {
+            width: -webkit-fill-available;
+            font-weight: 500;
+            line-height: 160%;
+            text-align: left;
+            word-break: break-all;
+            @include set-vw(min-height, 60px);
+            @include set-vw(margin-bottom, 23px);
+            @include set-vw(font-size, 14px);
+        }
+
+        .nft-info-text-wrapper {
+            .nft-info-chain {
+                color: $GR-4;
+
+                svg path { fill: $GR-4; }
+            }
+        }
+
+        .reward-container {
+            width: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            @include set-vw(gap, 20px);
+            @include set-vw(margin-bottom, 50px);
+
+            .reward-empty {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include set-vw(height, 250px);
+            }
+        }
+        .button-wrapper { 
+            width: -webkit-fill-available; 
+            position: sticky;
+            @include set-vw(bottom, 30px);
+        }
+    }
+
+    .deploy-info-container {
+        width: -webkit-fill-available;
+        @include set-vw(margin-top, 50px);
+        @include set-vw(margin-bottom, 50px);
+
+        .deploy-info-title {
+            width: -webkit-fill-available;
+            text-align: left;
+            text-decoration: underline;
+            text-underline-position: unset;
+        }
+        
+        .deploy-info-row {
+            width: -webkit-fill-available;
+            display: flex;
+            align-items: center;
+
+            .content { 
+                text-align: right; 
+                flex-grow: 1; 
+
+                &.underline {
+                    cursor: pointer;
+                    text-decoration: underline;
+                    text-underline-position: unset;
+                }
+            }
+        }
+    }
+}

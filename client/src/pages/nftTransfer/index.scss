@@ -32,6 +32,24 @@
         @include set-pair-vw(margin, 20px, 0px);
     }
 
+    .transfer-sign {
+        width: -webkit-fill-available;
+        min-height: 70vh;
+
+        .transfer-sign-title {
+            line-height: 160%;
+            @include H4;
+            @include set-vw(margin-top, 30px);
+            @include set-vw(margin-bottom, 50px);
+        }
+
+        .transfer-sign-submit-button {
+            position: sticky;
+            @include set-vw(margin-top, 300px);
+            @include set-vw(bottom, 15px);
+        }
+    }
+
     .transfer-preview {
         b {
             @include H4(true);

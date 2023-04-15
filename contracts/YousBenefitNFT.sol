@@ -109,4 +109,25 @@ contract YoursBenefitNFT is ERC721Enumerable {
         require(locked[tokenId] == 0, "NFT is locked");
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
+    // Setting =========================================================
+    function setOwner(address _newAdd) external {
+        isOwner();
+        owner = _newAdd;
+    }
+
+    function setBenefitsURI(string memory _uri) external {
+        isOwner();
+        benefitURI = _uri;
+        emit ChangeBenefitsURI(_uri);
+    }
+
+    // View =========================================================
+    function tokenURI(uint256 _id)
+        public
+        view
+        override
+        returns (string memory)
+    {
+        return _tokenURI;
+    }
 }

@@ -1,0 +1,50 @@
+@import '../../style/var.scss';
+
+.passcode-input {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include set-vw(padding-top, 80px);
+
+    .passcode-input-description {
+        white-space: pre-wrap;
+    }
+
+    .passcode-check-wrapper {
+        width: -webkit-fill-available;
+        @include set-vw(min-height, 30px);
+        @include set-vw(padding-left, 22px);
+        @include set-vw(margin-bottom, 80px);
+
+        .passcode-check-elem {
+            width: -webkit-fill-available;
+            display: flex;
+            @include set-vw(gap, 12px);
+
+            &#unchecked { color: $GR-4; }
+            &#checked {
+                color: white;
+                .passcode-check-marker {
+                    border-color: $GN;
+                    background-color: $GN;
+                }
+            }
+
+            &#wrong {
+                .passcode-check-marker {
+                    border-color: $RE;
+                    background-color: $RE;
+                }
+            }
+        }
+
+        .passcode-check-marker {
+            border: 1px solid $GR-4;
+            border-radius: 50%;
+            @include transition;
+            @include set-vw(width, 16px);
+            @include set-vw(height, 16px);
+        }
+    }
+}

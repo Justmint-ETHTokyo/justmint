@@ -14,18 +14,19 @@ like Starbucks Odyssey for consumer goods companies 🏙
 <br/>
 
 <h3>🛠 Features</h3>
-<b>1️⃣ Create Wallet</b><br/>
+<b> Create Wallet</b><br/>
 web2 users can use our service without blockchain wallet.
 
 <br/>
 <br/>
-<b>1️⃣ Nft Deploy, Minting, Trasfer</b><br/>
+<b> Nft Deploy, Minting, Trasfer</b><br/>
 You can easily make nft with our service.
 
 <br/>
 <br/>
-<b>3️⃣ Account Abstraction</b><br/>
-We can pay for the gas fee incurred in the transaction.
+<b> Account Abstraction</b><br/>
+We can pay for the gas fee through paymaster in the transaction.
+
  
 <br/>
 <br/>

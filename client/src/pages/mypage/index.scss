@@ -1,0 +1,188 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+@import '../../style/active.scss';
+
+.mypage {
+
+    .my-profile-wrapper {
+        text-align: left;
+        background: linear-gradient(180deg, #5C36EE 0%, rgba(54, 205, 238, 0) 299.01%), #000000;
+        position: relative;
+        @include set-vw(border-radius, 10px);
+        @include set-vw(padding, 16px);
+        @include set-vw(margin-top, 20px);
+        @include set-vw(height, 200px - 32px);
+
+        .my-profile-yours {
+            font-weight: 400;
+            font-family: 'MADE Okine Sans PERSONAL USE';
+            @include set-vw(font-size, 15px);
+        }
+
+        .my-profile-name {
+            font-weight: 600;
+            @include set-vw(font-size, 24px);
+            @include set-vw(margin-top, 5px);
+            @include set-vw(margin-bottom, 17px);
+        }
+
+        .my-profile-edit {
+            color: white;
+            font-weight: 400;
+            position: absolute;
+            border: solid #FFFFFF;
+            font-family: MADE Okine Sans PERSONAL USE;
+            @include set-vw(top, 16px);
+            @include set-vw(right, 16px);
+            @include set-vw(padding-top, 5px);
+            @include set-vw(padding-bottom, 5px);
+            @include set-vw(padding-left, 10px);
+            @include set-vw(padding-right, 10px);
+            @include set-vw(font-size, 13px);
+            @include set-vw(border-width, 1px);
+            @include set-vw(border-radius, 20px);
+            @include active-scale;
+        }
+    }
+
+    .mypage-menu-wrapper {
+        width: 100%;
+        @include set-vw(margin-top, 20px);
+    }
+
+    .mypage-menu-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        @include set-vw(padding-top, 8px);
+        @include set-vw(padding-bottom, 8px);
+        @include set-vw(margin-bottom, 26px);
+        @include set-vw(height, 30px);
+
+        .mypage-menu {
+            width: 30%;
+            color: $GR-4;
+            font-weight: 500;
+            @include set-vw(font-size, 17px);
+            @include transition(0.5s);
+
+            &:active { color: white; }
+            &#selected-menu { color: white; }
+
+            .mypage-menu-content-length {
+                @include set-vw(margin-left, 8px);
+                @include set-vw(font-size, 14px);
+            }
+        }
+
+        .show-selected-menu {
+            width: 30%;
+            height: 1px;
+            position: absolute;
+            bottom: 0; left: 0;
+            background: white;
+            @include transition;
+        }
+    }
+
+    .mypage-menu-content-searchbar {
+        width: auto;
+        background-color: $GR-1;
+        border: solid $GR-2;
+        display: flex;
+        align-items: center;
+        @include transition;
+        @include set-vw(gap, 10px);
+        @include set-vw(padding, 15px);
+        @include set-vw(border-radius, 15px);
+        @include set-vw(border-width, 2px);
+
+        svg {
+            @include set-vw(width, 24px);
+            @include set-vw(height, 24px);
+        }
+
+        input { flex-grow: 1; @include H4(true); font-weight: 400; @include set-vw(font-size, 16px); }
+
+        &:focus-within {
+            border-color: $GR-3;
+        }
+    }
+
+    .mypage-menu-nft-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        opacity: 0;
+        @include transition(1s);
+        @include set-vw(row-gap, 20px);
+        @include set-vw(margin-top, 20px);
+        @include set-vw(margin-bottom, 100px);
+
+        &.entered {
+            // opacity: 1;
+            @include show-down(1s);
+        }
+
+        .no-content {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include H3;
+            @include set-vw(height, 400px);
+
+            .empty-text {
+                margin: auto;
+                display: inline;
+                line-height: 150%;
+                color: $GR-4;
+
+                h2 {
+                    display: inline;
+                    word-break: break-all;
+                }
+            }
+        }
+    }
+
+    .yours-wallet-button {
+        position: fixed;
+        border-radius: 50%;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+        background: linear-gradient(149.49deg, #1C09FF 18.54%, rgba(115, 230, 255, 0) 318.97%), #1355FF;
+        @include set-vw(width, 68px);
+        @include set-vw(height, 68px);
+        @include set-vw(right, 20px);
+        @include set-vw(bottom, 30px);
+        @include active-scale;
+        @include transition;
+        @include rotate(0);
+
+        svg {
+            @include set-vw(width, 50px);
+            @include set-vw(height, 50px);
+        }
+
+        &:hover {
+            @include rotate(-15);
+        }
+
+        .wallet-alert {
+            position: absolute;
+            background-color: $RE;
+            border-radius: 50%;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            @include set-vw(width, 30px);
+            @include set-vw(height, 30px);
+            @include set-vw(right, -5px);
+            @include set-vw(top, -5px);
+            @include set-vw(font-size, 15px);
+        }
+    }
+}

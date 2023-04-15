@@ -1,0 +1,36 @@
+@import '../../../style/var.scss';
+@import '../../../style/active.scss';
+
+.modal-wrapper.complete-quest-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: rgba(0, 0, 0, 0.8);
+    @include set-pair-vw(padding, 45px, 42px);
+    @include set-vw(width, 386px - 84px);
+    @include set-vw(height, 529px - 90px);
+    @include set-vw(gap, 23px);
+
+    .close-modal {
+        position: absolute;
+        @include set-vw(top, 20px);
+        @include set-vw(right, 20px);
+        @include set-vw(width, 35px);
+        @include set-vw(height, 35px);
+        @include svg-active-color($GR-2);
+    }
+
+    img {
+        @include set-vw(width, 110px);
+        @include set-vw(height, 110px);
+        @include set-vw(margin-top, 20px);
+        @include set-vw(margin-bottom, 20px);
+    }
+
+    .modal-text {
+        line-height: 160%;
+        word-break: keep-all;
+    }
+}

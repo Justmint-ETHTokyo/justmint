@@ -1,0 +1,113 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.nft-transfer {
+    .title-wrapper {
+        text-align: left;
+
+        .title {
+            @include set-vw(margin-bottom, 20px);
+        }
+        .subtitle {
+            color: $GR-4;
+            line-height: 160%;
+            .white {
+                color: white;
+            }
+        }
+    }
+
+    .nft-image {
+        filter: drop-shadow(0px 4px 20px rgba(92, 54, 238, 0.1));
+        @include image(140px);
+        @include set-vw(border-radius, 15px);
+        @include set-vw(margin-top, 60px);
+    }
+
+    .nft-chain-info {
+        width: -webkit-fill-availble;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include set-pair-vw(margin, 20px, 0px);
+    }
+
+    .transfer-preview {
+        b {
+            @include H4(true);
+        }
+
+        .transfer-wallet-address {
+            word-break: break-all;
+        }
+
+        line-height: 160%;
+        @include H5;
+        @include set-pair-vw(margin, 25px, 0px);
+    }
+
+    .transfer-warning {
+        color: #828282;
+        @include set-vw(margin-bottom, 28px);
+        @include H6;
+    }
+
+    .trasfer-status-container {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        @include set-vw(gap, 48px);
+
+        .iconify {
+            @include set-vw(width, 60px);
+            @include set-vw(height, 60px);
+        }
+
+        .transfer-warning {
+            color: $GR-3;
+        }
+
+        .trasfer-transaction-wrapper {
+            width: -webkit-fill-available;
+            text-align: left;
+            background-color: $GR-1;
+            @include active-scale;
+            @include set-vw(border-radius, 10px);
+            @include set-pair-vw(padding, 28px, 16px);
+
+            .transfer-transaction-id {
+                max-width: 90%;
+                font-weight: 500;
+                text-decoration: underline;
+                @include overFlowText(1);
+                @include set-vw(font-size, 18px);
+                @include set-vw(margin-top, 8px);
+                @include set-vw(margin-bottom, 6px);
+            }
+        }
+
+        .transfer-confirm-wrapper {
+            width: 100%;
+
+            .transfer-confirm-text {
+                @include set-vw(margin-top, 24px);
+            }
+        }
+    }
+
+    .loading-icon {
+        @include set-vw(width, 80px);
+        @include set-vw(height, 80px);
+    
+        path,
+        rect{
+            fill: #ED5F8A;
+        }
+    }
+
+    .transfer-status-wrapper {
+        line-height: 250%;
+    }
+}

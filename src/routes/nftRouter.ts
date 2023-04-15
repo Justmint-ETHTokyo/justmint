@@ -7,6 +7,8 @@ import upload from '../middlewares/upload';
 
 const router: Router = Router();
 
+router.get('/integrated', auth, nftController.getIntegratedNftList);
+
 router.post(
   '/integrated',
   [

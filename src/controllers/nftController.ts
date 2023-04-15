@@ -395,6 +395,28 @@ const deleteIntegratedNft = async (
   }
 };
 
+const getIntegratedNftList = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  try {
+    const data = await nftService.getIntegratedNftList(+userId);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(
+          statusCode.OK,
+          responseMessage.READ_INTEGRATED_NFT_SUCCESS,
+          data,
+        ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -412,4 +434,5 @@ export default {
   getToBeIntegratedNfts,
   updateIntegratedNft,
   deleteIntegratedNft,
+  getIntegratedNftList,
 };

@@ -611,6 +611,35 @@ const deleteIntegratedNft = async (userId: number, id: number) => {
   }
 };
 
+const getIntegratedNftList = async (userId: number) => {
+  try {
+    const IntegratedNftList = await prisma.user_has_integrated_nfts.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        integrated_nfts: {
+          select: {
+            chainType: true,
+          },
+        },
+      },
+    });
+    const data = await Promise.all(
+      IntegratedNftList.map((integratedNft: any) => {
+        const result = {
+          chainType: integratedNft.integrated_nfts.chainType,
+          integratedNftId: integratedNft.integratedNftId,
+        };
+        return result;
+      }),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -627,4 +656,5 @@ export default {
   getToBeIntegratedNfts,
   updateIntegratedNft,
   deleteIntegratedNft,
+  getIntegratedNftList,
 };

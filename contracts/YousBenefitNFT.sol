@@ -22,14 +22,6 @@ contract YoursBenefitNFT is ERC721Enumerable {
     address public owner;
     address public factory;
 
-    function isOwner() private view{
-        require(owner == msg.sender, "OnlyOwner");
-    }
-
-    function isFactory() private view {
-        require(factory == msg.sender, "OnlyFactory");
-    }
-
     uint256 private _tokenIds;
     string private _tokenURI;
 
@@ -37,6 +29,14 @@ contract YoursBenefitNFT is ERC721Enumerable {
     mapping(uint256 => uint256[]) public benefits;
     mapping (uint256 => uint8) locked;
 
+    function isOwner() private view{
+        require(owner == msg.sender, "OnlyOwner");
+    }
+
+    function isFactory() private view {
+        require(factory == msg.sender, "OnlyFactory");
+    }
+    
     constructor() {
         _isBase = 1;
     }

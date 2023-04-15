@@ -118,6 +118,28 @@ const getUserInfo = async (userId: number) => {
   }
 };
 
+const getQuestInfo = async (userId: number) => {
+  try {
+    const data = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+      select: {
+        isQuest: true,
+      },
+    });
+    if (!data) {
+      throw errorGenerator({
+        msg: responseMessage.NOT_FOUND,
+        statusCode: statusCode.NOT_FOUND,
+      });
+    }
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
@@ -125,4 +147,5 @@ export default {
   signUpUser,
   findUserByRfToken,
   getUserInfo,
+  getQuestInfo,
 };

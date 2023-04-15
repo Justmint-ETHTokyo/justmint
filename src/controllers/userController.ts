@@ -196,10 +196,29 @@ const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getQuestInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  try {
+    const data = await userService.getQuestInfo(+userId);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.GET_QUESTINFO_SUCCESS, data),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
   sendAuthMessage,
   verifyAuthCode,
   getUserInfo,
+  getQuestInfo,
 };

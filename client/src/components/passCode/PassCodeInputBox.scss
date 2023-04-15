@@ -1,0 +1,20 @@
+@import '../../style/var.scss';
+
+.passcode-input-box {
+    width: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    background-color: $GR-1;
+    @include set-pair-vw(padding, 15px, 18px);
+    @include set-vw(gap, 10px);
+    @include set-vw(border-radius, 10px);
+
+    .password-input {
+        flex-grow: 1;
+    }
+
+    .password-input-icon {
+        @include set-vw(width, 20px);
+        @include set-vw(height, 20px);
+    }
+}

@@ -421,6 +421,42 @@ const getNftRewardDetailInfo = async (rewardId: number) => {
   }
 };
 
+const deleteNftReward = async (
+  userId: number,
+  nftId: number,
+  rewardId: number,
+) => {
+  try {
+    const findCreaterNft = await prisma.nfts.findFirst({
+      where: {
+        id: nftId,
+        ownerId: userId,
+      },
+    });
+    if (!findCreaterNft) {
+      throw errorGenerator({
+        msg: responseMessage.NOT_NFT_CREATER,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    await prisma.admin_reward.delete({
+      where: {
+        id: rewardId,
+      },
+    });
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        isEdited: true,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -432,4 +468,5 @@ export default {
   createReward,
   updateRewardInfo,
   getNftRewardDetailInfo,
+  deleteNftReward,
 };

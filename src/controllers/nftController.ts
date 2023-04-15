@@ -282,6 +282,24 @@ const getNftRewardDetailInfo = async (
   }
 };
 
+const deleteNftReward = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { nftId, rewardId } = req.params;
+    await nftService.deleteNftReward(userId, +nftId, +rewardId);
+
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.DELETE_NFT_REWARD_SUCCESS));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -294,4 +312,5 @@ export default {
   createReward,
   updateRewardInfo,
   getNftRewardDetailInfo,
+  deleteNftReward,
 };

@@ -96,4 +96,12 @@ router.patch(
 
 router.get('/:rewardId/reward/detail', nftController.getNftRewardDetailInfo);
 
+router.delete(
+  '/:nftId/:rewardId',
+  [param('rewardId').notEmpty()],
+  errorValidator,
+  auth,
+  nftController.deleteNftReward,
+);
+
 export default router;

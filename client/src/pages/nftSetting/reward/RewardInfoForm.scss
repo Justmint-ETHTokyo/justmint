@@ -1,0 +1,10 @@
+@import '../../../style/var.scss';
+
+.reward-info-form {
+    .reward-info-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 70vh;
+        @include set-vw(gap, 20px);
+    }
+}

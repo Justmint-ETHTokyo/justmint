@@ -1,0 +1,93 @@
+@import '../../../style/var.scss';
+@import '../../../style/active.scss';
+
+.nft-setting-reward {
+    .title {
+        text-align: left;
+        display: flex;
+        align-items: center;
+        @include set-vw(gap, 10px);
+        @include set-vw(margin-bottom, 20px);
+
+        .reward-length {
+            @include H5;
+        }
+    }
+
+    .nft-setting-reward-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: 50vh;
+        @include set-vw(gap, 20px);
+        @include set-vw(margin-bottom, 50px);
+
+        .nft-reward-elem {
+            width: -webkit-fill-available;
+            background-color: $GR-1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            @include set-pair-vw(padding, 14px, 18px);
+            @include set-vw(height, 122px - 36px);
+            @include set-vw(border-radius, 15px);
+
+            .nft-reward-name {
+                width: 100%;
+                text-align: left;
+                @include H3;
+                @include overFlowText(2);
+            }
+        }
+
+        .reward-empty {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .reward-empty-text {
+                line-height: 150%;
+                color: $GR-4;
+                @include set-vw(margin-bottom, 25px);
+            }
+        }
+
+        .reward-add-button-wrapper {
+            width: -webkit-fill-available;
+            border: dashed $GR-2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include set-vw(height, 122px);
+            @include set-vw(border-radius, 15px);
+            @include set-vw(border-width, 2px);
+        }
+
+        .reward-add-button {
+            display: flex;
+            align-items: center;
+            background-color: $PU;
+            color: white;
+            @include set-vw(gap, 4px);
+            @include set-vw(border-radius, 30px);
+            @include set-pair-vw(padding, 12px, 20px);
+            @include active-scale;
+
+            svg {
+                @include set-vw(width, 24px);
+                @include set-vw(height, 24px);
+            }
+        }
+    }
+
+    .deploy-button-wrapper {
+        position: sticky;
+        @include set-vw(bottom, 30px);
+
+        .deploy-button-message {
+            @include set-vw(margin-bottom, 20px);
+        }
+    }
+}

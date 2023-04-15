@@ -235,6 +235,31 @@ const createReward = async (
   }
 };
 
+const updateRewardInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { nftId } = req.params;
+    const { rewardId, rewardName, description } = req.body;
+    await nftService.updateRewardInfo(
+      userId,
+      +nftId,
+      +rewardId,
+      rewardName,
+      description,
+    );
+
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.UPDATE_NFT_REWARD_SUCCESS));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,

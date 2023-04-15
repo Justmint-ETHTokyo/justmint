@@ -359,6 +359,48 @@ const createReward = async (
   }
 };
 
+const updateRewardInfo = async (
+  userId: number,
+  nftId: number,
+  rewardId: number,
+  rewardName: string,
+  description: string,
+) => {
+  try {
+    const findCreaterNft = await prisma.nfts.findFirst({
+      where: {
+        id: nftId,
+        ownerId: userId,
+      },
+    });
+    if (!findCreaterNft) {
+      throw errorGenerator({
+        msg: responseMessage.NOT_NFT_CREATER,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    await prisma.admin_reward.update({
+      where: {
+        id: rewardId,
+      },
+      data: {
+        rewardName,
+        description,
+      },
+    });
+    await prisma.nfts.update({
+      where: {
+        id: nftId,
+      },
+      data: {
+        isEdited: true,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -368,4 +410,5 @@ export default {
   verifyPhotoForNft,
   getRequestAuthPhoto,
   createReward,
+  updateRewardInfo,
 };

@@ -86,4 +86,11 @@ router.post(
   nftController.createReward,
 );
 
+router.patch(
+  '/:nftId/reward',
+  [body('rewardId').notEmpty(), body('rewardName'), body('description')],
+  errorValidator,
+  auth,
+  nftController.updateRewardInfo,
+);
 export default router;

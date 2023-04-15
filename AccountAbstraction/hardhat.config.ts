@@ -73,6 +73,11 @@ const config: HardhatUserConfig = {
       accounts: [process.env.WALLET_PRIVATE_KEY_DEV1!],
       chainId: 11155111,
     },
+    mumbai: {
+      url: process.env.MUMBAI_RPC,
+      accounts: [process.env.WALLET_PRIVATE_KEY_DEV1!],
+      chainId: 80001,
+    },
     proxy: getNetwork1("http://localhost:8545"),
   },
   mocha: {

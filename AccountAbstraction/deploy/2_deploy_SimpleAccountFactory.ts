@@ -20,9 +20,9 @@ const deploySimpleAccountFactory: DeployFunction = async function (
   const paymaster = await new TokenPaymaster__factory(
     provider.getSigner()
   ).deploy(
-    process.env.SEPOLIA_FACTORY_ADDRESS!,
+    process.env.MUMBAI_FACTORY_ADDRESS!,
     "ttt",
-    process.env.SEPOLIA_ENTRY_POINT_ADDRESS!
+    process.env.MUMBAI_ENTRY_POINT_ADDRESS!
   );
   const pmAddr = paymaster.address;
   const ownerAddr = await provider.getSigner().getAddress();

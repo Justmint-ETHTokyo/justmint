@@ -1,0 +1,73 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.profile-edit-page {
+    .profile-edit-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 70vh;
+
+        .profile-image-wrapper {
+            width: 100%;
+            border-bottom: solid #333333;
+            @include set-vw(border-width, 6px);
+            @include set-pair-vw(padding, 24px, 0px);
+
+            label {
+                margin: auto;
+            }
+        }
+
+        .profile-input-wrapper {
+            width: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+
+            .profile-input-elem {
+                width: -webkit-fill-available;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid $GR-2;
+                @include set-vw(gap, 28px);
+                @include set-pair-vw(padding, 11px, 0px);
+                @include H5;
+
+                .input-title {
+                    color: $GR-4;
+                    flex-shrink: 0;
+                }
+
+                .input {
+                    text-align: left;
+                    flex-grow: 1;
+                    @include H5;
+                    @include set-vw(width, 100px);
+                }
+
+                button {
+                    background-color: $BK;
+                    color: white;
+                    flex-shrink: 0;
+                    @include set-vw(width, 78px);
+                    @include set-vw(height, 37px);
+                    @include set-vw(border-radius, 10px);
+                    @include active-scale;
+
+                    &.save-edit {
+                        background-color: $PU;
+                    }
+                }
+            }
+        }
+    }
+
+    .logout {
+        width: fit-content;
+        margin-right: auto;
+        text-align: left;
+        color: $GR-3;
+        @include set-vw(margin-top, 32px);
+        @include H5;
+    }
+}

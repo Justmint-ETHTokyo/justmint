@@ -1,0 +1,31 @@
+@import '../../../style/var.scss';
+
+.reward-detail-page {
+    text-align: left;
+
+    .content-wrapper {
+        min-height: 65vh;
+        @include set-vw(margin-bottom, 50px);
+    }
+
+    .title {
+        word-break: break-all;
+        @include set-vw(margin-bottom, 25px);
+    }
+
+    .description {
+        line-height: 160%;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-weight: 400;
+        @include set-vw(font-size, 16px);
+    }
+
+    .button-wrapper {
+        position: sticky;
+        width: 100%;
+        display: flex;
+        @include set-vw(bottom, 30px);
+        @include set-vw(gap, 15px);
+    }
+}

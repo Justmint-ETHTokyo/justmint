@@ -1,0 +1,44 @@
+@import '../../style/var.scss';
+
+.modal-wrapper.nftphoto-discard-modal {
+    overflow: hidden;
+    background: #000000;
+    backdrop-filter: blur(10px);
+    @include set-vw(width, 386px);
+    @include set-vw(border-radius, 20px);
+
+    .modal-title {
+        text-align: center;
+        line-height: 160%;
+        @include set-vw(margin-top, 73px);
+        @include set-vw(margin-bottom, 38px);
+    }
+
+    .modal-body {
+        width: -webkit-fill-available;
+        @include set-vw(margin-bottom, 35px);
+        @include set-pair-vw(padding, 0px, 23px);
+
+        .reject-reason-input-wrapper {
+            width: -webkit-fill-available;
+            background: $GR-1;
+            @include set-vw(padding, 14px);
+            @include set-vw(border-radius, 10px);
+
+            textarea {
+                width: -webkit-fill-available;
+                font-weight: 400;
+                color: white;
+                @include set-vw(font-size, 16px);
+            }
+        }
+    }
+
+    .modal-footer {
+        display: flex;
+
+        button {
+            border-radius: 0;
+        }
+    }
+}

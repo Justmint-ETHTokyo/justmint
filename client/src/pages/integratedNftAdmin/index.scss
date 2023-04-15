@@ -1,0 +1,22 @@
+@import '../../style/var.scss';
+
+.integratednft-admin {
+
+    .available-nft-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        @include set-vw(gap, 18px);
+        @include set-vw(margin-bottom, 24px);
+    }
+
+    .included-nft-container {
+        @include set-vw(margin-top, 4px);
+    }
+
+    .nft-description {
+        text-align: left;
+        line-height: 160%;
+        @include set-vw(margin-bottom, 27px);
+    }
+}

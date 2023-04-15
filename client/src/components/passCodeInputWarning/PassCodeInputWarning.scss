@@ -1,0 +1,43 @@
+@import '../../style/var.scss';
+
+.passcode-input-warning {
+    .passcode-warning-wrapper {
+        @include set-vw(margin-top, 46px);
+        @include set-vw(margin-bottom, 30px);
+
+        .passcode-warning-image {
+            @include set-vw(width, 66px);
+            @include set-vw(height, 66px);
+            @include set-vw(margin-bottom, 14px);
+        }
+
+        .warning-title {
+            font-weight: 700;
+            @include set-vw(font-size, 16px);
+            @include set-vw(margin-top, 27px);
+            @include set-vw(margin-bottom, 25px);
+        }
+
+        .warning-description { line-height:  160%; }
+    }
+
+    .passcode-input-wrapper {
+        position: relative;
+        @include set-vw(margin-bottom, 100px);
+
+        .passcode-input {
+            width: -webkit-fill-available;
+            background: $BK;
+            @include set-vw(border-radius, 15px);
+            @include set-pair-vw(padding, 20px, 15px);
+        }
+
+        .passcode-error {
+            position: absolute;
+            left: 0; top: 115%;
+            color: $RE;
+            @include H5;
+            @include animation-bounce;
+        }
+    }
+}

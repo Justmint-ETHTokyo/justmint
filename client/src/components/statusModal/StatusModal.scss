@@ -1,0 +1,41 @@
+@import '../../style/var.scss';
+
+.modal-wrapper.status-modal {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    @include set-vw(width, 385px - 40px);
+    @include set-vw(padding, 20px);
+    @include set-vw(border-radius, 20px);
+
+    .modal-header {
+        position: relative;
+        
+        .modal-close {
+            position: absolute;
+            top: 0; right: 0;
+            @include set-vw(width, 35px);
+            @include set-vw(height, 35px);
+        }
+    }
+    
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include set-vw(padding, 35px);
+        @include set-vw(gap, 38px);
+
+        .status-image {
+            @include set-vw(width, 126px);
+            @include set-vw(height, 126px);
+        }
+
+        .status-text {
+            font-weight: 400;
+            line-height: 160%;
+            @include set-vw(font-size, 18px);
+
+            b { color: $GN; }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+@import '../../../style/var.scss';
+
+.create-integrated-nft-input-form {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    @include set-vw(gap, 20px);
+
+    .nft-list-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        @include set-vw(gap, 18px);
+        @include set-vw(margin-bottom, 24px);
+    }
+
+    .nft-description {
+        text-align: left;
+        line-height: 160%;
+        @include set-vw(margin-bottom, 27px);
+    }
+}

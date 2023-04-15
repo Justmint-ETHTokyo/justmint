@@ -1,0 +1,30 @@
+@import '../../style/var.scss';
+
+.deploy-nft-reward-elem {
+    width: -webkit-fill-available;
+    background: $GR-1;
+    text-align: left;
+    @include set-vw(border-radius, 15px);
+    @include set-pair-vw(padding, 24px, 18px);
+
+    .nft-reward-name {
+        width: -webkit-fill-available;
+        word-break: break-all;
+    }
+
+    .nft-reward-description {
+        width: -webkit-fill-available;
+        word-break: break-all;
+        line-height: 160%;
+    }
+
+    &#overflow-hidden {
+        .nft-reward-name {
+            @include overFlowText(1);
+        }
+    
+        .nft-reward-description {
+            @include overFlowText(2);
+        }
+    }
+}

@@ -1,0 +1,63 @@
+@import '../../../style/var.scss';
+
+.integrated-nft-create-success {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    @include set-vw(margin-top, 15px);
+
+    .integrated-card-image {
+        position: relative;
+        @include set-vw(width, 380px);
+        @include set-vw(top, 50px);
+        animation: bounceSpace 2.5s infinite;
+    }
+
+    .congratulations {
+        color: $GN;
+        @include H2(true);
+    }
+
+    .integrated-nft-text {
+        line-height: 160%;
+        @include H3;
+        @include set-vw(margin-top, 20px);
+        @include set-vw(margin-bottom, 50px);
+
+        b {
+            @include H2(true);
+        }
+    }
+
+    .integrated-nft-info-title {
+        text-align: left;
+        text-decoration: underline;
+        text-underline-position: under;
+        @include set-vw(margin-bottom, 20px);
+    }
+
+    .integrated-nft-info-wrapper {
+        width: -webkit-fill-available;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include set-vw(gap, 20px);
+        @include set-vw(margin-bottom, 50px);
+
+        .integrated-nft-info {
+            width: -webkit-fill-available;
+            display: flex;
+            align-items: center;
+            @include set-vw(gap, 10px);
+            @include H6;
+
+            .integrated-nft-info-content {
+                flex-grow: 1;
+                text-align: right;
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+
+.mini-header-container {
+    width: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    @include set-vw(height, 64px);
+    @include set-vw(margin-bottom, 12px);
+    @include H2(eng);
+
+    .mini-header-title {
+        @include set-vw(max-width, 220px);
+        @include overFlowText(1);
+    }
+
+    .mini-header-goback {
+        width: auto;
+        position: absolute;
+        left: 0;
+        cursor: pointer;
+        @include transition(0.4s);
+        @include set-vw(height, 20px);
+
+        &:active {
+            @include translate(-5px, 0);
+        }
+    }
+}

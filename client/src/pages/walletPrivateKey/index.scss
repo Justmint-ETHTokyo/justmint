@@ -1,0 +1,21 @@
+@import '../../style/var.scss';
+
+.wallet-privatekey-page {
+    .check-privatekey-page {
+        @include set-vw(padding-top, 47px);
+        @include set-vw(padding-bottom, 47px);
+
+        .privatekey-warning-title {
+            color: $RE;
+            font-weight: 700;
+            @include set-vw(font-size, 16px);
+            @include set-vw(margin-top, 43px);
+            @include set-vw(margin-bottom, 25px);
+        }
+    
+        .privatekey-warning-text {
+            line-height: 160%;
+            color: $GR-5;
+        }
+    }
+}

@@ -1,0 +1,93 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.nftadmin-page {
+    text-align: left;
+
+    .content-subtitle {
+        color: $GR-4;
+        @include set-vw(margin-bottom, 10px);
+    }
+
+    .nftadmin-description {
+        line-height: 150%;
+        white-space: pre-wrap;
+        word-break: break-all;
+        @include set-vw(min-height, 100px);
+    }
+
+    .nftadmin-all {
+        .content-title {
+            @include set-vw(margin-top, 14px);
+            @include set-vw(margin-bottom, 14px);
+        }
+        .nft-application-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            @include set-vw(min-height, 300px);
+
+            .nft-application-wrapper {
+                display: flex;
+                align-items: center;
+                @include set-vw(gap, 10px);
+                @include set-vw(height, 76px);
+
+                .profile-image {
+                    object-position: center;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    @include set-vw(width, 40px);
+                    @include set-vw(height, 40px);
+                }
+
+                .user-name {
+                    flex-grow: 1;
+                    @include overFlowText(1);
+                }
+
+                .goto-admin-detail {
+                    color: white;
+                    background: $BK;
+                    @include H6;
+                    @include set-vw(border-radius, 10px);
+                    @include set-pair-vw(padding, 10px, 14.5px);
+                    @include active-scale;
+                }
+            }
+
+            .nft-application-empty {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $GR-4;
+                @include set-vw(height, 300px);
+            }
+        }
+    }
+
+    .nftadmin-detail {
+        .user-profile-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include set-vw(gap, 10px);
+            @include set-vw(margin-bottom, 20px);
+
+            .profile-image {
+                @include image(40px);
+            }
+        }
+
+        .nftadmin-detail-image {
+            @include set-pair-vw(margin, 20px, 0px);
+            @include image(386px, 515px, false);
+        }
+
+        .button-wrapper {
+            display: flex;
+            @include set-vw(gap, 10px);
+        }
+    }
+}

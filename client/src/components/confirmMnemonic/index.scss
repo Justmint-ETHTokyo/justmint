@@ -1,0 +1,41 @@
+@import '../../style/var.scss';
+
+.confirm-mnemonic {
+    .passcode-page {
+        .passcode-description {
+            text-align: left;
+            line-height: 160%;
+            background: #000000;
+            @include set-vw(border-radius, 15px);
+            @include set-pair-vw(padding, 24px, 15px);
+            @include H5;
+        }
+    }
+
+    .save-mnemonic-page {
+        .mnemonic-copy-description {
+            line-height: 160%;
+            font-weight: 500;
+            @include set-vw(font-size, 16px);
+        }
+
+        .mnemonic-copy-tip-wrapper {
+            @include set-pair-vw(margin, 100px, 0px);
+        }
+        
+        .mnemonic-copy-tip {
+            background-color: $GN;
+            @include set-vw(border-radius, 20px);
+            @include set-pair-vw(padding, 7px, 12px);
+
+            h4 { color: $BK; }
+
+            img {
+                @include set-vw(width, 24px);
+                @include set-vw(height, 24px); 
+            }
+        }
+
+        .mnemonic-copy-tip-text { line-height: 160%; }
+    }
+}

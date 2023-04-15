@@ -1,0 +1,37 @@
+@import '../../style/var.scss';
+
+.yours-wallet-tutorial {
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    @include set-vw(gap, 35px);
+
+    .tutorial-text {
+        line-height: 160%;
+        text-align: left;
+        line-height: 160%;
+        @include H4;
+        @include set-vw(margin-bottom, 25px);
+    }
+
+    .tutorial-description {
+        text-align: left;
+        line-height: 160%;
+        @include set-vw(margin-bottom, 27px);
+    }
+
+    .tutorial-more-info {
+        text-align: left;
+        @include set-pair-vw(margin, 35px, 0px);
+
+        img {
+            @include set-vw(width, 24px);
+            @include set-vw(height, 24px);
+        }
+    }
+
+    .tutorial-more-info-container {
+        border-top: solid $GR-1;
+        @include set-vw(border-width, 6px);
+    }
+}

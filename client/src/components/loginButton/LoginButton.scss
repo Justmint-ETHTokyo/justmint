@@ -1,0 +1,16 @@
+@import '../../style/var.scss';
+
+.google-login-button {
+    font-weight: 400 !important;
+    font-family: 'MADE Okine Sans PERSONAL USE';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include set-vw(padding, 10px);
+    @include set-vw(gap, 10px);
+
+    .google-logo {
+        @include set-vw(width, 17px);
+        @include set-vw(height, 17px);
+    }
+}

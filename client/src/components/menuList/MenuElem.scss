@@ -1,0 +1,31 @@
+@import '../../style/var.scss';
+
+.menu-component-elem {
+    width: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $GR-2;  
+    @include set-vw(gap, 8px);
+    @include set-pair-vw(padding, 24px, 0px);
+
+    svg {
+        @include set-vw(width, 24px);
+        @include set-vw(height, 24px);
+    }
+
+    .menu-component-elem-name {
+        flex-grow: 1;
+        text-align: left;
+        @include H3;
+    }
+
+    &:active .menu-component-elem-icon {
+        animation: go-right 0.5s infinite;
+
+        @keyframes go-right {
+            0% { transform: translateX(0); }
+            80% { transform: translateX(0.8vh); }
+            100% { transform: translateX(0); }
+        }
+    }
+}

@@ -1,0 +1,159 @@
+@import '../../style/var.scss';
+
+.create-badge {
+    .title-wrapper {
+        text-align: left;
+        @include set-vw(margin-bottom, 45px);
+        @include set-vw(margin-top, 50px);
+
+        .title {
+            line-height: 150%;
+        }
+
+        .subtitle {
+            margin-bottom: 60px;
+            white-space: pre-wrap;
+            font-weight: 400;
+            color: $GR-4;
+            @include set-vw(margin-top, 10px);
+        }
+    }
+
+    .nft-create-info-form {
+        display: flex;
+        flex-direction: column;
+        @include set-vw(gap, 46px);
+        @include set-vw(margin-bottom, 50px);
+        min-height: 50vh;
+    }
+
+    .button-wrapper {
+        position: sticky;
+        bottom: 3vh;
+        display: flex;
+        @include set-vw(gap, 10px);
+    }
+
+    .chain-select-wrapper {
+        @include set-vw(width, 205px);
+    }
+
+    .certification-button-wrapper {
+        width: 100%;
+        min-height: 50vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        @include set-vw(gap, 17px);
+    }
+
+    .input-certification-email-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        @include set-vw(gap, 5px);
+
+        .at {
+            content: "@";
+            font-weight: 500;
+            color: $GR-4;
+            position: absolute;
+            left: 0px; top: 0px;
+            @include set-vw(font-size, 22px);
+            // @include set-vw(margin-bottom, 6px);
+        }
+        .input-text { 
+            flex-grow: 1;
+            @include set-vw(padding-left, 25px);
+        }
+    }
+
+    .photo-description-preview-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include set-vw(gap, 30px);
+        @include set-vw(margin-top, 40px);
+        @include set-vw(margin-bottom, 40px);
+
+        .photo-description {
+            word-break: break-all;
+            white-space: pre-wrap;
+            font-weight: 600;
+            @include H3;
+        }
+
+        .photo-description-warning {
+            color: $RE;
+            @include H5;
+        }
+    }
+
+    .chain-info {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        @include set-vw(gap, 6px);
+
+        img {
+            @include set-vw(width, 28px);
+            @include set-vw(height, 28px);
+        }
+    }
+
+    .whitelist-wrapper {
+        position: relative;
+        @include set-vw(margin-top, 50px);
+
+        .show-whitelist-info {
+            font-weight: 500;
+            color: #828282;
+            text-decoration: underline;
+            @include set-vw(font-size, 14px);
+        }
+
+        .whitelist-info-wrapper {
+            position: absolute;
+            background: $GN;
+            color: $BK;
+            text-align: left;
+            left: 0;
+            bottom: 150%;
+            display: none;
+            @include set-vw(width, 392px - 30px);
+            @include set-vw(border-radius, 15px);
+            @include set-pair-vw(padding, 24px, 15px);
+
+            .whitelist-info-title {
+                @include set-vw(margin-bottom, 10px);
+
+                .pushpin-icon {
+                    position: relative;
+                    @include set-vw(top, 5px);
+                    @include set-vw(width, 26px);
+                    @include set-vw(height, 26px);
+                    @include set-vw(margin-left, 5px);
+                }
+            }
+
+            .whitelist-info-description {
+                font-weight: 400;
+                line-height: 165%;
+                word-break: keep-all;
+                @include set-vw(font-size, 14px);
+
+                a {
+                    color: $BK;
+                    text-decoration: underline;
+                }
+            }
+        }
+        
+        .show-whitelist-info:focus + .whitelist-info-wrapper {
+            display: block;
+            @include show-bounce-up;
+        }
+    }
+}

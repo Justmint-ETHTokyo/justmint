@@ -1,0 +1,39 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.wallet-privacy-change-passcode {
+    .enter-old-passcode {
+        min-height: 75vh;
+
+        .input-box-wrapper {
+            position: relative;
+            margin-bottom: auto;
+            @include set-vw(margin-bottom, 400px);
+
+            .input-status {
+                position: absolute;
+                left: 0;
+                top: 105%;
+            }
+        }
+        .input-textbox {
+            background-color: black;
+        }
+
+        .button-wrapper {
+            width: -webkit-fill-available;
+            position: sticky;
+            @include set-vw(bottom, 30px);
+
+            .lose-passcode {
+                text-decoration: underline;
+                text-underline-position: unset;
+                color: $GR-3;
+                font-weight: 500;
+                @include set-vw(font-size, 14px);
+                @include set-vw(margin-bottom, 60px);
+                @include active-color($GR-4, color);
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+@import '../../style/var.scss';
+
+.included-nft-wrapper {
+    width: -webkit-fill-available;
+
+    &#disabled h4 { 
+        color: $GR-3;
+    }
+
+    img {
+        object-fit: cover;
+        object-position: center;
+        @include set-vw(width, 65px);
+        @include set-vw(height, 65px);
+        @include set-vw(border-radius, 10px);
+    }
+
+    h4 { 
+        text-align: left; 
+        flex-grow: 1; 
+        @include overFlowText(1);
+    }
+}

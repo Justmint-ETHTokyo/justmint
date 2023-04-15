@@ -1,0 +1,41 @@
+@import '../../style/var.scss';
+@import '../../style/transform.scss';
+
+.alert-container {
+    width: max-content;
+    position: fixed;
+    left: 50%;
+    z-index: 100;
+    opacity: 1;
+    display: flex;
+    backdrop-filter: blur(7.5px);
+    pointer-events: none;
+    @include translate(-50%, 0);
+    @include transition(0.7s);
+
+    @include set-vw(top, $navbar-height + 10px);
+    @include set-vw(max-width, 430px - 50px - 30px);
+    @include set-vw(padding, 25px);
+    @include set-vw(gap, 10px);
+    @include set-vw(border-radius, 20px);
+
+    &#positive { background: rgba(255, 84, 176, 0.8); }
+    &#negative { background: rgba(0, 0, 0, 0.8); }
+
+    &.alert-container--hidden {
+        opacity: 0;
+        top: 0;
+    }
+
+    .alert-image {
+        @include set-vw(width, 24px);
+        @include set-vw(height, 24px);
+    }
+
+    .alert-text {
+        flex-grow: 1;
+        white-space: pre-wrap;
+        line-height: 160%;
+        text-align: left;
+    }
+}

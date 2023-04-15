@@ -1,0 +1,62 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.navbar {
+    background: $GR-0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include transition;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    @include set-vw(width, 430px - 44px);
+    @include set-vw(height, $navbar-height);
+    @include set-vw(padding-left, 22px);
+    @include set-vw(padding-right, 22px);
+
+    &.navbar--transparent {
+        background: transparent;
+        position: absolute;
+
+        button.navbar-create-badge { display: none; }
+    }
+
+    .navbar-logo {
+        height: auto;
+        @include set-vw(width, 105px);
+    }
+
+    .navbar-right-wrapper {
+        display: flex;
+        align-items: center;
+        @include set-vw(gap, 12px);
+    }
+
+    button.navbar-create-badge {
+        display: flex;
+        align-items: center;
+        background: linear-gradient(101.21deg, #5C36EE 11.87%, #FF44A9 131.69%), #FFFFFF;
+        color: white;
+        @include H4(true);
+        font-weight: 400;
+        @include set-pair-vw(padding, 6.5px, 11px);
+        @include set-vw(border-radius, 20px);
+        @include active-scale;
+
+        svg {
+            @include set-vw(width, 19px);
+            @include set-vw(height, 19px);
+            @include set-vw(margin-left, 4px);
+        }
+    }
+
+    .navbar-profile-image {
+        border-radius: 50%;
+        object-fit: cover;
+        float: right;
+        @include set-vw(width, 33px);
+        @include set-vw(height, 33px);
+        @include active-scale;
+    }
+}

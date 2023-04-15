@@ -1,0 +1,64 @@
+@import '../../../style/var.scss';
+@import '../../../style/transform.scss';
+@import '../../../style/active.scss';
+
+.integrated-nft-container {
+    position: absolute;
+    width: fit-content;
+    @include set-vw(bottom, 16px);
+    @include set-vw(right, 16px);
+    display: flex;
+    align-items: center;
+
+    .integrated-nft-button-wrapper {
+        @include set-vw(width, 28px);
+        @include transition(0.4s);
+
+        &:nth-child(n):hover {
+            animation: showPop;
+            @include translate(-2vh, 0);
+        }
+        &:last-child:hover {
+            @include transform(none);
+        }
+    }
+
+    .integrated-nft-button {
+        float: right;
+        @include set-vw(width, 102px);
+        @include set-vw(height, 116px);
+        @include set-vw(border-radius, 10px);
+        @include set-pair-vw(padding, 14px, 8px);
+        @include active-scale;
+
+        .integrated-nft-name {
+            font-family: 'MADE Okine Sans PERSONAL USE';
+            font-weight: 500;
+            color: white;
+            margin-bottom: auto;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            height: -webkit-fill-available;
+            @include set-vw(font-size, 12px);
+        }
+
+        svg {
+            position: absolute;
+            @include set-vw(left, 8px);
+            @include set-vw(bottom, 14px);
+            @include set-vw(width, 15px);
+            @include set-vw(height, 15px);
+        }
+
+        &.create-nft {
+            background-color: $GN;
+            color: $BK;
+            line-height: 160%;
+            text-align: center;
+            color: white;
+            background: linear-gradient(227.26deg, rgba(243, 243, 243, 0.4) 25.99%, rgba(243, 243, 243, 0) 231.45%);
+            @include H5(eng);
+        }
+    }
+}

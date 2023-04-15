@@ -37,12 +37,12 @@ module.exports = {
     go: {
       chainId: 5,
       accounts: [process.env.WALLET_SECRET],
-      url: process.env.GO_RPC,
+      url: process.env.GORIL_RPC,
       initialBaseFeePerGas: 0,
       loggingEnabled: true,
     },
     polygon_mumbai: {
-      url: process.env.MUMBAI_API_URL,
+      url: process.env.MUMBAI_RPC,
       accounts: [`0x${process.env.WALLET_SECRET}`],
     },
     sepolia: {

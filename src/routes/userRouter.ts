@@ -25,4 +25,12 @@ router.get(
   userController.checkWallet,
 );
 
+router.get('/aaWallet', errorValidator, auth, userController.createWalletOp);
+router.post(
+  '/aaWallet',
+  [body('createOpWithSign').notEmpty()],
+  auth,
+  userController.handleWalletOp,
+);
+
 export default router;

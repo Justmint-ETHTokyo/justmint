@@ -205,6 +205,24 @@ const checkWallet = async (address: string) => {
   }
 };
 
+const saveContractWalletAddress = async (
+  userId: number,
+  walletAddress: string,
+) => {
+  try {
+    const data = await prisma.user_contractWallet.create({
+      data: {
+        userId,
+        chainType: 'Ethereum',
+        walletAddress,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
@@ -217,4 +235,5 @@ export default {
   updateSecret,
   getWalletInfo,
   checkWallet,
+  saveContractWalletAddress,
 };

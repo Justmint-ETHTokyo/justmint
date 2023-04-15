@@ -13,6 +13,11 @@ import { createAuthCode, saveAuthCode, verifyCode } from '../modules/code';
 import makeSignature from '../modules/getSignature';
 import config from '../config';
 import axios from 'axios';
+import {
+  createAAaccountOp,
+  handleCreateWalletOp,
+} from '../contract/Ethereum/etherContract';
+import { UserOperation } from '../modules/AAtools/UserOperation';
 
 const getSocialUser = async (
   req: Request,
@@ -279,6 +284,45 @@ const checkWallet = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const createWalletOp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const userInfo = await userService.getWalletInfo(+userId);
+    userInfo.filter((wallet) => wallet.chainType == 'Ethereum');
+    const walletAddress = userInfo[0].walletAddress;
+    const data = await createAAaccountOp(walletAddress as string);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.UNSIGNED_OP_CREATED, data));
+  } catch (error) {
+    next(error);
+  }
+};
+
+const handleWalletOp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { createOpWithSign } = req.body;
+    const strCreateOp = JSON.stringify(createOpWithSign);
+    const createOp: UserOperation = JSON.parse(strCreateOp);
+    const data = await handleCreateWalletOp(createOp);
+    await userService.saveContractWalletAddress(+userId, createOp.sender);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.UNSIGNED_OP_CREATED, data));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
@@ -290,4 +334,6 @@ export default {
   updateSecret,
   getWalletInfo,
   checkWallet,
+  createWalletOp,
+  handleWalletOp,
 };

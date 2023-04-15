@@ -640,6 +640,66 @@ const getIntegratedNftList = async (userId: number) => {
   }
 };
 
+const getNftInfo = async (nftId: number) => {
+  const data = await prisma.nfts.findFirst({
+    where: {
+      id: nftId,
+    },
+  });
+  if (!data) {
+    throw errorGenerator({
+      msg: responseMessage.BAD_REQUEST,
+      statusCode: statusCode.BAD_REQUEST,
+    });
+  }
+  // if (!data.nftAddress) {
+  //   throw errorGenerator({
+  //     msg: responseMessage.READ_NFT_ADDRESS_FAIL,
+  //     statusCode: statusCode.DB_ERROR,
+  //   });
+  // }
+  return data;
+};
+
+const getNftWalletAddress = async (userId: number, chainType: string) => {
+  try {
+    const findNft = await prisma.user_contractWallet.findFirst({
+      where: {
+        userId,
+        chainType,
+      },
+    });
+    if (!findNft) {
+      throw errorGenerator({
+        msg: responseMessage.READ_NFT_FAIL,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    return findNft.walletAddress;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const verifyMailForNft = async (
+  userId: number,
+  nftId: number,
+  mintId: number,
+) => {
+  try {
+    const data = await prisma.user_has_nfts.create({
+      data: {
+        userId,
+        nftId,
+        mintId,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -657,4 +717,7 @@ export default {
   updateIntegratedNft,
   deleteIntegratedNft,
   getIntegratedNftList,
+  getNftInfo,
+  getNftWalletAddress,
+  verifyMailForNft,
 };

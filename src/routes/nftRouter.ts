@@ -73,6 +73,13 @@ router.post(
 );
 
 router.post(
+  '/email/verification',
+  [body('code').notEmpty()],
+  errorValidator,
+  nftController.verifyMailForNft,
+);
+
+router.post(
   '/verification/photo',
   upload.single('image'),
   [body('nftId').notEmpty()],

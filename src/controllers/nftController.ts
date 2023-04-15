@@ -3,9 +3,15 @@ import { responseMessage, statusCode } from '../modules/constants';
 import { fail, success } from '../modules/constants/util';
 import nftService from '../services/nftService';
 import { createNftDto, userInfo } from './../interfaces/user/DTO';
-import { encodeByAES56 } from '../modules/crypto';
-import { saveMailAuthCode } from '../modules/code';
+import { decodeByAES256, encodeByAES56 } from '../modules/crypto';
+import { saveMailAuthCode, verifyCode } from '../modules/code';
 import { sendMail } from '../modules/mail';
+import {
+  etherProvider,
+  mintEtherNFT,
+} from '../contract/Ethereum/etherContract';
+import { ethers } from 'ethers';
+import etherBenefitData from '../contract/Ethereum/YoursBenefitNFT.json';
 
 const getInfoByType = async (
   req: Request,
@@ -417,6 +423,73 @@ const getIntegratedNftList = async (
   }
 };
 
+const verifyMailForNft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { code } = req.body;
+
+    const codeInfo = await decodeByAES256(code);
+    const userInfo: userInfo = JSON.parse(codeInfo);
+    const verify = await verifyCode(userInfo.email, code);
+    if ((await verify) == false) {
+      return res
+        .status(statusCode.BAD_REQUEST)
+        .send(
+          fail(statusCode.BAD_REQUEST, responseMessage.VERIFY_EMAIL_AUTH_FAIL),
+        );
+    }
+
+    const getNftInfo = await nftService.getNftInfo(+userInfo.nftId);
+
+    switch (getNftInfo?.chainType) {
+      case 'Ethereum': {
+        const walletAddress = await nftService.getNftWalletAddress(
+          +userInfo.userId,
+          getNftInfo?.chainType,
+        );
+
+        const nftContract = new ethers.Contract(
+          getNftInfo.nftAddress as string,
+          etherBenefitData.abi,
+          etherProvider,
+        );
+
+        const mintNftInfo = await mintEtherNFT(
+          nftContract,
+          walletAddress as string,
+        );
+
+        const verifyInfo = await nftService.verifyMailForNft(
+          userInfo.userId,
+          userInfo.nftId,
+          mintNftInfo.mintId,
+        );
+
+        const data = {
+          userId: verifyInfo.userId,
+          nftId: verifyInfo.nftId,
+          transactionHash: mintNftInfo.transactionHash,
+          date: mintNftInfo.date,
+        };
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(
+              statusCode.OK,
+              responseMessage.VERIFY_EMAIL_AUTH_SUCCESS,
+              data,
+            ),
+          );
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -435,4 +508,5 @@ export default {
   updateIntegratedNft,
   deleteIntegratedNft,
   getIntegratedNftList,
+  verifyMailForNft,
 };

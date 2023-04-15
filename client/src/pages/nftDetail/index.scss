@@ -1,0 +1,173 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+@import '../../style/transform.scss';
+
+.nft-detail-page {
+    .header-icon-wrapper {
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        @include set-vw(gap, 10px);
+
+        .nft-detail-admin {
+            @include active-rotate;
+        }
+        .nft-detail-transfer {
+            transition: 0.3s; 
+            &:active {
+                @include transform(scale(0.8) translate(1vh, -1vh));
+            }
+        }
+
+        svg {
+            @include set-vw(width, 24px);
+            @include set-vw(height, 24px);
+        }
+    }
+
+    .nft-detail-content-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include show-down(1.5s);
+        @include set-vw(gap, 20px);
+        @include set-vw(margin-bottom, 50px);
+        
+        .nft-image {
+            object-fit: cover;
+            filter: drop-shadow(0px 4px 20px rgba(92, 54, 238, 0.1));
+            @include set-vw(width, 205px);
+            @include set-vw(height, 205px);
+            @include set-vw(border-radius, 15px);
+        }
+
+        .nft-detail-button-wrapper {
+            display: flex;
+            button {
+                display: flex;
+                align-items: center;
+                @include set-vw(height, 32px);
+                @include set-vw(padding-left, 10px);
+                @include set-vw(padding-right, 10px);
+                @include set-vw(border-radius, 20px);
+                @include H5(eng);
+
+                svg {
+                    @include set-vw(width, 24px);
+                    @include set-vw(height, 24px);
+                    @include set-vw(margin-right, 4px);
+                }
+
+                &.nft-owner {
+                    background-color: $GN;
+                    @include active-scale;
+                    b, span {
+                        color: $BK;
+                    }
+                }
+
+                &.nft-share {
+                    color: $GR-4;
+                    position: relative;
+                    svg path { fill: $GR-4; }
+                    @include active-scale;
+
+                    .nft-linkcopy-wrapper {
+                        width: max-content;
+                        position: absolute;
+                        left: 0;
+                        bottom: 100%;
+                        background: #000000;
+                        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                        opacity: 0;
+                        pointer-events: none;
+                        @include set-pair-vw(padding, 11px, 23px);
+                        @include set-vw(border-radius, 5px);
+                        @include H5(eng);
+                    }
+
+                    &:focus {
+                        .nft-linkcopy-wrapper {
+                            opacity: 1;
+                            pointer-events: fill;
+                            @include show-bounce-up;
+                        }
+                    }
+                }
+            }
+        }
+
+        .nft-detail-description {
+            width: 100%;
+            font-weight: 500;
+            text-align: left;
+            color: $GR-6;
+            line-height: 170%;
+            white-space: pre-wrap;
+            word-break: break-all;
+            @include set-vw(min-height, 100px);
+            @include set-vw(font-size, 14px);
+        }
+
+        .nft-reward-wrapper {
+            width: 100%;
+            text-align: left;
+
+            .nft-reward-title-wrapper {
+                display: flex;
+                align-items: center;
+                @include set-vw(margin-top, 5px);
+                @include set-vw(margin-bottom, 13px);
+
+                .nft-reward-title {
+                    text-decoration: underline;
+                    text-underline-position: under;
+                    @include H2(eng);
+                }
+                .nft-reward-length {
+                    color: $GR-4;
+                    @include set-vw(margin-left, 10px);
+                    @include H5;
+                }
+            }
+        }
+
+        .nft-reward-empty {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $GR-4;
+            @include set-vw(height, 300px);
+            @include H3;
+        }
+    }
+
+    .get-nft-button {
+        position: sticky;
+        bottom: 2vh;
+    }
+
+    .nft-info-wrapper {
+        width: 100%;
+        .nft-info-row {
+            width: 100%;
+            display: flex;
+            @include set-vw(gap, 100px);
+            @include H6;
+
+            .title {
+                flex-shrink: 0;
+                text-align: left;
+            }
+
+            .content {
+                flex-grow: 1;
+                text-align: right;
+                @include overFlowText(1);
+            }
+        }
+    }
+}

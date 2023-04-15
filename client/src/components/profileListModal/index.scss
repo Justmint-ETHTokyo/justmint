@@ -1,0 +1,71 @@
+@import '../../style/var.scss';
+@import '../../style/active.scss';
+
+.modal .modal-wrapper.profile-modal {
+    height: 65vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(7.5px);
+    display: flex;
+    flex-direction: column;
+    @include set-vw(width, 386px);
+    @include set-vw(padding-bottom, 20px);
+    @include set-vw(border-radius, 10px);
+
+    .modal-header {
+        flex-shrink: 0;
+        border-bottom: 1px solid $GR-2;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include set-vw(height, 62px);
+
+        .modal-title {
+            @include H2(eng);
+        }
+
+        .modal-close {
+            position: absolute;
+            @include set-vw(width, 24px);
+            @include set-vw(height, 24px);
+            @include set-vw(top, 20px);
+            @include set-vw(right, 20px);
+            @include svg-active-color($GR-4);
+        }
+    }
+
+    .modal-content {
+        width: 100%;
+        flex-grow: 1;
+        overflow: auto;
+
+        .profile-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .profile-elem {
+                width: -webkit-fill-available;
+                display: flex;
+                align-items: center;
+                @include set-vw(padding-left, 20px);
+                @include set-vw(padding-right, 20px);
+                @include set-vw(padding-top, 18px);
+                @include set-vw(padding-bottom, 18px);
+                @include set-vw(gap, 14px);
+
+                .profile-elem-image {
+                    border-radius: 50%;
+                    object-fit: cover;
+                    flex-shrink: 0;
+                    @include set-vw(width, 46px);
+                    @include set-vw(height, 46px);
+                }
+
+                .profile-elem-name {
+                    @include H5;
+                }
+            }
+        }
+    }
+}

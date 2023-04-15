@@ -1,0 +1,91 @@
+@import '../../style/var.scss';
+
+.wallet-privacy-reset-passcode {
+    .mnemonic-input-page {
+        width: -webkit-fill-available;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .page-title {
+            width: fit-content;
+            border-bottom: 1px solid white;
+            @include set-vw(padding-bottom, 7px);
+            @include set-vw(margin-bottom, 17px);
+        }
+
+        .page-description {
+            line-height: 150%;
+            @include set-vw(margin-bottom, 47px);
+        }
+
+        .mnemonic-warning-box {
+            width: -webkit-fill-available;
+            line-height: 150%;
+            background: #000000;
+            border: 2px solid $GN;
+            position: relative;
+            @include H6;
+            @include set-vw(padding, 24px);
+            @include set-vw(border-radius, 10px);
+            @include set-vw(margin-top, 19px);
+            @include set-vw(margin-bottom, 23px);
+
+            .mnemonic-warning-icon {
+                position: absolute;
+                @include set-vw(left, 40px);
+                @include set-vw(top, 20px);
+                @include set-vw(width, 20px);
+                @include set-vw(height, 20px);
+            }
+        }
+
+        .mnemonic-word-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            @include set-vw(row-gap, 14px);
+
+            .word-wrapper {
+                display: flex;
+                align-items: center;
+                background-color: $GR-1;
+                border: 1px solid transparent;
+                @include transition;
+                @include set-vw(width, 122px - 16px);
+                @include set-vw(height, 50px - 34px);
+                @include set-pair-vw(padding, 17px, 8px);
+                @include set-vw(gap, 5px);
+                @include set-vw(border-radius, 10px);
+
+                .word-idx {
+                    flex-shrink: 0;
+                    color: white;
+                }
+
+                input {
+                    flex-shrink: 1;
+                    flex-grow: 1;
+                    @include set-vw(width, 50px);
+                }
+
+                &:focus-within {
+                    border-color: $GN;
+                }
+            }
+        }
+
+        .yours-channel-text {
+            font-weight: 500;
+            color: $GR-3;
+            @include set-vw(font-size, 14px);
+            @include set-pair-vw(margin, 22px, 0px);
+
+            a {
+                color: $GR-4;
+                text-decoration: underline;
+                text-underline-position: unset;
+            }
+        }
+    }   
+}

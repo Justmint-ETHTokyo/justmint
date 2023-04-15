@@ -7,8 +7,10 @@ import { decodeByAES256, encodeByAES56 } from '../modules/crypto';
 import { saveMailAuthCode, verifyCode } from '../modules/code';
 import { sendMail } from '../modules/mail';
 import {
+  createTransferOp,
   deployEtherNFT,
   etherProvider,
+  handleTransferOp,
   mintEtherNFT,
   setEtherBenefitURI,
 } from '../contract/Ethereum/etherContract';
@@ -18,6 +20,7 @@ import {
   uploadBenefitIpfs,
   uploadMetaIpfs,
 } from '../contract/common/commonContract';
+import { UserOperation } from '../modules/AAtools/UserOperation';
 
 const getInfoByType = async (
   req: Request,
@@ -584,6 +587,67 @@ const updateNftBenefit = async (
   }
 };
 
+const createTransferOperation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  const { walletAddress } = req.query;
+  const { nftId } = req.params;
+  try {
+    const nftInfo = await nftService.getNftInfo(+nftId);
+    const mintId = await nftService.getMintId(+userId, +nftId);
+    switch (nftInfo.chainType) {
+      case 'Ethereum': {
+        const nftContract = new ethers.Contract(
+          nftInfo.nftAddress as string,
+          etherBenefitData.abi,
+          etherProvider,
+        );
+        const contractAddress = await nftService.getNftWalletAddress(
+          +userId,
+          nftInfo.chainType,
+        );
+        const data = await createTransferOp(
+          nftContract,
+          mintId as number,
+          contractAddress as string,
+          walletAddress as string,
+        );
+        return res
+          .status(statusCode.OK)
+          .send(
+            success(statusCode.OK, responseMessage.UNSIGNED_OP_CREATED, data),
+          );
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const handleTransferOperation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.body.id;
+    const { transferOpWithSign } = req.body;
+    const { nftId } = req.params;
+    const strTransferOp = JSON.stringify(transferOpWithSign);
+    const transferOp: UserOperation = JSON.parse(strTransferOp);
+    const data = await handleTransferOp(transferOp);
+    await nftService.deleteNftInMyPage(+userId, +nftId);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.TRANSFER_NFT_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -605,4 +669,6 @@ export default {
   verifyMailForNft,
   publishNFT,
   updateNftBenefit,
+  createTransferOperation,
+  handleTransferOperation,
 };

@@ -166,4 +166,20 @@ router.delete(
   nftController.deleteNftReward,
 );
 
+router.get(
+  '/:nftId/transfer',
+  [query('walletAddress').notEmpty()],
+  errorValidator,
+  auth,
+  nftController.createTransferOperation,
+);
+
+router.post(
+  '/:nftId/transfer',
+  [body('transferOpWithSign').notEmpty()],
+  errorValidator,
+  auth,
+  nftController.handleTransferOperation,
+);
+
 export default router;

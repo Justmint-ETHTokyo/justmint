@@ -954,6 +954,43 @@ const equalRewardInfo = async (nftId: number) => {
   }
 };
 
+const getMintId = async (userId: number, nftId: number) => {
+  try {
+    const data = await prisma.user_has_nfts.findFirst({
+      where: {
+        userId,
+        nftId,
+      },
+      select: {
+        mintId: true,
+      },
+    });
+
+    if (!data) {
+      throw errorGenerator({
+        statusCode: statusCode.DB_ERROR,
+        msg: responseMessage.DB_ERROR,
+      });
+    }
+    return data.mintId;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteNftInMyPage = async (userId: number, nftId: number) => {
+  try {
+    await prisma.user_has_nfts.deleteMany({
+      where: {
+        userId,
+        nftId,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -985,4 +1022,6 @@ export default {
   checkEditedState,
   updateAtNft,
   equalRewardInfo,
+  getMintId,
+  deleteNftInMyPage,
 };

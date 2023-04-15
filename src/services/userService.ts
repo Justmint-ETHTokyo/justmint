@@ -155,6 +155,21 @@ const updateQuestInfo = async (userId: number) => {
   }
 };
 
+const updateSecret = async (userId: number, secret: string) => {
+  try {
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        secret,
+      },
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getSocialUser,
   findUserById,
@@ -164,4 +179,5 @@ export default {
   getUserInfo,
   getQuestInfo,
   updateQuestInfo,
+  updateSecret,
 };

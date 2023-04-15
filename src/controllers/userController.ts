@@ -230,6 +230,23 @@ const updateQuestInfo = async (
   }
 };
 
+const updateSecret = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  const { secret } = req.body;
+  try {
+    await userService.updateSecret(+userId, secret);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, responseMessage.UPDATE_SECRET_SUCCESS));
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getSocialUser,
   createUser,
@@ -238,4 +255,5 @@ export default {
   getUserInfo,
   getQuestInfo,
   updateQuestInfo,
+  updateSecret,
 };

@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Justmint-ETHTokyo/justmint-contract#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.3",
+    "dotenv": "^16.0.3",
+    "ethers": "^6.3.0",
     "hardhat": "^2.13.1"
   },
   "devDependencies": {

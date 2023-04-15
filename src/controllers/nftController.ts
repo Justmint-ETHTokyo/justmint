@@ -353,6 +353,25 @@ const getToBeIntegratedNfts = async (
   }
 };
 
+const updateIntegratedNft = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.body.id;
+  const { integratedNftId, nftIdArray } = req.body;
+  try {
+    await nftService.updateIntegratedNft(+userId, +integratedNftId, nftIdArray);
+    return res
+      .status(statusCode.OK)
+      .send(
+        success(statusCode.OK, responseMessage.UPDATE_INTEGRATED_NFT_SUCCESS),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -368,4 +387,5 @@ export default {
   deleteNftReward,
   createIntegratedNft,
   getToBeIntegratedNfts,
+  updateIntegratedNft,
 };

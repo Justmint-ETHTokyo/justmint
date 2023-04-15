@@ -52,6 +52,17 @@ router.post(
   nftController.verifyPhotoForNft,
 );
 
+router.patch(
+  '/integrated',
+  [
+    body('integratedNftId').isNumeric().notEmpty(),
+    body('nftIdArray').isArray().notEmpty(),
+  ],
+  errorValidator,
+  auth,
+  nftController.updateIntegratedNft,
+);
+
 router.get(
   '/:nftId/detail',
   [param('nftId').notEmpty()],

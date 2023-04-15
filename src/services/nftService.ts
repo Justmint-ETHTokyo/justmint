@@ -557,6 +557,37 @@ const getToBeIntegratedNfts = async (userId: number, chainType: string) => {
   }
 };
 
+const updateIntegratedNft = async (
+  userId: number,
+  integratedNftId: number,
+  nftIdArray: number[],
+) => {
+  try {
+    const checkUserNft = await prisma.user_has_integrated_nfts.findFirst({
+      where: {
+        integratedNftId,
+        userId,
+      },
+    });
+    if (!checkUserNft) {
+      throw errorGenerator({
+        msg: responseMessage.READ_INTEGRATED_NFT_FAIL,
+        statusCode: statusCode.BAD_REQUEST,
+      });
+    }
+    for (let i = 0; i < nftIdArray.length; i++) {
+      await prisma.integrated_has_nfts.create({
+        data: {
+          integratedNftId: integratedNftId,
+          nftId: nftIdArray[i],
+        },
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   getInfoByType,
   getNftDetailInfo,
@@ -571,4 +602,5 @@ export default {
   deleteNftReward,
   createIntegratedNft,
   getToBeIntegratedNfts,
+  updateIntegratedNft,
 };

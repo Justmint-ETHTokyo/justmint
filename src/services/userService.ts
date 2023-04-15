@@ -10,7 +10,7 @@ export type SocialPlatform = 'kakao';
 //* get social user info
 const getSocialUser = async (accesstoken: string) => {
   try {
-    const user = await auth.kakaoAuth(accesstoken);
+    const user = await auth.googleAuth(accesstoken);
     return user;
   } catch (error) {
     throw error;

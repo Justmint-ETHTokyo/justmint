@@ -2,30 +2,29 @@ import axios from 'axios';
 import { exceptionMessage } from '../modules/constants';
 import { SocialUser } from '../interfaces/user/SocialUser';
 
-const kakaoAuth = async (kakaoAccessToken: string) => {
+const googleAuth = async (googleAccessToken: string) => {
   try {
-    //*사용자 정보 받기
     const user = await axios({
       method: 'get',
-      url: 'https://kapi.kakao.com/v2/user/me',
+      url: `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${googleAccessToken}`,
       headers: {
-        Authorization: `Bearer ${kakaoAccessToken}`,
+        authorization: `Bearer ${googleAccessToken}`,
       },
     });
-    const userId = user.data.id.toString();
-    if (!userId) return exceptionMessage.INVALID_USER;
 
-    const kakaoUser: SocialUser = {
+    const userId = user.data.id;
+    if (!userId) return exceptionMessage.INVALID_USER;
+    const googleUser: SocialUser = {
       userId: userId,
     };
 
-    return kakaoUser;
+    return googleUser;
   } catch (error) {
-    console.log('KakaoAuth error', error);
+    console.log('googleAuth error', error);
     return null;
   }
 };
 
 export default {
-  kakaoAuth,
+  googleAuth,
 };
